@@ -1,4 +1,4 @@
-# Xinghe Illustrations Skill
+﻿# Xinghe Illustrations Skill
 
 > 把中文内容里的判断、流程、灵感和运营闭环，转化成“星禾”个人 IP 风格的正文配图。  
 > 这是面向没有原生生图能力的 Agent runtime 的版本。
@@ -450,6 +450,18 @@ Agent 需要读取 `data.b64_json`，解码后保存为图片文件。
 
 ---
 
+## 关于作者
+
+**xinghe（星禾）**  
+AI 内容自动化实践者 / AI 工具链开发者 / AI Workflow Builder
+
+GitHub: [https://github.com/xinghe-AGI](https://github.com/xinghe-AGI)  
+微信公众号: 小星禾AI  
+小红书: 小星禾AI  
+微信号: xinghe_AGI
+
+---
 ## License
 
 请按仓库实际 license 文件为准。如果后续准备公开发布，建议补充明确的开源协议和必要的二次开发说明。
+
