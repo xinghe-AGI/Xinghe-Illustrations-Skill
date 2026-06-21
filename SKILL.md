@@ -46,7 +46,7 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 
 ### 0. 确定风格锚点
 
-真实生图前必须固定传入 `assets/examples/00-xinghe-ip-baseline.png` 作为星禾人物基准图，锁定人物脸、发型、服饰和气质；再从 `assets/examples/01-*.png` 中选 1 张最接近当前构图/动作的场景参考图。真实调用 CLI 必须使用 `--style-references` 同时传入人物基准图和场景参考图，例如 `assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png`。如果命令、manifest 或 endpoint 不能上传人物基准图，就不要真实生成星禾图；只输出 prompt/命令建议并说明未满足人物基准图硬门槛。不得只传场景图、不得只靠文字描述、不得用单张非基准图作为风格参考。如果第三方代理使用旧版 Images API，同时改用 `references/prompt-template-images-api.md` 的精简 prompt。
+真实生图前必须固定传入 `assets/examples/00-xinghe-ip-baseline.png` 作为星禾人物基准图，锁定人物脸、发型、服饰和气质；正文配图从 `assets/examples/01-14-*.png` 中选 1 张最接近当前构图/动作的场景参考图，公众号封面和小红书封面从 `assets/examples/15-20-*.png` 中选 1 张最接近标题区、人物区和安全边距的封面参考图。真实调用 CLI 必须使用 `--style-references` 同时传入人物基准图和场景/封面参考图，例如 `assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png`。封面任务不要把正文配图构图硬套到封面上。如果命令、manifest 或 endpoint 不能上传人物基准图，就不要真实生成星禾图；只输出 prompt/命令建议并说明未满足人物基准图硬门槛。不得只传场景图、不得只靠文字描述、不得用单张非基准图作为风格参考。如果第三方代理使用旧版 Images API，同时改用 `references/prompt-template-images-api.md` 的精简 prompt。
 
 ### 1. 消化正文并智能选点
 

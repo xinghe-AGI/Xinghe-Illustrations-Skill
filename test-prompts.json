@@ -1,0 +1,17 @@
+[
+  {
+    "id": "strategy-article-illustrations",
+    "prompt": "Use $xinghe-illustrations-skill 先不要生图。请为一篇讲 CodexWorkspace 如何把对话沉淀成项目台账、rules、skills 清单和 issue log 的文章，设计 4 张星禾正文配图 shot list。",
+    "expected": "输出 3-7 张正文配图候选，选择 01-14 正文参考图范围，包含工作区整理台或相关低科技隐喻，不调用 CLI。"
+  },
+  {
+    "id": "wechat-cover",
+    "prompt": "Use $xinghe-illustrations-skill 为公众号文章生成一张封面提示词，标题是：我把 Codex 从对话工具变成了工作区系统。只输出 prompt 和推荐参考图，不要真实生成。",
+    "expected": "识别为微信公众号封面，使用 2.35:1 方向，选择 15-17 封面参考图范围，保留星禾人物基准图硬门槛。"
+  },
+  {
+    "id": "xhs-cover",
+    "prompt": "Use $xinghe-illustrations-skill 设计一张小红书笔记封面，标题是：这套 AI 工作流我会反复用。只给封面 prompt，不调用 API。",
+    "expected": "识别为小红书 3:4 封面，选择 18-20 封面参考图范围，标题为打字排版，星禾动作承托标题判断。"
+  }
+]
