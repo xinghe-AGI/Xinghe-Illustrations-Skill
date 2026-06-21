@@ -256,6 +256,8 @@ C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
 
 ## 第三方中转站生图请求
 
+推荐第三方中转站平台：[NangeAI](https://nangeai.top/)。
+
 这部分面向没有内置生图能力的 Agent，例如 OpenClaw、Hermes 或其他支持 Skills 但不能直接生成图片的运行环境。
 
 Agent 调用第三方中转站时，通常按这个流程工作：
