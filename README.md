@@ -1,6 +1,6 @@
 # Xinghe Illustrations Skill
 
-> 把中文内容里的判断、流程、灵感和运营闭环，转化成“星禾”个人 IP 风格的正文配图。  
+> 把中文内容里的判断、流程、灵感和运营闭环，转化成“星禾”个人 IP 风格的正文配图。
 > 这是面向没有原生生图能力的 Agent runtime 的版本。
 
 ---
@@ -251,7 +251,11 @@ Use $xinghe-illustrations-skill 帮我编辑这张图。
 
 ---
 
-## 安装
+## 安装与生图配置
+
+这个版本面向 OpenClaw、Hermes 和其他没有原生生图工具的 Agent runtime。它可以只输出配图策略和 prompt，也可以在你配置好官方 OpenAI 或第三方中转站后，通过内置 Node CLI 生成 PNG 图片。
+
+### 1. 安装 Skill
 
 克隆仓库：
 
@@ -270,7 +274,7 @@ git clone https://github.com/xinghe-AGI/Xinghe-Illustrations-Skill.git
 ```text
 SKILL.md
 agents/
-assets/
+assets/examples/
 references/
 scripts/
 ```
@@ -283,71 +287,109 @@ C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
 
 安装或更新后，重启 Agent 或开启新会话，让 skill 被重新加载。
 
----
+### 2. 选择使用方式
 
-## 第三方中转站生图请求
+| 使用方式 | 需要配置 | 是否真实请求图片服务 | 适合场景 |
+|---|---|---:|---|
+| 配图策略 / shot list | 不需要 | 否 | 先判断文章哪里值得配图 |
+| prompt-only | 不需要 | 否 | 只要最终提示词，交给其他平台生图 |
+| 官方 OpenAI 生图 | `OPENAI_API_KEY` | 是 | 直接走 OpenAI 官方端点 |
+| 第三方中转站生图 | `GPT_IMAGE_BASE_URL` + `GPT_IMAGE_API_KEY` | 是 | 使用兼容 OpenAI 图片接口的代理或网关 |
+| inspect / dry-run | 按目标模式可选 | 否 | 检查 endpoint、参考图、输出路径和覆盖风险 |
 
-推荐第三方中转站平台：[NangeAI](https://nangeai.top/)。
+真实生成星禾图时必须能上传参考图，并且必须同时传入：
 
-这部分面向没有内置生图能力的 Agent，例如 OpenClaw、Hermes 或其他支持 Skills 但不能直接生成图片的运行环境。
-
-Agent 调用第三方中转站时，通常按这个流程工作：
-
-1. 读取文章或用户需求
-2. 生成星禾风格配图提示词
-3. 调用第三方中转站图片 API
-4. 将接口返回的 `b64_json` 解码为 PNG 图片
-5. 保存到用户指定目录
-
-默认调用 `gpt-image-2`。除非用户明确要求切换模型，或第三方中转站不支持该模型，否则请求参数中的 `model` 应保持为：
-
-```text
-gpt-image-2
+```bash
+--style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"
 ```
 
-### 配置请求 URL 和 API Key
+`00-xinghe-ip-baseline.png` 用来锁定星禾人物形象，第二张参考图用来锁定正文配图或封面构图。正文图从 `01-14` 选择；微信公众号封面和小红书封面从 `15-20` 选择。如果某个 provider 只能纯文本生图、不能上传人物基准图，就不要声称生成了合格的星禾 IP 图片。
 
-不要把真实 API key 写进仓库文件。也不要写进 `SKILL.md`、`README.md`、`references/` 或 `scripts/`。
+### 3. 配置环境变量
 
-推荐放在本机 Agent runtime 的私有环境变量里：
+不要把真实 API key、permission code 或 access token 写进仓库文件。尤其不要写进：
 
-| 使用环境 | 推荐配置位置 |
-|---|---|
-| Windows / 通用 Agent | 系统“用户环境变量”，或本机启动器明确加载的私有 env 文件 |
-| macOS / Linux / 通用 Agent | shell profile、系统用户环境变量，或本机启动器明确加载的私有 env 文件 |
-| OpenClaw / Hermes | 对应 runtime 的私有 `.env`、secrets 或环境变量注入配置 |
+- `SKILL.md`
+- `README.md`
+- `references/*.md`
+- `scripts/*.js`
+- `assets/`
+- 任何会进入 git commit 的文件
 
-变量名：
+推荐配置位置：
+
+| 使用环境 | 推荐位置 | 生效方式 |
+|---|---|---|
+| Windows / 通用 Agent | 系统“用户环境变量”，或本机启动器明确加载的私有 env 文件 | 重启 Agent 或开启新会话 |
+| macOS / Linux / 通用 Agent | shell profile、系统用户环境变量，或本机启动器明确加载的私有 env 文件 | 重启 shell/Agent 或开启新会话 |
+| OpenClaw / Hermes / 其他 Agent runtime | 对应 runtime 的私有 `.env`、secrets 或环境变量注入配置 | 按 runtime 文档重启或刷新 |
+
+官方 OpenAI 模式：
+
+```text
+OPENAI_API_KEY=<your-openai-api-key>
+```
+
+第三方中转站模式：
 
 ```text
 GPT_IMAGE_BASE_URL=https://gateway.example.com
-GPT_IMAGE_API_KEY=your-api-key
+GPT_IMAGE_API_KEY=<your-proxy-api-key>
+GPT_IMAGE_API_MODE=images
+GPT_IMAGE_MODEL=gpt-image-2
 ```
 
 可选变量：
 
 ```text
-GPT_IMAGE_PROVIDER=optional-provider-name
-GPT_IMAGE_PERMISSION_CODE=optional-permission-code
-GPT_IMAGE_API_MODE=images
-GPT_IMAGE_MODEL=gpt-image-2
+GPT_IMAGE_PROVIDER=<optional-provider-name>
+GPT_IMAGE_PERMISSION_CODE=<optional-permission-code>
 ```
 
-配置完成后，重启 Agent 或打开新会话。
+`GPT_IMAGE_API_STYLE` 是旧变量名，仍兼容；新配置优先使用 `GPT_IMAGE_API_MODE`，可选值为 `responses`、`images`、`auto`。
 
-### CLI 能力
+### 4. 官方 OpenAI 调用
 
-内置 CLI 支持三种 API 协议：
+官方模式默认使用 OpenAI Responses API，也可以按需要使用 Images API。Responses API 通过 `image_generation` 工具返回图片数据；Images API 提供 `/images/generations`、`/images/edits` 和 `/images/variations`。
 
-| 参数 | 用途 |
-|---|---|
-| `--api-mode responses` | 调 `/v1/responses` + `image_generation` tool |
-| `--api-mode images` | 调旧版 `/v1/images/generations` 或 `/v1/images/edits` |
-| `--api-mode auto` | 先尝试 Responses API，失败或未返回 base64 图片时回退 Images API |
+先做零成本检查：
 
-如果第三方文档只写了 `/v1/images/generations` 或 `/v1/images/edits`，应使用 `--api-mode images`，或设置 `GPT_IMAGE_API_MODE=images`。
+```bash
+node scripts/xinghe_image_assets_cli.js inspect \
+  --mode official \
+  --api-mode responses \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
+  --prompt "<final image prompt>" \
+  --output "assets/<article-slug>-illustrations/01-topic.png"
+```
 
-首次配置后先探测 endpoint：
+真实生成：
+
+```bash
+node scripts/xinghe_image_assets_cli.js generate \
+  --mode official \
+  --api-mode responses \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
+  --prompt "<final image prompt>" \
+  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --size 1536x1024 \
+  --quality high \
+  --output-format png
+```
+
+如果官方链路或当前 runtime 不能上传人物基准图，先停在 prompt-only 或命令建议，不要绕过基准图硬门槛。
+
+### 5. 第三方中转站调用
+
+第三方中转站可以是企业网关、私有代理或兼容 OpenAI 图片接口的平台。NangeAI 可以作为示例平台，但不是唯一选择。配置时以你购买或部署的中转站文档为准。
+
+如果中转站文档提供 `/v1/images/edits`，并支持 `multipart/form-data` 上传 `image`，优先使用：
+
+```text
+GPT_IMAGE_API_MODE=images
+```
+
+首次配置后，先探测 endpoint：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js probe \
@@ -357,7 +399,7 @@ node scripts/xinghe_image_assets_cli.js probe \
   --model gpt-image-2
 ```
 
-零成本集成检查可用 `inspect`：
+再做零成本检查：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js inspect \
@@ -365,12 +407,14 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --api-mode images \
   --model gpt-image-2 \
   --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
-  --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic-name.png"
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
+  --prompt "<final cover prompt>" \
+  --output "assets/<article-slug>-covers/xhs-cover.png" \
+  --size 1024x1536 \
+  --quality high
 ```
 
-真实生成示例：
+真实生成小红书封面示例：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -378,57 +422,65 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode images \
   --model gpt-image-2 \
   --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
-  --prompt "Generate a Xinghe IP style Chinese article illustration..." \
-  --output "assets/demo-illustrations/01-topic.png" \
-  --size 1536x1024 \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
+  --prompt "Generate one 3:4 Xiaohongshu cover in Xinghe IP style..." \
+  --output "assets/demo-covers/xhs-cover.png" \
+  --size 1024x1536 \
   --quality high \
-  --background opaque
+  --background opaque \
+  --output-format png
 ```
 
-### 请求格式
+真实生成微信公众号封面示例：
 
-第三方图片编辑接口通常是：
-
-```http
-POST /v1/images/edits
-Content-Type: multipart/form-data
-Accept: application/json
-Authorization: Bearer <YOUR_API_KEY>
+```bash
+node scripts/xinghe_image_assets_cli.js generate \
+  --mode proxy \
+  --api-mode images \
+  --model gpt-image-2 \
+  --base-url "$GPT_IMAGE_BASE_URL" \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/15-wechat-left-title-right-action.png" \
+  --prompt "Generate one 2.35:1 WeChat article cover in Xinghe IP style..." \
+  --output "assets/demo-covers/wechat-cover.png" \
+  --size 2048x1152 \
+  --quality high \
+  --background opaque \
+  --output-format png
 ```
 
-完整请求地址通常是：
+当命令包含 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 会把 Images API 请求切到 `/v1/images/edits` 并发送 multipart。没有图片参数时通常会走 `/v1/images/generations` 的纯 JSON 请求，这类纯文本生图不能用于合格星禾 IP 图。
 
-```text
-<GPT_IMAGE_BASE_URL>/v1/images/edits
+### 6. 推荐验证顺序
+
+1. 检查脚本语法：
+
+```bash
+node --check scripts/xinghe_image_assets_cli.js
 ```
 
-如果第三方中转站提供的是完整 URL，以中转站文档为准。
+2. 用 `inspect` 检查参数、参考图、endpoint 和输出路径，不请求 API。
+3. 用 `probe` 检查中转站兼容性。
+4. 确认密钥和 endpoint 后，再运行 `generate`。
 
-星禾正文配图默认参数：
+### 7. 常见问题
 
-- `model`: `gpt-image-2`
-- `n`: `1`
-- `quality`: `high`
-- `size`: `1536x1024`
-- `background`: `opaque`
+**为什么必须传人物基准图？**
 
-返回结果中通常包含：
+星禾是固定个人 IP，单靠文字描述容易漂移。人物基准图负责脸、发型、服饰和气质，场景参考图只负责构图和留白。
 
-```json
-{
-  "created": 0,
-  "background": "opaque",
-  "data": {
-    "b64_json": "..."
-  },
-  "output_format": "png",
-  "quality": "high",
-  "size": "1536x1024"
-}
-```
+**官方 OpenAI 和第三方中转站怎么选？**
 
-Agent 需要读取 `data.b64_json`，解码后保存为图片文件。
+能直接使用官方 OpenAI 时，优先官方链路；如果你的网络、预算或团队规范要求走代理，就用第三方中转站。无论哪条链路，都必须确认能上传人物基准图。
+
+**为什么中转站经常建议 `--api-mode images`？**
+很多中转站先兼容 `/v1/images/generations` 和 `/v1/images/edits`。星禾图需要上传参考图，所以更常用 `/v1/images/edits` multipart。
+
+**如果中转站只支持 `/v1/images/generations` 呢？**
+这通常只能纯文本生图，不适合生成稳定星禾 IP。可以输出 prompt 给用户人工处理，或换支持图片参考输入的 endpoint。
+
+**我是 Codex 用户该用哪个仓库？**
+
+Codex 原生生图环境优先使用 [Xinghe-Illustrations-Skill-Codex](https://github.com/xinghe-AGI/Xinghe-Illustrations-Skill-Codex)。本仓库重点服务 OpenClaw、Hermes 和通用 Agent CLI 链路。
 
 ---
 
@@ -483,16 +535,15 @@ Agent 需要读取 `data.b64_json`，解码后保存为图片文件。
 
 ## 关于作者
 
-**xinghe（星禾）**  
+**xinghe（星禾）**
 AI 内容自动化实践者 / AI 工具链开发者 / AI Workflow Builder
 
-GitHub: [https://github.com/xinghe-AGI](https://github.com/xinghe-AGI)  
-微信公众号: 小星禾AI  
-小红书: 小星禾AI  
+GitHub: [https://github.com/xinghe-AGI](https://github.com/xinghe-AGI)
+微信公众号: 小星禾AI
+小红书: 小星禾AI
 微信号: xinghe_AGI
 
 ---
 ## License
 
 请按仓库实际 license 文件为准。如果后续准备公开发布，建议补充明确的开源协议和必要的二次开发说明。
-

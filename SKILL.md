@@ -33,14 +33,9 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 
 ## 安装后配置提醒
 
-当用户刚安装、更新或第一次要求真实生图时，先告知用户第三方请求地址和 API key 的配置位置：不要写进 `SKILL.md`、`README.md`、`references/`、`scripts/` 或任何会提交到 GitHub 的文件；应写进本机 agent runtime 的私有环境变量配置或系统用户环境变量。配置变量名和示例见 `references/access-modes.md`。
+当用户刚安装、更新或第一次要求真实生图时，先引导用户阅读 README 的“安装与生图配置”以及 `references/access-modes.md`。必须区分两条链路：官方 OpenAI 模式配置 `OPENAI_API_KEY`；第三方中转站模式配置 `GPT_IMAGE_BASE_URL` 和 `GPT_IMAGE_API_KEY`，可选 `GPT_IMAGE_PROVIDER`、`GPT_IMAGE_PERMISSION_CODE`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`。
 
-必须提醒：
-
-- 官方 OpenAI 模式：配置 `OPENAI_API_KEY`。
-- 第三方代理模式：配置 `GPT_IMAGE_BASE_URL` 和 `GPT_IMAGE_API_KEY`，可选 `GPT_IMAGE_PROVIDER`、`GPT_IMAGE_PERMISSION_CODE`、`GPT_IMAGE_API_STYLE`、`GPT_IMAGE_MODEL`。
-- Windows 用户可优先使用系统“用户环境变量”，或由本机启动器明确加载的私有 env 文件，例如 `%USERPROFILE%\.codex\.env`；不要把真实 key 放进 skill 安装目录。
-- OpenClaw、Hermes 或其他 Agent runtime 使用各自的私有 `.env`、secrets 或环境变量注入机制。
+不要把真实 API key、permission code 或 access token 写进 `SKILL.md`、`README.md`、`references/`、`scripts/`、`assets/` 或任何会提交到 GitHub 的文件；应写进本机 Agent runtime 的私有环境变量、系统用户环境变量、runtime secrets 或私有 env 文件。真实生成前先用 `inspect` 检查 endpoint、参考图和输出路径；如果 provider 不能上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图，就只输出 prompt/命令建议，不声称已生成合格星禾图。
 
 ## 工作流
 
