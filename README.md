@@ -477,6 +477,7 @@ Agent 需要读取 `data.b64_json`，解码后保存为图片文件。
 ## 相关项目
 
 - [Xinghe Illustrations Skill Codex](https://github.com/xinghe-AGI/Xinghe-Illustrations-Skill-Codex) - Codex 原生生图版，不包含 Node CLI/API 链路。
+- [Ian Xiaohei Illustrations](https://github.com/helloianneo/ian-xiaohei-illustrations) - 本项目参考其中文正文配图 Skill 的开源表达和工作流思路，并在星禾 IP、内容运营场景、runtime 兼容和 CLI 生成链路上做二次开发。
 
 ---
 
