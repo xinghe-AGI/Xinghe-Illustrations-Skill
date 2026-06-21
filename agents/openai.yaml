@@ -1,0 +1,6 @@
+interface:
+  display_name: "星禾内容配图 Agent"
+  short_description: "通过 Node CLI/API 为无原生生图 Agent 生成星禾正文配图"
+  default_prompt: "Use $xinghe-illustrations-skill to 为这篇中文文章设计并生成几张星禾个人IP风格的正文配图。"
+policy:
+  allow_implicit_invocation: true
