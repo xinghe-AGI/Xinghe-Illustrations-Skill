@@ -2,12 +2,12 @@
 
 `assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-*.png` 是正文配图场景参考图，用来参考构图、动作、留白、线条和批注密度。
 
-真实生图时默认使用“双参考图”：
+真实生图时必须使用“双参考图”，其中人物基准图是硬门槛：
 
 1. 人物基准图：固定传入 `assets/examples/00-xinghe-ip-baseline.png`。
 2. 场景参考图：从 `assets/examples/01-*.png` 中选择 1 张最接近当前构图和星禾动作的图。
 
-不要只传场景参考图而漏掉人物基准图。场景参考图只负责构图和动作，不负责改写星禾人物形象。
+不要只传场景参考图而漏掉人物基准图。不要用文字描述替代人物基准图。场景参考图只负责构图和动作，不负责改写星禾人物形象。
 
 ## 推荐用法
 
@@ -24,12 +24,12 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 ## 参数区别
 
-- `--style-reference <path>`：单张风格锚点图；只有非常简单的验证场景才单独使用。
+- `--style-reference <path>`：单张风格锚点图；真实生成星禾图时不推荐单独使用，除非这张图就是 `assets/examples/00-xinghe-ip-baseline.png` 且任务明确不需要场景参考。
 - `--style-references <paths>`：多个风格锚点；默认传入“人物基准图 + 场景参考图”，用逗号或分号分隔；不要超过 15 张。
 - `--reference <path>` / `--references <paths>`：旧参数，继续兼容，语义等同于 style reference。
 - `--image <path>`：用户提供的待编辑图片，也会作为 API `image` 文件上传。
 
-当 `--api-mode images` 且存在 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 自动调用 `/v1/images/edits` 并发送 `multipart/form-data`。没有图片参数时，CLI 调用 `/v1/images/generations`。
+当 `--api-mode images` 且存在 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 自动调用 `/v1/images/edits` 并发送 `multipart/form-data`。真实生成星禾图不得走没有图片参数的 `/v1/images/generations`；如果没有上传 `00-xinghe-ip-baseline.png`，本次输出不能判定为合格星禾图。
 
 ## 如何选择场景参考图
 

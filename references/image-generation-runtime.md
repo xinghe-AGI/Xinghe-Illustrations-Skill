@@ -2,6 +2,9 @@
 
 本 reference 给 OpenClaw、Hermes 和其他没有原生生图工具的 Agent Skills runtime 使用。不要依赖某个 runtime 专属图片工具；只有在用户明确要求真实生成图片、环境具备可用 API key/endpoint、且输出路径安全时，才调用本 skill 内置的 Node CLI。
 
+## 人物基准图硬门槛
+
+真实生成星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`。优先通过 `--style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-scene-reference>.png"` 同时传入人物基准图和场景参考图。没有人物基准图、路径不存在、endpoint 不支持图片输入、或命令没有图片参考参数时，不要调用真实生图，只输出 prompt/命令建议和阻塞原因。
 ## 最小前置
 
 - Node.js 18+，不需要安装 npm 包。

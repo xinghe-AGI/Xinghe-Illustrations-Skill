@@ -1,4 +1,4 @@
-﻿# 生图访问模式
+# 生图访问模式
 
 本 skill 保留两种访问模式：`official` 和 `proxy`；同时支持两种 API 协议：Responses API 和旧版 Images API。
 
@@ -83,7 +83,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --api-mode images \
   --model gpt-image-2 \
   --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-reference "assets/examples/05-handoff-path.png" \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
   --output "assets/<article-slug>-illustrations/01-topic.png"
 ```
@@ -159,7 +159,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode images \
   --model gpt-image-2 \
   --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-reference "assets/examples/01-two-breakpoints.png" \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/01-two-breakpoints.png" \
   --prompt "<final image prompt>" \
   --output "assets/<article-slug>-illustrations/01-topic.png" \
   --size 1536x1024 \
@@ -168,7 +168,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 ### Nange / gpt-image-2 中转站
 
-用户给出的 nangeagi Apifox 文档如果指向 `/v1/images/edits`，请求体是 `multipart/form-data`，其中 `image` 可传 1 张或多张图片，常用字段包括 `prompt`、`model`、`n`、`size`、`quality`、`background`、`moderation`。这种场景直接使用 Images API，并用 `--style-reference` 上传星禾 IP 参考图：
+用户给出的 nangeagi Apifox 文档如果指向 `/v1/images/edits`，请求体是 `multipart/form-data`，其中 `image` 可传 1 张或多张图片，常用字段包括 `prompt`、`model`、`n`、`size`、`quality`、`background`、`moderation`。这种场景直接使用 Images API，并用 `--style-references` 同时上传星禾人物基准图和场景参考图：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -176,7 +176,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode images \
   --model gpt-image-2 \
   --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-reference "assets/examples/05-handoff-path.png" \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
   --output "assets/<article-slug>-illustrations/01-topic.png" \
   --size 1536x1024 \
@@ -184,7 +184,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --output-format png
 ```
 
-只要存在 `--style-reference`、`--reference`、`--references` 或 `--image`，CLI 会自动把请求切到 `/v1/images/edits` 并发送 multipart；没有图片参数时才走 `/v1/images/generations` JSON。
+只要存在 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image`，CLI 会自动把请求切到 `/v1/images/edits` 并发送 multipart；真实星禾图必须包含 `00-xinghe-ip-baseline.png`，没有图片参数时走 `/v1/images/generations` JSON，不能用于合格星禾图。
 
 旧版 Images edit 示例：
 
@@ -204,6 +204,9 @@ node scripts/xinghe_image_assets_cli.js generate \
 - `--permission-code` 或 `GPT_IMAGE_PERMISSION_CODE` → `x-permission-code`
 - `--provider-name` 或 `GPT_IMAGE_PROVIDER` → `x-provider-name`
 
+## 星禾图强制参考图
+
+选择访问模式时，优先选择能上传参考图的模式。真实星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`；如果某个 provider 只能纯文本生成、不能使用 `/v1/images/edits` 或等价参考图输入，就不能用于合格星禾图生成。
 ## 选择顺序
 
 1. 用户明确给了代理端点：用 `proxy`。

@@ -1,13 +1,13 @@
 ---
 name: xinghe-illustrations-skill
-description: 生成“星禾”个人 IP 风格的中文正文配图，面向没有原生生图工具的 Agent runtime，例如 OpenClaw、Hermes 或其他通用 Agent Skills 环境。用于社媒内容、账号运营、AI 自动化、工作流 SOP、内容日历、选题生产、发布复盘、私域承接、个人品牌、产品策略、方法论、研究笔记和观点表达；可输出配图策略、shot list、单张生图提示词、改图提示，并在 API key/endpoint 可用时通过内置 Node CLI 调用 Responses 或 Images API，支持 official/proxy。
+description: 生成“星禾”个人 IP 风格的中文配图、微信公众号文章封面、小红书笔记封面、文章头图和社媒首图，面向没有原生生图工具的 Agent runtime，例如 OpenClaw、Hermes 或其他通用 Agent Skills 环境。用于社媒内容、账号运营、AI 自动化、工作流 SOP、内容日历、选题生产、发布复盘、私域承接、个人品牌、产品策略、方法论、研究笔记和观点表达；可输出配图策略、shot list、单张生图提示词、改图提示，并在 API key/endpoint 可用时通过内置 Node CLI 调用 Responses 或 Images API，支持 official/proxy。真实生图必须通过 `--style-references` 传入 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图；遇到“公众号封面”“微信文章头图”“小红书封面”“笔记首图”“生成封面图”“生成正文配图”等请求时使用。
 ---
 
 # 星禾内容配图（Agent CLI 版）
 
 ## 核心定位
 
-为中文文章、社媒内容和运营自动化文档设计 16:9 横版正文配图。目标不是商业插画、PPT 信息图、课程课件或可爱头像，而是把灵感、内容生产、运营流程、复盘闭环和关键判断，变成一张清爽、轻盈、有个人记忆点、可读但不说明书的蜡笔手绘解释图。
+为中文文章、社媒内容和运营自动化文档设计 16:9 横版正文配图，也为微信公众号文章和小红书笔记生成平台化封面。目标不是商业插画、PPT 信息图、课程课件或可爱头像，而是把灵感、内容生产、运营流程、复盘闭环和关键判断，变成一张清爽、轻盈、有个人记忆点、可读但不说明书的蜡笔手绘解释图。封面可以有清晰标题，但仍要保持星禾 IP、白底蜡笔、留白和动作绑定。
 
 默认视觉 IP 是“星禾”：黑色长发或微卷长发、轻薄空气刘海、圆润大眼睛、浅笑；固定服饰为白色宽松拉链连帽外套，内搭深蓝水手领上衣和白色领结，下身为深蓝百褶裙。星禾是元气创造者 + 运营小导师，带一点清醒研究员气质。她必须参与画面的核心动作，且动作必须根据当前图片内容改变，例如搬起卡住的素材箱、接住掉落内容、亲手铺证据卡、拉起复盘回流线、整理内容卡片、排内容日历、称量证据、圈出关键节点。透明小玻璃灵感瓶只在“灵感捕捉/创意启动”场景默认出现，不能把所有图都画成举瓶姿势。
 
@@ -20,6 +20,10 @@ description: 生成“星禾”个人 IP 风格的中文正文配图，面向没
 - `references/illustration-selection.md`：智能选点、图型分类、数量建议、prompt-only 模式。
 - `references/composition-patterns.md`：构图模式。
 - `references/prompt-template.md`：单张生图和改图提示词模板。
+- `references/platform-cover-standards.md`：公众号封面、小红书封面、文章头图和正文配图的差异标准；只在用户要求封面/首图/平台适配时读取。
+- `references/cover-text-rules.md`：封面标题、关键词强调、中文可读性和文字密度规则；只在封面含标题时读取。
+- `references/cover-composition-patterns.md`：公众号横版封面、小红书竖版封面和打字标题卡片构图；只在封面任务读取。
+- `references/cover-qa-checklist.md`：封面生成后的验收和迭代清单；只在封面任务读取。
 - `references/prompt-template-images-api.md`：旧版 Images API 的精简提示词模板。
 - `references/qa-checklist.md`：生成后检查和迭代规则。
 - `references/image-generation-runtime.md`：Node CLI 调用协议、输出 JSON、失败处理。
@@ -42,11 +46,11 @@ description: 生成“星禾”个人 IP 风格的中文正文配图，面向没
 
 ### 0. 确定风格锚点
 
-真实生图前必须固定使用 `assets/examples/00-xinghe-ip-baseline.png` 作为星禾人物基准图，锁定人物脸、发型、服饰和气质；再从 `assets/examples/01-*.png` 中选 1 张最接近当前构图/动作的场景参考图。真实调用 CLI 时优先使用 `--style-references` 同时传入人物基准图和场景参考图，例如 `assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png`。兼容旧命令时也可以用 `--style-reference` 或 `--reference`，但不得只传场景图而漏掉人物基准图。如果第三方代理使用旧版 Images API，同时改用 `references/prompt-template-images-api.md` 的精简 prompt。
+真实生图前必须固定传入 `assets/examples/00-xinghe-ip-baseline.png` 作为星禾人物基准图，锁定人物脸、发型、服饰和气质；再从 `assets/examples/01-*.png` 中选 1 张最接近当前构图/动作的场景参考图。真实调用 CLI 必须使用 `--style-references` 同时传入人物基准图和场景参考图，例如 `assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png`。如果命令、manifest 或 endpoint 不能上传人物基准图，就不要真实生成星禾图；只输出 prompt/命令建议并说明未满足人物基准图硬门槛。不得只传场景图、不得只靠文字描述、不得用单张非基准图作为风格参考。如果第三方代理使用旧版 Images API，同时改用 `references/prompt-template-images-api.md` 的精简 prompt。
 
 ### 1. 消化正文并智能选点
 
-先读用户给的正文、链接、Markdown、截图或主题，提炼：核心观点、读者要完成的动作、最容易卡住的步骤、适合物理化的隐喻、哪些内容只适合文字。
+先读用户给的正文、链接、Markdown、截图或主题，提炼：核心观点、读者要完成的动作、最容易卡住的步骤、适合物理化的隐喻、哪些内容只适合文字。如果用户要封面，额外提炼：平台、封面主标题、标题关键词、封面卖点、星禾用什么动作承托这个标题判断。
 
 不要平均配图。读取 `references/illustration-selection.md`，用选点信号判断哪里最值得画：抽象概念首次出现、流程步骤、比较取舍、证据反馈、段落转场、情绪或故事高潮。优先选择“内容锚点”，例如灵感进入生产、选题变成内容、AI 自动化接住重复工作、发布复盘回流、关键判断、方法分层、复杂信息被拆清楚的一刻。
 
@@ -60,9 +64,13 @@ description: 生成“星禾”个人 IP 风格的中文正文配图，面向没
 
 如果用户明确要求“只给提示词 / prompt-only / 不生成图片”，只输出 shot list 和每张完整 prompt，不调用 CLI。
 
-如果用户明确要求“生成 / 输出 / 做图 / 帮我生成”，先判断是否需要真实调用图像服务：只有用户确实要得到图片文件、没有禁止 CLI/真实生图、目标环境已经配置可用 API key 和 endpoint、且输出路径不会覆盖已有文件时，才调用 CLI。否则输出完整提示词、建议命令和缺少的前置条件，不要假装已经生成。
+如果用户要求公众号封面、小红书封面、文章头图或笔记首图，先读取 `platform-cover-standards.md`、`cover-text-rules.md`、`cover-composition-patterns.md`，再使用 `prompt-template.md` 中对应平台的封面模板。公众号封面默认 `2.35:1`，小红书封面默认 `3:4`；同时要生成两种平台时，分别出两张图，不要一图多用。
 
-提示词必须包含：16:9 横版中文正文配图、纯白背景、蜡笔线稿、大量留白、少量红橙蓝中文手写批注、星禾作为核心动作主体、星禾固定识别点、与当前主题绑定的动作姿态、1-2 个合适物件、只出现一个星禾人物、禁止头像气泡/重复人物/PPT/商业插画/幼稚可爱/复杂架构/左上角类型标题。
+如果用户明确要求“生成 / 输出 / 做图 / 帮我生成”，先判断是否需要真实调用图像服务：只有用户确实要得到图片文件、没有禁止 CLI/真实生图、目标环境已经配置可用 API key 和 endpoint、输出路径不会覆盖已有文件、且本次 CLI 调用能够通过 `--style-references` 上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图时，才调用 CLI。否则输出完整提示词、建议命令和缺少的前置条件，不要假装已经生成。
+
+正文配图提示词必须包含：16:9 横版中文正文配图、纯白背景、蜡笔线稿、大量留白、少量红橙蓝中文手写批注、星禾作为核心动作主体、星禾固定识别点、与当前主题绑定的动作姿态、1-2 个合适物件、只出现一个星禾人物、禁止头像气泡/重复人物/PPT/商业插画/幼稚可爱/复杂架构/左上角类型标题。
+
+封面提示词必须包含：目标平台和宽高比、精确标题文本、标题行数和安全区、关键词强调方式、星禾固定识别点、星禾承托标题判断的动作、白底蜡笔风、少量物件、禁止营销海报/PPT/课程封面/复杂背景/多人物/二维码/联系方式。生成中文标题时明确要求 render the Chinese title text exactly as provided。
 
 写提示词前先回答：这张图里星禾正在亲手解决什么问题？如果答案只是“举着瓶子 / 站在旁边 / 看着流程”，必须重写动作。
 
@@ -72,11 +80,12 @@ description: 生成“星禾”个人 IP 风格的中文正文配图，面向没
 
 ### 4. 通用 Agent 生图
 
-真实需要生成图片且环境可用时，使用内置 CLI，不依赖 Codex 专属 `image_gen`。在 skill 目录运行：
+真实需要生成图片且环境可用时，使用内置 CLI，不依赖 Codex 专属 `image_gen`。所有真实生成命令必须传入人物基准图。先选择 1 张场景参考图，并在 skill 目录运行：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
   --mode official \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-scene-reference>.png" \
   --prompt "<final image prompt>" \
   --output "assets/<article-slug>-illustrations/01-topic-name.png" \
   --output-format png \
@@ -89,6 +98,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
   --mode official \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-scene-reference>.png" \
   --manifest "assets/<article-slug>-illustrations/manifest.json" \
   --output-dir "assets/<article-slug>-illustrations" \
   --prefix "<article-slug>"
@@ -125,6 +135,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --mode proxy \
   --api-mode auto \
   --base-url "$GPT_IMAGE_BASE_URL" \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-scene-reference>.png" \
   --prompt "<final image prompt>" \
   --output "assets/<article-slug>-illustrations/01-topic-name.png"
 ```
@@ -137,11 +148,12 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode images \
   --model gpt-image-2 \
   --base-url "$GPT_IMAGE_BASE_URL" \
+  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-scene-reference>.png" \
   --prompt "<final image prompt>" \
   --output "assets/<article-slug>-illustrations/01-topic-name.png"
 ```
 
-为了稳定星禾 IP 形象，真实生图时默认从 `assets/examples/` 选 1 张最接近当前构图的参考图作为风格锚点，并通过 `--style-reference` 传给 CLI：
+为了稳定星禾 IP 形象，真实生图时必须传入人物基准图，并从 `assets/examples/` 选 1 张最接近当前构图的场景参考图，通过 `--style-references` 一起传给 CLI：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -158,7 +170,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 ### 5. 检查与迭代
 
-生成后检查 `references/qa-checklist.md`。如果星禾只是装饰、画面太满、太像流程图/PPT、中文太多或错字严重、左上角出现类型标题、画风太幼稚/商业/课件、背景不是干净白底，优先重生成或局部编辑。
+生成后检查 `references/qa-checklist.md`。如果是公众号封面、小红书封面或文章头图，改用 `references/cover-qa-checklist.md`。如果星禾只是装饰、画面太满、太像流程图/PPT、中文太多或错字严重、左上角出现类型标题、画风太幼稚/商业/课件、背景不是干净白底，优先重生成或局部编辑。
 
 ### 6. 保存交付
 
@@ -197,8 +209,8 @@ assets/<article-slug>-illustrations/
 - 用户只要策略、shot list 或 prompt-only，不要调用 CLI。
 - 用户在评估、优化、测试或审查 skill，不要把真实生图当作默认测试；优先用静态检查、提示词评审、manifest 校验或 dry-run。
 - 目标输出文件已经存在；除非用户明确说“替换/覆盖”，否则换新文件名。
-- 缺少 API key、proxy endpoint，或 endpoint 同时不支持 Responses/Images API。
-- 用户要求封面、平台适配或非默认尺寸，先确认用途和宽高比。
+- 缺少 API key、proxy endpoint，endpoint 同时不支持 Responses/Images API，或当前 endpoint/命令无法上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图。
+- 用户要求封面、平台适配或非默认尺寸，但没有说明平台，先确认是公众号封面、小红书封面还是正文配图。
 - 用户要求违反反例黑名单的画面。
 
 ## 反例黑名单

@@ -55,6 +55,73 @@ One image explains only one core creative or operational structure. Xinghe's bod
 
 平台适配时仍遵守星禾 IP、白底蜡笔、少量批注和动作绑定规则。不要因为做封面就改成暗色科技风、营销海报或大标题封面。
 
+
+## 公众号封面模板
+
+用户要求公众号封面、微信文章头图或横版文章封面时使用。生成前先读取 `platform-cover-standards.md`、`cover-text-rules.md` 和 `cover-composition-patterns.md`。
+
+```text
+Generate one standalone WeChat public-account article cover in Xinghe IP style.
+Aspect ratio: 2.35:1 wide horizontal cover, recommended size 1792x768 or equivalent.
+
+Visual DNA:
+Clean pure white background, crayon line art, generous white space, friendly but restrained creator-notebook feeling. Use black/dark navy for main line art, orange for the main action line, blue for secondary notes, red only for one emphasis or warning. No gradients, no shadows, no commercial poster style, no PPT course cover, no dense infographic, no complex background.
+
+Chinese cover title:
+Render this Chinese title text exactly as provided, with no typo, no extra words, and no random English:
+"{公众号封面标题}"
+Title layout: {1-2 行；左侧或中左；每行不超过 10 个中文字符；标题不得贴边}
+Optional subtitle or tiny label: {可为空；最多 1 个很短副标}
+Keyword emphasis: {可为空；只强调 1 个词；用红橙/粉紫下划线或圈注}
+
+Xinghe character:
+星禾, matching the baseline character reference: long black slightly wavy crayon hair, airy bangs, round focused eyes, gentle small smile, oversized white zip hoodie, dark navy sailor collar top with white stripes, white neckerchief, dark navy pleated skirt. Only one Xinghe character.
+
+Cover action:
+星禾 must physically support the article idea, not stand as decoration. She is {整理文件盒 / 托起方法卡 / 铺证据卡 / 拉起流程线 / 圈出关键判断 / 打开工作区盒子}, showing {封面核心判断}.
+
+Composition:
+Use {左标题右行动 / 中标题下轻场景 / 宽留白单物件}. Keep the title on the left or center-left with safe margins, Xinghe and one core object on the right or lower-right. Keep all important text and face away from edges. The cover should still be readable as a small chat thumbnail.
+
+Objects:
+Use only 1-3 simple objects tied to the article: {文件盒 / 规则卡 / 台账本 / 流程线 / 内容卡 / 小工作台}. Do not add tags, QR codes, contact information, price, or call-to-action text.
+
+Constraints:
+One cover communicates one article theme. Do not make it a marketing poster, course slide, tech UI, product ad, or full-page text poster. Do not use multiple people. Do not copy old reference scenes. Preserve Xinghe IP consistency and clean crayon texture.
+```
+
+## 小红书封面模板
+
+用户要求小红书封面、笔记首图、竖版首图或类似用户参考图的打字标题卡片时使用。生成前先读取 `platform-cover-standards.md`、`cover-text-rules.md` 和 `cover-composition-patterns.md`。
+
+```text
+Generate one standalone Xiaohongshu note cover in Xinghe IP style.
+Aspect ratio: 3:4 vertical cover, recommended size 1024x1365 or equivalent.
+
+Visual DNA:
+Clean pure white or very light dotted white background, crayon line art, generous white space, creator-notebook feeling, friendly but not childish. No gradients, no yellow poster background, no commercial poster style, no PPT slide, no course cover, no dense infographic, no realistic UI.
+
+Chinese cover title:
+Render this Chinese title text exactly as provided, with no typo, no extra words, and no random English:
+"{小红书封面标题，按 2-4 行给出}"
+Title layout: large typed Chinese title in the upper half, 2-4 lines, each line short and readable on mobile. Keep safe margins around all text.
+Keyword emphasis: emphasize only "{关键词}" using one pink-purple or orange underline/circle. Do not highlight multiple words.
+
+Xinghe character:
+星禾, matching the baseline character reference: long black slightly wavy crayon hair, airy bangs, round focused eyes, gentle small smile, oversized white zip hoodie, dark navy sailor collar top with white stripes, white neckerchief, dark navy pleated skirt. Only one Xinghe character.
+
+Cover action:
+In the lower half, 星禾 is {整理文件盒 / 托起一叠方法卡 / 把散落卡片放回系统 / 拉出一条工作流 / 圈出关键卡片}. Her action must support the title claim: {封面核心判断}. She is not a sticker or decorative mascot.
+
+Composition:
+Use {上标题下人物 / 标题卡片 + 星禾小场景 / 左上标题右下承托 / 中心大标题 + 底部微动作}. Keep the title dominant and Xinghe clearly visible. Preserve 6%-8% edge margins. Do not place important text near bottom UI/crop areas.
+
+Objects:
+Use only 1-3 simple objects tied to the note: {文件盒 / Codex 卡片 / 规则卡 / 台账本 / 复盘卡 / 小工作台}. Extra object labels are optional and limited to 1-2 short words.
+
+Constraints:
+This should look like a personal method note cover, not a marketing poster. One cover, one claim. No hashtags, no CTA, no QR code, no contact information, no long subtitle, no multiple people, no copied reference-scene objects.
+```
 ## Prompt-only JSON 格式
 
 用户要求 prompt-only、只要提示词、不调用 API 时，可输出：
