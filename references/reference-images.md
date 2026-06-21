@@ -1,6 +1,6 @@
-# 风格参考图机制
+﻿# 风格参考图机制
 
-`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-*.png` 是正文配图场景参考图，用来参考构图、动作、留白、线条和批注密度。
+`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文配图场景参考图，用来参考构图、动作、留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。
 
 真实生图时必须使用“双参考图”，其中人物基准图是硬门槛：
 
@@ -58,6 +58,12 @@ node scripts/xinghe_image_assets_cli.js generate \
 | 内容发酵、长期积累 | `assets/examples/12-content-fermentation.png` | 适合时间感和内容成熟 |
 | 自动化承重、重复劳动转系统 | `assets/examples/13-system-bearing.png` | 适合“系统接住重复工作”，不是普通流程 |
 | 信任桥、私域承接、关系建立 | `assets/examples/14-trust-bridge.png` | 适合连接、承诺、转化和信任 |
+| 微信公众号封面、左标题右行动 | `assets/examples/15-wechat-left-title-right-action.png` | 适合方法论、观点文、项目复盘的横版封面，左侧留标题，右侧星禾承接动作 |
+| 微信公众号封面、大留白单物件 | `assets/examples/16-wechat-wide-white-space.png` | 适合品牌感、抽象判断、系列文章封面，留白稳定，不像海报 |
+| 微信公众号封面、轻流程线 | `assets/examples/17-wechat-process-line.png` | 适合工作流、系统、自动化主题，用手绘线表达闭环，避免正式流程图 |
+| 小红书封面、上标题下人物 | `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合打字标题、关键词下划线、底部星禾动作的首图 |
+| 小红书封面、关键词下划线 | `assets/examples/19-xhs-keyword-underline-card.png` | 适合突出一个核心词的竖版封面，标题清晰，人物在底部承接 |
+| 小红书封面、标题卡片与方法堆叠 | `assets/examples/20-xhs-title-card-method-stack.png` | 适合方法帖、收藏型封面，标题卡片和星禾动作共同表达“可复用方法” |
 
 ## 失败处理
 
