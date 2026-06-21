@@ -29,7 +29,7 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 - `references/image-generation-runtime.md`：Node CLI 调用协议、输出 JSON、失败处理。
 - `references/access-modes.md`：official/proxy、环境变量和安全边界。
 - `references/reference-images.md`：使用 `assets/examples/` 作为星禾 IP 风格锚点的规则。
-- `assets/examples/`：只低频参考留白和批注密度，不要复刻小黑、旧物件或旧构图。
+- `assets/examples/`：只低频参考留白和批注密度，不要复刻旧参考图的人物形象、旧物件或旧构图。
 
 ## 安装后配置提醒
 
@@ -221,7 +221,7 @@ assets/<article-slug>-illustrations/
 - 不把星禾画成旁边站着的装饰人物。
 - 不生成多个星禾、头像气泡或右下角 inset portrait；默认一张图只出现一个星禾人物。
 - 不做 PPT、课程页、正式流程图、科技 UI 或商业插画。
-- 不复制 `assets/examples/` 的旧构图、旧物件或小黑形象。
+- 不复制 `assets/examples/` 的旧构图、旧物件或旧参考图人物形象。
 - 不在左上角写“运营流程 / Workflow / 系统架构图 / 自动化 SOP / 研究框架 / 路线图”等类型标题。
 - 不依赖某个 runtime 专属图片工具；OpenClaw、Hermes 或其他无原生生图的 Agent 都应能通过 Node CLI 使用。
 - 不把 API key、permission code、access token 写入文件、命令示例或最终回复。
