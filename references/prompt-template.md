@@ -130,22 +130,53 @@ This should look like a personal method note cover, not a marketing poster. One 
 {
   "mode": "prompt-only",
   "article": "文章或主题名称",
-  "platform": "article-16x9",
+  "platform": "article-16x9 / wechat-cover / xhs-cover",
   "pictures": [
     {
       "id": 1,
-      "position": "放在哪段后",
+      "position": "放在哪段后，封面可写 cover",
       "selection_signal": "流程或步骤描述",
       "illustration_type": "process",
       "topic": "图的主题",
-      "xinghe_action": "星禾正在接线并把卡住的内容卡放回轨道",
-      "prompt": "完整单图生图提示词"
+      "recommended_candidate": "A",
+      "candidates": [
+        {
+          "id": "A",
+          "direction": "标题强表达 / 人物动作强表达 / 留白品牌感 / 正文隐喻方向",
+          "core_metaphor": "把卡住的内容流重新接回轨道",
+          "xinghe_action": "星禾正在接线并把卡住的内容卡放回轨道",
+          "composition": "星禾在画面右侧，左侧留出短标注和流程入口",
+          "chinese_labels": ["卡点", "接回", "复盘"],
+          "reference_images": [
+            "assets/examples/00-xinghe-ip-baseline.png",
+            "assets/examples/05-handoff-path.png"
+          ],
+          "reason": "适合表现流程重新跑通，动作清楚且不会变成复杂架构图",
+          "output_filename_when_generated": "01-topic-a.png",
+          "prompt": "完整单图生图提示词"
+        },
+        {
+          "id": "B",
+          "direction": "另一个独立视觉方向",
+          "core_metaphor": "把散落卡片收进一个小工作台",
+          "xinghe_action": "星禾正在整理卡片并贴上简短标签",
+          "composition": "中心低科技工作台，四周大量留白",
+          "chinese_labels": ["选题", "生产", "发布"],
+          "reference_images": [
+            "assets/examples/00-xinghe-ip-baseline.png",
+            "assets/examples/08-handoff-copy-toolbox.png"
+          ],
+          "reason": "适合表现内容整理和工作区化，比流程线更亲切",
+          "output_filename_when_generated": "01-topic-b.png",
+          "prompt": "完整单图生图提示词"
+        }
+      ]
     }
   ]
 }
 ```
 
-`pictures[]` 中每一项对应一张独立图片，严禁把多张图合成一张。
+`pictures[]` 中每一项对应一个配图选点；`candidates[]` 中每一项对应一个独立候选方向和独立 prompt。真实生成多候选时必须分别保存为 `01-topic-a.png`、`01-topic-b.png`、`cover-a.png` 等文件，严禁把多张图合成一张，也不要覆盖旧图。
 
 ## 灵感场景样张提示词
 

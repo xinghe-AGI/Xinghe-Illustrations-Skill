@@ -18,6 +18,8 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 - `references/style-dna.md`：风格 DNA、颜色、文字、禁忌。
 - `references/xinghe-ip.md`：星禾 IP 的形象、性格、动作库和禁忌。
 - `references/illustration-selection.md`：智能选点、图型分类、数量建议、prompt-only 模式。
+- `references/visual-routing-and-candidates.md`：视觉路由、多候选方向、diagram fallback；在策略、封面或配图生成前读取。
+- `references/visual-learning-log.md`：人工确认好图后的经验沉淀；只在用户反馈“这张好 / 采用 / 效果好”或要求优化规则时读取。
 - `references/composition-patterns.md`：构图模式。
 - `references/prompt-template.md`：单张生图和改图提示词模板。
 - `references/platform-cover-standards.md`：公众号封面、小红书封面、文章头图和正文配图的差异标准；只在用户要求封面/首图/平台适配时读取。
@@ -51,17 +53,25 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 
 为每张候选图标记图型：`concept`、`process`、`comparison`、`data`、`scene`、`metaphor`、`handoff` 或 `review-loop`。图型只用于构思和 QA，不写进画面。
 
-### 2. 先出配图策略
+### 2. 视觉路由与多候选方向
 
-如果用户要求“分析怎么配图 / 出配图方案 / shot list”，先给 3-7 张候选图。每张写清：放在哪段后、选点信号、图型、图的主题、核心意思、结构类型、星禾在图里做什么、建议元素、建议中文标注词。短文 1-3 张；长文也不要轻易超过 9 张。
+读取 `references/visual-routing-and-candidates.md`，先判断视觉路由：正文星禾 IP 图、平台封面、结构图降级或 prompt-only。复杂系统架构、节点关系、泳道流程、数据管线和必须精确表达的结构图，不要强行套星禾 IP；改为建议 diagram fallback、prompt-only，或拆成多个星禾动作瞬间。
 
-### 3. 生成最终提示词
+用户只要策略、shot list 或 prompt-only 时，输出候选方向，不调用 CLI。正文配图默认每个选点给 2 个候选方向，重点图可给 3 个，快速任务或用户明确要省成本时给 1 个。封面默认给 3 个候选方向：标题强表达、人物动作强表达、留白/品牌感强表达。
+
+每个候选方向必须写清：核心隐喻、星禾动作、构图、中文标注、参考图和适用原因。用户要求真实生成且已有多个候选时，先确认生成哪一个候选；如果用户明确要多个候选，按 `01-topic-a.png`、`01-topic-b.png`、`cover-a.png` 等独立文件命名，不覆盖旧图。
+
+### 3. 先出配图策略
+
+如果用户要求“分析怎么配图 / 出配图方案 / shot list”，先给 3-7 个配图选点。每个选点写清：放在哪段后、选点信号、图型、图的主题、核心意思、结构类型，并按当前路由给出 1-3 个候选方向。每个候选方向写清星禾在图里做什么、建议元素、建议中文标注词和推荐参考图。短文 1-3 个选点；长文也不要轻易超过 9 个选点。
+
+### 4. 生成最终提示词
 
 如果用户明确要求“只给提示词 / prompt-only / 不生成图片”，只输出 shot list 和每张完整 prompt，不调用 CLI。
 
 如果用户要求公众号封面、小红书封面、文章头图或笔记首图，先读取 `platform-cover-standards.md`、`cover-text-rules.md`、`cover-composition-patterns.md`，再使用 `prompt-template.md` 中对应平台的封面模板。公众号封面默认 `2.35:1`，小红书封面默认 `3:4`；同时要生成两种平台时，分别出两张图，不要一图多用。
 
-如果用户明确要求“生成 / 输出 / 做图 / 帮我生成”，先判断是否需要真实调用图像服务：只有用户确实要得到图片文件、没有禁止 CLI/真实生图、目标环境已经配置可用 API key 和 endpoint、输出路径不会覆盖已有文件、且本次 CLI 调用能够通过 `--style-references` 上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图时，才调用 CLI。否则输出完整提示词、建议命令和缺少的前置条件，不要假装已经生成。
+如果用户明确要求“生成 / 输出 / 做图 / 帮我生成”，先判断是否需要真实调用图像服务：只有用户确实要得到图片文件、没有禁止 CLI/真实生图、目标环境已经配置可用 API key 和 endpoint、输出路径不会覆盖已有文件、且本次 CLI 调用能够通过 `--style-references` 上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图时，才调用 CLI。若存在多个候选方向，先让用户确认生成哪一个；若用户明确要求多候选真实生成，逐个候选生成独立文件。否则输出完整提示词、建议命令和缺少的前置条件，不要假装已经生成。
 
 正文配图提示词必须包含：16:9 横版中文正文配图、纯白背景、蜡笔线稿、大量留白、少量红橙蓝中文手写批注、星禾作为核心动作主体、星禾固定识别点、与当前主题绑定的动作姿态、1-2 个合适物件、只出现一个星禾人物、禁止头像气泡/重复人物/PPT/商业插画/幼稚可爱/复杂架构/左上角类型标题。
 
@@ -73,7 +83,7 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 
 平台尺寸预设：正文配图默认 `16:9` 和 `1536x1024`；公众号封面用 `2.35:1`；小红书封面用 `3:4`；方图用 `1:1`。除非用户要求封面或平台适配，否则保持正文配图默认横版。
 
-### 4. 通用 Agent 生图
+### 5. 通用 Agent 生图
 
 真实需要生成图片且环境可用时，使用内置 CLI，不依赖 Codex 专属 `image_gen`。所有真实生成命令必须传入人物基准图。先选择 1 张场景参考图，并在 skill 目录运行：
 
@@ -163,11 +173,12 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 多张风格锚点可用 `--style-references "path/a.png,path/b.png"`，不要超过 15 张；旧参数 `--reference` / `--references` 继续兼容。需要编辑用户提供的图片时用 `--image "path/to/user-image.png"`；Images API 会自动使用 `/v1/images/edits` multipart。环境变量见 `references/access-modes.md`。
 
-### 5. 检查与迭代
+### 6. 检查与迭代
 
 生成后检查 `references/qa-checklist.md`。如果是公众号封面、小红书封面或文章头图，改用 `references/cover-qa-checklist.md`。如果星禾只是装饰、画面太满、太像流程图/PPT、中文太多或错字严重、左上角出现类型标题、画风太幼稚/商业/课件、背景不是干净白底，优先重生成或局部编辑。
+如果用户反馈“这张好 / 采用 / 效果好 / 以后沿用”，读取 `references/visual-learning-log.md`，按固定字段生成一条学习日志建议；只有用户明确要求写入时才修改学习日志。不要把一次生成结果自动升级成长期规则，至少需要人工确认和多次复现。
 
-### 6. 保存交付
+### 7. 保存交付
 
 如果用户在 workspace 内工作，把最终图保存到：
 
