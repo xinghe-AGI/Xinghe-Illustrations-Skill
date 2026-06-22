@@ -61,7 +61,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 | 微信公众号封面、左标题右行动 | `assets/examples/15-wechat-left-title-right-action.png` | 适合方法论、观点文、项目复盘的横版封面，左侧留标题，右侧星禾承接动作 |
 | 微信公众号封面、大留白单物件 | `assets/examples/16-wechat-wide-white-space.png` | 适合品牌感、抽象判断、系列文章封面，留白稳定，不像海报 |
 | 微信公众号封面、轻流程线 | `assets/examples/17-wechat-process-line.png` | 适合工作流、系统、自动化主题，用手绘线表达闭环，避免正式流程图 |
-| 小红书封面、上标题下人物 | `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合打字标题、关键词下划线、底部星禾动作的首图 |
+| 小红书封面、上标题下人物 | `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合大字标题、关键词下划线、底部星禾动作的首图 |
 | 小红书封面、关键词下划线 | `assets/examples/19-xhs-keyword-underline-card.png` | 适合突出一个核心词的竖版封面，标题清晰，人物在底部承接 |
 | 小红书封面、标题卡片与方法堆叠 | `assets/examples/20-xhs-title-card-method-stack.png` | 适合方法帖、收藏型封面，标题卡片和星禾动作共同表达“可复用方法” |
 

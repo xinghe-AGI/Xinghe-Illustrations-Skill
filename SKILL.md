@@ -22,7 +22,7 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 - `references/prompt-template.md`：单张生图和改图提示词模板。
 - `references/platform-cover-standards.md`：公众号封面、小红书封面、文章头图和正文配图的差异标准；只在用户要求封面/首图/平台适配时读取。
 - `references/cover-text-rules.md`：封面标题、关键词强调、中文可读性和文字密度规则；只在封面含标题时读取。
-- `references/cover-composition-patterns.md`：公众号横版封面、小红书竖版封面和打字标题卡片构图；只在封面任务读取。
+- `references/cover-composition-patterns.md`：公众号横版封面、小红书竖版封面和大字标题卡片构图；只在封面任务读取。
 - `references/cover-qa-checklist.md`：封面生成后的验收和迭代清单；只在封面任务读取。
 - `references/prompt-template-images-api.md`：旧版 Images API 的精简提示词模板。
 - `references/qa-checklist.md`：生成后检查和迭代规则。

@@ -92,7 +92,7 @@ One cover communicates one article theme. Do not make it a marketing poster, cou
 
 ## 小红书封面模板
 
-用户要求小红书封面、笔记首图、竖版首图或类似用户参考图的打字标题卡片时使用。生成前先读取 `platform-cover-standards.md`、`cover-text-rules.md` 和 `cover-composition-patterns.md`。
+用户要求小红书封面、笔记首图、竖版首图或类似用户参考图的大字标题卡片时使用。生成前先读取 `platform-cover-standards.md`、`cover-text-rules.md` 和 `cover-composition-patterns.md`。
 
 ```text
 Generate one standalone Xiaohongshu note cover in Xinghe IP style.
