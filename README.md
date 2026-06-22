@@ -538,12 +538,15 @@ Codex 原生生图环境优先使用 [Xinghe-Illustrations-Skill-Codex](https://
 ## 关于作者
 
 **xinghe（星禾）**
-AI 内容自动化实践者 / AI 工具链开发者 / AI Workflow Builder
 
-GitHub: [https://github.com/xinghe-AGI](https://github.com/xinghe-AGI)
-微信公众号: 小星禾AI
-小红书: 小星禾AI
-微信号: xinghe_AGI
+- AI 内容自动化实践者
+- AI 工具链开发者
+- AI Workflow Builder
+
+- GitHub: [https://github.com/xinghe-AGI](https://github.com/xinghe-AGI)
+- 微信公众号: 小星禾AI
+- 小红书: 小星禾AI
+- 微信号: xinghe_AGI
 
 ---
 ## License
