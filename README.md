@@ -1,7 +1,7 @@
 # 星禾内容配图
 
 > 把中文内容里的判断、流程、灵感和运营闭环，转化成“星禾”个人 IP 风格的正文配图。
-> 这是统一版本：策略、prompt-only、参考图约束生图和 CLI/API 生成都在一个 skill 内完成。
+> 这是适合所有 Agent 的统一版本：策略、prompt-only、参考图约束生图和 API/CLI 生成都在一个 skill 内完成。
 
 ---
 
@@ -11,7 +11,7 @@
 
 它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：先理解内容里的关键认知动作，再把一个判断、流程、状态或隐喻，画成星禾正在亲手参与的轻盈现场。
 
-这个仓库是唯一保留的星禾内容配图 skill 仓库。Codex 原生 `image_gen` 若不能传入参考图，只用于 prompt-only 或候选方向；需要真实图片参考约束时，必须在用户明确授权外部上传风险后，通过本仓库内置 Node CLI/API 路线生成。
+这个仓库是唯一保留的星禾内容配图 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI 或第三方兼容图片接口。
 
 ---
 
@@ -247,7 +247,7 @@ Use $xinghe-illustrations-skill 先不要生图。
 
 ```text
 Use $xinghe-illustrations-skill 先不要生图。
-请为公众号文章封面标题《我把 Codex 从对话工具变成了工作区系统》给 3 个候选方向。
+请为公众号文章封面标题《我把 AI 对话工具变成了工作区系统》给 3 个候选方向。
 方向需要覆盖：标题强表达、人物动作强表达、留白/品牌感强表达。
 每个方向写清标题区、星禾动作、核心物件、参考图和适用原因。
 ```
@@ -315,7 +315,7 @@ Use $xinghe-illustrations-skill 帮我编辑这张图。
 
 ## 安装与生图配置
 
-这个版本统一面向 Codex、OpenClaw、Hermes 和其他支持本地 skills 的环境。它可以只输出配图策略和 prompt，也可以在你配置好官方 OpenAI 或第三方中转站，并明确授权外部上传风险后，通过内置 Node CLI 生成 PNG 图片。
+这个版本适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。它可以只输出配图策略和 prompt，也可以在你配置好官方 OpenAI 或第三方中转站，并明确授权外部上传风险后，通过内置 Node CLI 生成 PNG 图片。
 
 ### 1. 安装 Skill
 
@@ -341,7 +341,7 @@ references/
 scripts/
 ```
 
-Codex 本机路径示例：
+本机路径示例：
 
 ```text
 C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
@@ -541,10 +541,6 @@ node --check scripts/xinghe_image_assets_cli.js
 
 **如果中转站只支持 `/v1/images/generations` 呢？**
 这通常只能纯文本生图，不适合生成稳定星禾 IP。可以输出 prompt 给用户人工处理，或换支持图片参考输入的 endpoint。
-
-**我是 Codex 用户该怎么用？**
-
-统一使用本仓库 `xinghe-AGI/Xinghe-Illustrations-Skill`。如果当前 Codex 原生 `image_gen` 不能传入参考图，不要用它声称生成合格星禾图；先输出 prompt-only，或在用户明确授权外部上传风险后走本仓库的 Node CLI/API。
 
 ---
 
