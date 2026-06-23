@@ -1,9 +1,9 @@
 ---
 name: xinghe-illustrations-skill
-description: 生成“星禾”个人 IP 风格的中文配图、微信公众号文章封面、小红书笔记封面、文章头图和社媒首图，面向没有原生生图工具的 Agent runtime，例如 OpenClaw、Hermes 或其他通用 Agent Skills 环境。用于社媒内容、账号运营、AI 自动化、工作流 SOP、内容日历、选题生产、发布复盘、私域承接、个人品牌、产品策略、方法论、研究笔记和观点表达；可输出配图策略、shot list、单张生图提示词、改图提示，并在 API key/endpoint 可用时通过内置 Node CLI 调用 Responses 或 Images API，支持 official/proxy。真实生图必须通过 `--style-references` 传入 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图；调用 official/proxy/API 前必须确认用户确实授权真实生图及外部数据上传风险；遇到“公众号封面”“微信文章头图”“小红书封面”“笔记首图”“生成封面图”“生成正文配图”等请求时使用。
+description: 生成“星禾”个人 IP 风格的中文配图、微信公众号文章封面、小红书笔记封面、文章头图和社媒首图，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。用于社媒内容、账号运营、AI 自动化、工作流 SOP、内容日历、选题生产、发布复盘、私域承接、个人品牌、产品策略、方法论、研究笔记和观点表达；可输出配图策略、shot list、单张生图提示词、改图提示，并在 API key/endpoint 可用且用户授权外部上传风险时，通过内置 Node CLI 调用官方 OpenAI 或第三方兼容 Images API 生成 PNG。真实生图必须通过 `--style-references` 传入 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图；如果当前接口不能上传人物基准图，不得只靠文字 prompt 声称生成合格星禾图；调用 official/proxy/API 前必须确认用户确实授权真实生图及外部数据上传风险；遇到“公众号封面”“微信文章头图”“小红书封面”“笔记首图”“生成封面图”“生成正文配图”等请求时使用。
 ---
 
-# 星禾内容配图（Agent CLI 版）
+# 星禾内容配图
 
 ## 核心定位
 
@@ -33,13 +33,17 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 - `references/reference-images.md`：使用 `assets/examples/` 作为星禾 IP 风格锚点的规则。
 - `assets/examples/`：只低频参考留白和批注密度，不要复刻旧参考图的人物形象、旧物件或旧构图。
 
+## 统一使用边界
+
+本 skill 统一面向所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实出图统一通过本 skill 内置 Node CLI 调用官方 OpenAI 或第三方兼容图片接口完成；是否能生成合格星禾图，取决于接口能否上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图和场景参考图。不要依赖某个 Agent 自带的纯文本生图能力来冒充参考图约束；如果当前接口不能上传参考图，默认交付 prompt-only、shot list 或候选方向。只有用户明确授权使用外部 CLI/API，并理解文章提示词、本地人物基准图和场景参考图可能被发送到官方 OpenAI 或第三方中转服务后，才可以调用本 skill 的 Node CLI。
+
 ## 安装后配置提醒
 
 当用户刚安装、更新或第一次要求真实生图时，先引导用户阅读 README 的“安装与生图配置”以及 `references/access-modes.md`。必须区分两条链路：官方 OpenAI 模式配置 `OPENAI_API_KEY`；第三方中转站模式配置 `GPT_IMAGE_BASE_URL` 和 `GPT_IMAGE_API_KEY`，可选 `GPT_IMAGE_PROVIDER`、`GPT_IMAGE_PERMISSION_CODE`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`。
 
-不要把真实 API key、permission code 或 access token 写进 `SKILL.md`、`README.md`、`references/`、`scripts/`、`assets/` 或任何会提交到 GitHub 的文件；应写进本机 Agent runtime 的私有环境变量、系统用户环境变量、runtime secrets 或私有 env 文件。真实生成前先用 `inspect` 检查 endpoint、参考图和输出路径；如果 provider 不能上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图，就只输出 prompt/命令建议，不声称已生成合格星禾图。
+不要把真实 API key、permission code 或 access token 写进 `SKILL.md`、`README.md`、`references/`、`scripts/`、`assets/` 或任何会提交到 GitHub 的文件；应写进本机运行环境的私有环境变量、系统用户环境变量、runtime secrets 或私有 env 文件。真实生成前先用 `inspect` 检查 endpoint、参考图和输出路径；如果 provider 不能上传 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图，就只输出 prompt/命令建议，不声称已生成合格星禾图。
 
-安全边界：official/proxy/API 真实生图通常会把文章衍生 prompt、用户素材、本地人物基准图和场景参考图发送到外部模型或中转服务。只要本 skill 是从 Codex 原生版 fallback 过来，或用户没有明确要求外部 API/CLI 真实生图，就必须先暂停说明上传内容、目标服务类型和 prompt-only 替代方案，获得明确授权后再执行。
+安全边界：official/proxy/API 真实生图通常会把文章衍生 prompt、用户素材、本地人物基准图和场景参考图发送到官方 OpenAI 或第三方中转服务。只要用户没有明确要求外部 API/CLI 真实生图，或尚未明确授权外部数据上传风险，就必须先暂停说明上传内容、目标服务类型和 prompt-only 替代方案，获得明确授权后再执行。
 
 ## 工作流
 
@@ -85,9 +89,9 @@ description: 生成“星禾”个人 IP 风格的中文配图、微信公众号
 
 平台尺寸预设：正文配图默认 `16:9` 和 `1536x1024`；公众号封面用 `2.35:1`；小红书封面用 `3:4`；方图用 `1:1`。除非用户要求封面或平台适配，否则保持正文配图默认横版。
 
-### 5. 通用 Agent 生图
+### 5. 真实生图
 
-真实需要生成图片且环境可用、并且用户已经授权外部数据上传风险时，使用内置 CLI，不依赖 Codex 专属 `image_gen`。所有真实生成命令必须传入人物基准图。先选择 1 张场景参考图，并在 skill 目录运行：
+真实需要生成图片且环境可用、并且用户已经授权外部数据上传风险时，使用内置 CLI 调用官方 OpenAI 或第三方兼容图片接口。所有真实生成命令必须传入人物基准图。先选择 1 张场景参考图，并在 skill 目录运行：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -231,6 +235,6 @@ assets/<article-slug>-illustrations/
 - 不做 PPT、课程页、正式流程图、科技 UI 或商业插画。
 - 不复制 `assets/examples/` 的旧构图、旧物件或旧参考图人物形象。
 - 不在左上角写“运营流程 / Workflow / 系统架构图 / 自动化 SOP / 研究框架 / 路线图”等类型标题。
-- 不依赖某个 runtime 专属图片工具；OpenClaw、Hermes 或其他无原生生图的 Agent 都应能通过 Node CLI 使用。
+- 不依赖某个 runtime 专属图片工具；需要真实参考图约束时统一通过 Node CLI/API，并在用户授权外部上传风险后使用。
 - 不把 API key、permission code、access token 写入文件、命令示例或最终回复。
-- 不在用户只要求 Codex 原生版 skill 时，静默切换到 CLI/proxy/API；必须先解释外部上传风险并获得明确授权。
+- 不在用户尚未授权外部上传风险时，静默切换到 CLI/proxy/API；必须先解释上传内容、目标服务类型和 prompt-only 替代方案，并获得明确授权。
