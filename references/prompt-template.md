@@ -1,12 +1,12 @@
 # 生图提示词模板
 
-每张图单独生成。根据正文内容替换变量，不要把多张图拼在一起。
+每张图或每张卡片单独生成。根据正文内容替换变量。只有 `comic-strip` 多格漫画允许在一张图内出现 2-4 格；其他任务不要把多个候选拼在一张图里。
 
 ```text
-Generate one standalone 16:9 horizontal Chinese article illustration.
+Generate one standalone {aspect_ratio} Chinese content visual in Xinghe IP style.
 
 Visual DNA:
-Pure white background. Crayon line art with visible grain and slightly wobbly hand-drawn strokes. Lots of empty white space. Sparse red/orange/blue handwritten Chinese annotations. Bright creator-note and social-ops whiteboard sketch feeling, friendly but restrained, clean and easy to understand. No gradients, no shadows, no paper texture, no complex background, no commercial vector style, no PPT infographic look, no cute mascot poster, no children's illustration, no realistic UI, no yellow background.
+Pure white background. Crayon line art with visible grain and slightly wobbly hand-drawn strokes. Lots of empty white space. Sparse red/orange/blue handwritten Chinese annotations. Bright creator-note and social-ops whiteboard sketch feeling, friendly but restrained, clean and easy to understand. No gradients, no shadows, no paper texture, no complex background, no commercial vector style, no cold PPT-template look, no cute mascot poster, no children's illustration, no realistic UI, no yellow background.
 
 Recurring IP character required:
 星禾, a young woman personal IP matching the baseline character reference: long black slightly wavy crayon hair, light airy bangs, round bright focused eyes, gentle small smile, oversized white zip hoodie, dark navy sailor collar top with white stripes, white neckerchief, and dark navy pleated skirt. Draw her with crayon texture, black or dark navy layered hair strokes, simple non-realistic facial features, subtle warm cheek color, and blue-black hoodie folds, zipper, and cuff linework. A small transparent glass inspiration bottle with tiny star ideas is her key memory prop when relevant. 星禾 must perform the core action, not decorate the scene. Make her energetic, warm, reliable, and clear-minded, not childish, not over-cute, and not a realistic portrait.
@@ -17,11 +17,14 @@ Choose Xinghe's pose from the image meaning, not from a fixed default. Use the i
 Theme:
 {正文配图主题}
 
+Visual route:
+{路由：xinghe-article / emotion-anchor / explanatory-diagram / comic-strip / knowledge-card-single / infographic-poster}
+
 Illustration type:
-{图型：concept / process / comparison / data / scene / metaphor / handoff / review-loop}
+{图型：concept / process / comparison / data / scene / metaphor / handoff / review-loop / emotion-anchor / explanatory-diagram / comic-strip / knowledge-card}
 
 Structure type:
-{结构类型：灵感生产小装置 / 内容流水线 / 运营白板 / 自动化小盒子 / 内容日历 / 复盘回流 / 多形态内容 / 清醒判断 / 小分镜}
+{结构类型：灵感生产小装置 / 内容流水线 / 运营白板 / 自动化小盒子 / 内容日历 / 复盘回流 / 多形态内容 / 清醒判断 / 小分镜 / 左右对比 / 知识卡片 / 信息地图}
 
 Core idea:
 {这张图要表达的核心意思}
@@ -38,22 +41,102 @@ Chinese handwritten labels:
 Color use:
 Black or dark navy for main crayon line art, hair, and core objects. Blue for hoodie folds, AI/assistant state, secondary notes, and feedback. Orange for the main creative or operational flow line and arrows. Red only for key breakpoints, warnings, or conclusions.
 
+Text source:
+Use only source-locked Chinese words, numbers, and terms from the article or user-confirmed title. Do not invent numbers, promises, platform functions, contact information, QR codes, prices, or random English.
+
 Constraints:
-One image explains only one core creative or operational structure. Xinghe's body pose and hand action must be different when the topic is different. Keep the main subject around 40%-60% of the canvas. Preserve at least 35% blank white space. Use at most 5-8 short handwritten Chinese labels. Do not write a title in the top-left corner. Do not write the structure type on the image. Do not make it a formal diagram, course slide, or dense explainer. Do not copy prior examples or reuse known case compositions unless explicitly requested; invent a fresh visual metaphor for this specific article. It should be clear but not instructional, energetic but not childish, operational but not PPT-like, insightful but not crowded.
+One image explains one core information goal. Xinghe's body pose and hand action must be different when the topic is different. Preserve generous blank white space unless this is an infographic-poster. Use short, readable Chinese labels. Do not write a generic type title in the top-left corner. Do not write the route name or structure type on the image. A hand-drawn explanatory diagram, knowledge card, comic strip, or infographic poster is allowed when it clarifies the content, but it must not become a cold PPT template, course slide, dense UI, or commercial poster. Do not copy prior examples or reuse known case compositions unless explicitly requested; invent a fresh visual metaphor for this specific article.
 ```
 
 ## 平台尺寸预设
 
-默认只做正文配图。用户明确要求封面或平台适配时再切换尺寸。
+默认按视觉路由选择比例，不再固定正文 16:9。用户明确要求平台适配时，以平台标准优先。
 
 | 用途 | 宽高比 | 建议尺寸 | 说明 |
 |---|---|---|---|
-| 正文配图 | 16:9 | 1536x1024 | 默认；用于公众号、长文、社媒正文 |
+| 知识卡片 / 小红书轮播 | 3:4 | 1024x1536 或等比 | 移动端可读优先 |
+| 解释图 / 左右对比 | 4:3 | 1536x1152 或等比 | 结构清楚，手机端仍可读 |
+| 单概念卡片 | 1:1 | 1024x1024 | 摘要卡、方形社媒图 |
+| 正文横图 | 16:9 | 1536x1024 | 横向阅读更清楚时使用 |
 | 公众号封面 | 2.35:1 | 1792x768 或等比 | 保留标题区空间，但不要做商业海报 |
 | 小红书封面 | 3:4 | 1024x1365 或等比 | 星禾动作仍是核心，不做大字报 |
-| 方图 | 1:1 | 1024x1024 | 用于头像式摘要或卡片封面 |
 
-平台适配时仍遵守星禾 IP、白底蜡笔、少量批注和动作绑定规则。不要因为做封面就改成暗色科技风、营销海报或大标题封面。
+平台适配时仍遵守星禾 IP、白底蜡笔、少量批注和动作绑定规则。不要因为做封面、卡片或海报就改成暗色科技风、营销海报或课程页。
+
+## 知识卡片模板
+
+```text
+Generate one standalone 3:4 vertical Chinese knowledge card in Xinghe IP style.
+
+Visual DNA:
+Pure white background, crayon line art, clean mobile-readable layout, friendly creator-note feeling. Use simple panels, rounded hand-drawn boxes, short labels, and generous spacing. Not a PPT slide, not a commercial poster, not a dense long-image.
+
+Card role:
+{封面卡 / 总览卡 / 核心观点卡 / 对比卡 / 流程卡 / 清单卡 / 总结卡}
+
+Chinese text:
+Render these Chinese words exactly and only these words:
+Title: "{卡片标题}"
+Bullets: "{要点1}" / "{要点2}" / "{要点3}" / "{可选要点4}"
+Bottom note: "{可选底部总结}"
+
+Xinghe action:
+星禾 matches the baseline character reference. She is {整理卡片 / 贴标题 / 称量两侧观点 / 接通流程线 / 圈出重点 / 把混乱信息收进卡片盒}. She must guide the knowledge structure, not decorate it.
+
+Composition:
+{上标题 + 中部 3 点卡片 + 底部总结条 / 左右对比 + 中间星禾称量 / 顶部结论 + 中部流程 + 底部提醒}. Keep all text large enough for phone reading.
+
+Constraints:
+Do not copy reference image text, character, watermark, brand, or color scheme. Do not put paragraphs into the card. If text is too long, split into multiple cards.
+```
+
+## 多格漫画模板
+
+```text
+Generate one standalone {2-panel / 3-panel / 4-panel} comic-strip image in Xinghe IP style.
+
+Visual DNA:
+Pure white background, crayon line art, clean hand-drawn panel borders, consistent scene world, readable Chinese labels. Not a manga poster, not a busy commercial comic page.
+
+Story logic:
+Panel 1: {起点或误区}
+Panel 2: {冲突、卡住或发现}
+Panel 3: {星禾采取动作}
+Panel 4: {结果或反转，可选}
+
+Xinghe:
+Use one consistent Xinghe character matching the baseline reference across panels. Her action must change in each panel according to the story.
+
+Chinese text:
+Use only short source-locked labels or one short line per panel. No long dialogue.
+
+Constraints:
+Each panel must advance the meaning. If a panel does not change the story, remove it. Do not create multiple unrelated mini illustrations.
+```
+
+## 信息图海报模板
+
+```text
+Generate one standalone {3:4 / 4:3} Chinese infographic poster in Xinghe IP style.
+
+Visual DNA:
+Pure white background, crayon line art, hand-drawn map or matrix layout, clear hierarchy, mobile-readable text. It may use sections, arrows, numbered steps, and cards, but it must feel like a hand-drawn knowledge map, not a PPT template.
+
+Whole-map topic:
+{整篇文章或流程的总览主题}
+
+Structure:
+{流程地图 / 2x2 矩阵 / 三层框架 / 输入-处理-输出 / 问题-方法-结果}
+
+Xinghe role:
+星禾 is small but important: {拿笔整理地图 / 指向关键路径 / 把卡片放进矩阵 / 连接输入输出}. She supports the information map without becoming decorative.
+
+Chinese labels:
+{分区标题和短标签，全部来自原文}
+
+Constraints:
+Default maximum one infographic poster per article. Do not cram the full article into one image. If text becomes dense, split into knowledge cards.
+```
 
 
 ## 公众号封面模板
@@ -130,7 +213,7 @@ This should look like a personal method note cover, not a marketing poster. One 
 {
   "mode": "prompt-only",
   "article": "文章或主题名称",
-  "platform": "article-16x9 / wechat-cover / xhs-cover",
+  "platform": "article / wechat-cover / xhs-cover / knowledge-card-pack / knowledge-card-single / comic-strip / infographic-poster",
   "pictures": [
     {
       "id": 1,
@@ -142,7 +225,7 @@ This should look like a personal method note cover, not a marketing poster. One 
       "candidates": [
         {
           "id": "A",
-          "direction": "标题强表达 / 人物动作强表达 / 留白品牌感 / 正文隐喻方向",
+          "direction": "标题强表达 / 人物动作强表达 / 留白品牌感 / 正文隐喻方向 / 解释图方向 / 知识卡片方向 / 多格漫画方向",
           "core_metaphor": "把卡住的内容流重新接回轨道",
           "xinghe_action": "星禾正在接线并把卡住的内容卡放回轨道",
           "composition": "星禾在画面右侧，左侧留出短标注和流程入口",
@@ -151,6 +234,8 @@ This should look like a personal method note cover, not a marketing poster. One 
             "assets/examples/00-xinghe-ip-baseline.png",
             "assets/examples/05-handoff-path.png"
           ],
+          "aspect_ratio": "4:3",
+          "size": "1536x1152",
           "reason": "适合表现流程重新跑通，动作清楚且不会变成复杂架构图",
           "output_filename_when_generated": "01-topic-a.png",
           "prompt": "完整单图生图提示词"

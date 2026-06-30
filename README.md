@@ -7,9 +7,9 @@
 
 ## 这个 Skill 做什么
 
-星禾内容配图是一个面向中文内容创作者和 AI 工作流的配图生成 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记和方法论内容生成正文配图策略、shot list、单张提示词，或在 API key/endpoint 可用时通过内置 Node CLI 生成最终 PNG 图片。
+星禾内容配图是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记和方法论内容生成正文配图、平台封面、情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片、信息图海报、提示词和 manifest，或在 API key/endpoint 可用时通过内置 Node CLI 生成最终 PNG 图片。
 
-它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：先理解内容里的关键认知动作，再把一个判断、流程、状态或隐喻，画成星禾正在亲手参与的轻盈现场。
+它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：先理解内容里的关键认知动作，再判断这段内容适合封面、情绪图、解释图、漫画、知识卡片还是正文配图，然后把一个判断、流程、状态或隐喻，画成星禾正在亲手参与的轻盈现场。
 
 这个仓库是唯一保留的星禾内容配图 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI 或第三方兼容图片接口。
 
@@ -17,13 +17,17 @@
 
 ## 功能简要
 
-- **智能选点**：先理解文章内容，挑出最值得画的段落，不按标题平均配图。
+- **逐节配图判断**：先按小节判断适合配图、不适合配图、适合卡片还是适合封面，不按标题平均配图。
+- **深度提炼**：提炼文体、真意、张力、灵魂句和必须出现的原文术语/数字。
+- **视觉路由**：支持 `emotion-anchor`、`explanatory-diagram`、`comic-strip`、`knowledge-card-pack`、`knowledge-card-single`、`infographic-poster`、`platform-cover` 和常规正文图。
 - **多候选方向**：正文配图默认每个选点给 2 个候选方向，重点图可给 3 个；公众号封面和小红书封面默认给 3 个方向。
-- **平台封面适配**：支持微信公众号 2.35:1 封面、小红书 3:4 封面、文章头图和正文 16:9 配图。
+- **知识卡片生产**：已合并 `xinghe-knowledge-card-illustration`，支持 5-9 张知识卡片组、单张总结卡、对比卡、流程卡和清单卡。
+- **平台封面适配**：支持微信公众号 2.35:1 封面、小红书 3:4 封面、文章头图和正文配图。
 - **星禾 IP 稳定性**：真实生图必须传入人物基准图，并搭配正文或封面参考图，减少人物漂移。
 - **prompt-only / 真实生图双模式**：可以只输出提示词，也可以在配置好官方 OpenAI 或第三方中转站后通过 Node CLI 生成 PNG。
 - **批量与调试**：支持 manifest 批量生成、断点续跑、inspect、probe 和 dry-run，方便先检查再花成本生成。
-- **结构图降级**：复杂架构、数据管线、节点关系图不强行套星禾 IP，优先建议 diagram fallback 或 prompt-only。
+- **条件化结构处理**：轻量机制可以做解释图、卡片或信息图；精确技术拓扑才建议 diagram fallback 或 prompt-only。
+- **中文文字铁律**：标题、术语、数字来自原文或用户确认；错字优先重生或减少文字，不做代码涂改。
 - **视觉学习日志**：当人工确认某张图效果好时，可沉淀为学习日志条目，后续再决定是否升级成长期规则。
 
 ---
@@ -185,10 +189,10 @@
 
 ## 设计边界
 
-- 每张图只讲一个核心结构，不把整篇文章塞进一张图。
+- 每张图只讲一个核心结构；整篇总览只能走信息图海报或知识卡片组，不把全文硬塞进一张图。
 - 星禾必须承担核心动作；如果去掉星禾画面仍然完全成立，说明角色太装饰。
 - 中文批注尽量短，避免错字和说明书感。
-- 不做 PPT、课程页、正式流程图、科技 UI 或商业插画。
+- 不做模板 PPT、课程页、冷硬正式流程图、科技 UI 或商业插画；但可以做手绘解释图、知识卡片、多格漫画和信息图海报。
 - 不复刻 `assets/examples/` 的旧构图、旧物件或旧案例。
 - 不生成多个星禾、头像气泡或右下角 inset portrait。
 - 不在左上角写“运营流程 / Workflow / 系统架构图 / 自动化 SOP / 研究框架 / 路线图”等类型标题。
@@ -204,7 +208,10 @@
 
 - 文章配图策略、shot list 和多候选方向
 - 每个配图选点的放置位置、选点理由、图型、主题、结构、星禾动作和推荐候选
+- 逐节配图判断表和视觉路由
+- 情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片和信息图海报方案
 - 单张完整生图提示词
+- `outputs/xinghe-illustration-packs/{日期}-{短标题}/` 发布包
 - 改图提示词
 - 在用户明确要求真实生成且环境可用时，通过 Node CLI 输出 PNG 图片
 
@@ -213,7 +220,7 @@
 - PPTX、PDF、Keynote 或课程课件
 - SVG、HTML、Canvas 可编辑源文件
 - 商业海报、品牌 KV、复杂系统架构图
-- 大段文字型信息图
+- 大段文字型信息图或把全文硬塞进一张图
 
 ---
 
@@ -224,10 +231,13 @@
 | 配图策略 | 先判断文章哪里值得配图，输出 3-7 个选点和候选方向 | 否 |
 | 正文多候选 | 每个正文配图选点给 A/B 方向，重点图可给 A/B/C | 否 |
 | 平台封面候选 | 为公众号封面或小红书封面先给 3 个不同视觉方向 | 否 |
+| 知识卡片组 | 把长文拆成 5-9 张移动端可读卡片 | 否 |
+| 情绪图/解释图/多格漫画 | 根据内容张力、机制和因果节奏选择合适形态 | 否 |
+| 信息图海报 | 整篇流程、矩阵或地图式总览，默认最多一张 | 否 |
 | prompt-only | 每个候选方向输出独立 prompt，交给其他平台或人工生成 | 否 |
 | 单张真实生成 | 用户确认某个候选后，通过 Node CLI 输出 PNG | 是 |
 | 多候选真实生成 | 用户明确要多个候选文件时，分别生成 `cover-a.png`、`cover-b.png` 等 | 是 |
-| 结构图降级 | 复杂架构、数据管线、节点关系图改走 diagram fallback 或 prompt-only | 否 |
+| 结构处理 | 轻结构走解释图/卡片/海报，精确技术拓扑才走 diagram fallback | 否 |
 | 学习日志 | 用户确认某张图效果好后，生成可写入学习日志的条目建议 | 否 |
 | inspect/dry-run | 调试参数、检查参考图和覆盖风险 | 否 |
 | 改图提示 | 修改已有图片、纠正不符合 QA 的结果 | 视用户要求 |
@@ -286,13 +296,44 @@ Use $xinghe-illustrations-skill 生成小红书封面候选 A 和 B。
 两个候选分别保存为 xhs-cover-a.png 和 xhs-cover-b.png，不要合成一张，也不要覆盖已有文件。
 ```
 
-### 复杂结构图降级
+### 复杂结构处理
 
 ```text
 Use $xinghe-illustrations-skill 先判断这段内容适合星禾 IP 图还是结构图。
-如果它更像复杂系统架构、数据管线或节点关系图，请不要硬画星禾图，改给 diagram fallback 或 prompt-only 建议。
+如果它只是轻量机制、因果链或步骤说明，请给解释图、知识卡片或信息图海报方向；
+只有它属于精确技术拓扑、数据管线或强节点关系图时，才给 diagram fallback 或 prompt-only 建议。
 
 <粘贴复杂段落>
+```
+
+### 知识卡片组
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请把下面这篇文章拆成小红书 3:4 知识卡片组。
+输出 5-9 张卡片计划，每张卡包含：卡片角色、标题、信息目标、布局、星禾动作、卡面文字、候选方向和推荐参考图。
+
+<粘贴文章>
+```
+
+### 情绪图 / 解释图 / 多格漫画
+
+```text
+Use $xinghe-illustrations-skill 先判断视觉路由。
+这段内容如果适合情绪锚点图、解释图或多格漫画，请分别给出候选方向；
+如果多格漫画删掉任一格也不影响理解，就降级成单张解释图。
+
+<粘贴段落>
+```
+
+### 信息图海报
+
+```text
+Use $xinghe-illustrations-skill prompt-only。
+请把这篇方法论文章做成一张 3:4 信息图海报 prompt。
+默认最多一张，不要把全文硬塞进去，只保留全局结构、关键路径和短标签。
+
+<粘贴文章>
 ```
 
 ### 记录视觉学习日志
@@ -551,22 +592,15 @@ node --check scripts/xinghe_image_assets_cli.js
 ├── README.md
 ├── SKILL.md
 ├── agents/
-│   └── openai.yaml
-├── assets/
-│   └── examples/
+├── assets/examples/
 ├── references/
-│   ├── access-modes.md
-│   ├── composition-patterns.md
-│   ├── illustration-selection.md
-│   ├── image-generation-runtime.md
+│   ├── cognitive-anchor-routing.md
+│   ├── visual-formats.md
+│   ├── text-rendering-rules.md
+│   ├── output-spec.md
 │   ├── visual-routing-and-candidates.md
-│   ├── visual-learning-log.md
-│   ├── prompt-template-images-api.md
 │   ├── prompt-template.md
-│   ├── qa-checklist.md
-│   ├── reference-images.md
-│   ├── style-dna.md
-│   └── xinghe-ip.md
+│   └── ...
 └── scripts/
     └── xinghe_image_assets_cli.js
 ```
@@ -576,9 +610,13 @@ node --check scripts/xinghe_image_assets_cli.js
 ## 相关文件
 
 - `SKILL.md`：Skill 触发描述和主工作流
+- `references/cognitive-anchor-routing.md`：逐节配图判断、深度提炼和视觉路由
+- `references/visual-formats.md`：情绪图、解释图、多格漫画、知识卡片和信息图海报规则
+- `references/text-rendering-rules.md`：中文文字渲染铁律
+- `references/output-spec.md`：输出包目录、prompts.json 和 manifest 规范
 - `references/xinghe-ip.md`：星禾形象、动作库和禁忌
 - `references/illustration-selection.md`：智能选点、图型分类和 prompt-only 模式
-- `references/visual-routing-and-candidates.md`：视觉路由、多候选方向和结构图降级规则
+- `references/visual-routing-and-candidates.md`：视觉路由、多候选方向和条件化结构处理规则
 - `references/visual-learning-log.md`：人工确认好图后的视觉经验沉淀
 - `references/prompt-template.md`：生图和改图提示词模板
 - `references/prompt-template-images-api.md`：旧版 Images API 精简 prompt 模板
@@ -593,6 +631,11 @@ node --check scripts/xinghe_image_assets_cli.js
 ## 相关项目
 
 - [Ian Xiaohei Illustrations](https://github.com/helloianneo/ian-xiaohei-illustrations) - 本项目参考其中文正文配图 Skill 的开源表达和工作流思路，并在星禾 IP、内容运营场景、runtime 兼容和 CLI 生成链路上做二次开发。
+- [xiaohu-ip-studio](https://github.com/xiaohuailabs/xiaohu-ip-studio) - 参考其视觉路由、深度提炼、情绪图、解释图、多格漫画和信息图海报方法，不复制角色、图片和画风。
+- [baoyu-skills](https://github.com/JimLiu/baoyu-skills) - 参考文字渲染铁律。
+- [juju-content-illustrations](https://github.com/dososo/juju-content-illustrations) - 参考一篇内容内叙事统一的原则。
+- [illo-skill](https://github.com/tmchow/illo-skill) - 参考“方法论恒定，角色是参数”的表达思路。
+- [orange-line-illustration](https://github.com/orange2ai/orange-line-illustration) - 参考极简场景和比例控制。
 
 ---
 

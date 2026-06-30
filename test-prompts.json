@@ -28,5 +28,25 @@
         "id":  "learning-log-dry-run",
         "prompt":  "Use $xinghe-illustrations-skill 这张小红书封面我决定采用，标题是：这套 AI 工作流我会反复用。请根据这次采用结果生成一条 visual-learning-log.md 学习日志建议，不要直接改文件。",
         "expected":  "输出学习日志条目建议，包含日期、平台/用途、标题或主题、采用方向、为什么好、失败点、后续复用规则、相关文件或参考图；不直接修改文件，不把一次结果自动升级为长期规则。"
+    },
+    {
+        "id":  "knowledge-card-pack-routing",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把一篇讲 AI 工作区方法论的长文拆成小红书 3:4 知识卡片组，输出 5-9 张卡片计划和关键卡 A/B 候选方向。",
+        "expected":  "识别为 knowledge-card-pack；输出卡片角色、标题、信息目标、布局、星禾动作、卡面文字、候选方向和参考图；默认 3:4；不调用 CLI。"
+    },
+    {
+        "id":  "explanatory-diagram-not-fallback",
+        "prompt":  "Use $xinghe-illustrations-skill 先判断视觉路由。请解释“上下文、规则、skill、台账如何一起让 Codex 从对话工具变成工作区系统”，不要直接生图。",
+        "expected":  "识别为 explanatory-diagram 或 infographic-poster 候选，而不是默认 diagram-fallback；说明星禾作为结构中的操作者，推荐 4:3 或 3:4。"
+    },
+    {
+        "id":  "comic-strip-validation",
+        "prompt":  "Use $xinghe-illustrations-skill 判断下面内容是否适合四格漫画：一开始只会临时问 AI，后来把每次产出沉淀进 rules、skills 和 issue log，最后形成可复用工作区。只给方案。",
+        "expected":  "先判断是否有因果和转折；如适合，输出 3-4 格漫画方案，每格推进含义；如不适合，说明降级为解释图。"
+    },
+    {
+        "id":  "infographic-poster-one-max",
+        "prompt":  "Use $xinghe-illustrations-skill prompt-only。请把一篇介绍内容工作流从选题、生产、发布、复盘到回流的文章做成一张信息图海报 prompt。",
+        "expected":  "识别为 infographic-poster；默认最多一张；锁定全局结构和短标签，不把全文硬塞进去；输出 3:4 或 4:3 prompt。"
     }
 ]

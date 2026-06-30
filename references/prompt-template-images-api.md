@@ -5,9 +5,11 @@
 ## 单张生图模板
 
 ```text
-Create one 16:9 Chinese article illustration in Xinghe IP style.
+Create one {aspect_ratio} Chinese Xinghe content visual.
 
 Pure white background, crayon line art, lots of blank space, light hand-drawn grain. Main character Xinghe must match the baseline reference: young woman, long black slightly wavy hair, airy bangs, gentle smile, oversized white zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt. She must perform the core action, not stand as decoration. Show only one Xinghe figure; do not add portrait bubbles, duplicate characters, or avatar insets.
+
+Visual route: {xinghe-article / emotion-anchor / explanatory-diagram / comic-strip / knowledge-card-single / infographic-poster}
 
 Scene: {一句话描述当前文章锚点和星禾动作}
 
@@ -19,7 +21,7 @@ Handwritten Chinese labels, short and sparse: {3-5 个短词}
 
 Use black/dark navy for lines, orange for main flow, blue for feedback/AI notes, red only for key warning or conclusion.
 
-Do not create a PPT, flowchart, course slide, commercial poster, cute mascot, complex diagram, UI screenshot, yellow background, top-left title, duplicate Xinghe, or portrait bubble. Use the baseline reference for Xinghe character only; use the scene reference for composition and annotation density only; invent a fresh composition.
+Do not create a cold PPT template, course slide, commercial poster, cute mascot, realistic UI screenshot, yellow background, generic top-left type title, duplicate Xinghe, or portrait bubble. A simple hand-drawn explanatory diagram, card, comic strip, or infographic map is allowed when it clarifies the content. Use the baseline reference for Xinghe character only; use the scene reference for composition and annotation density only; invent a fresh composition.
 ```
 
 ## 改图/风格锚定模板
@@ -28,15 +30,16 @@ Do not create a PPT, flowchart, course slide, commercial poster, cute mascot, co
 
 ```text
 Use the provided baseline image as Xinghe character anchor, and the scene reference only as composition/style anchor.
-Create a new 16:9 Chinese article illustration on a clean white background.
+Create a new {aspect_ratio} Chinese Xinghe content visual on a clean white background.
 Keep Xinghe consistent with the baseline: long black wavy hair, airy bangs, oversized white zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt, gentle smile, crayon line art, sparse red/orange/blue handwritten labels.
 Show only one Xinghe figure; do not add portrait bubbles, duplicate characters, or avatar insets.
 
+Visual route: {视觉路由}
 New scene: {星禾正在做什么}
 Core idea: {这张图表达什么}
 Labels: {3-5 个中文短词}
 
-Do not copy the reference composition or objects. Do not make PPT, flowchart, poster, UI, yellow background, dense text, duplicate Xinghe, or portrait bubble.
+Do not copy the reference composition, character, text, watermark, or objects. Do not make a cold PPT template, commercial poster, realistic UI, yellow background, dense text, duplicate Xinghe, or portrait bubble.
 ```
 
 ## 压缩规则
