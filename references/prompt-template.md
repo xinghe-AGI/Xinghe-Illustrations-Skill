@@ -2,6 +2,23 @@
 
 每张图或每张卡片单独生成。根据正文内容替换变量。只有 `comic-strip` 多格漫画允许在一张图内出现 2-4 格；其他任务不要把多个候选拼在一张图里。
 
+## 模板索引
+
+按视觉路由跳读对应模板，不要每次从头到尾套用：
+
+| 路由 | 使用模板 |
+|---|---|
+| `xinghe-article` / `emotion-anchor` / `explanatory-diagram` | 顶部“通用单图模板” |
+| `knowledge-card-single` | “知识卡片模板” |
+| `comic-strip` | “多格漫画模板” |
+| `infographic-poster` | “信息图海报模板” |
+| `platform-cover` 公众号 | “公众号封面模板” |
+| `platform-cover` 小红书 | “小红书封面模板” |
+| `prompt-only` 批量交付 | “Prompt-only JSON 格式” |
+| 图片返工 | “图像编辑提示” |
+
+文字来源、标题、数字和错字处理统一遵守 `text-rendering-rules.md`；封面标题长度和安全区再读取 `cover-text-rules.md`。
+
 ```text
 Generate one standalone {aspect_ratio} Chinese content visual in Xinghe IP style.
 

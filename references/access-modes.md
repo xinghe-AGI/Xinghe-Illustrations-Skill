@@ -94,7 +94,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png"
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png"
 ```
 
 ## official
@@ -115,7 +115,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png"
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png"
 ```
 
 真实生成：
@@ -126,7 +126,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png" \
   --size 1536x1024 \
   --quality high \
   --output-format png
@@ -185,7 +185,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/01-two-breakpoints.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png" \
   --size 1536x1024 \
   --quality high \
   --output-format png
@@ -205,7 +205,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
   --prompt "<final cover prompt>" \
-  --output "assets/<article-slug>-covers/xhs-cover.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/xhs-cover.png" \
   --size 1024x1536 \
   --quality high \
   --background opaque \

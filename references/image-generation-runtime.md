@@ -57,7 +57,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png"
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png"
 ```
 
 真实生成正文配图：
@@ -68,7 +68,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png" \
   --output-format png \
   --size 1536x1024 \
   --quality high
@@ -98,7 +98,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/01-two-breakpoints.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png" \
   --size 1536x1024 \
   --quality high \
   --output-format png
@@ -114,7 +114,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
   --prompt "<final xhs cover prompt>" \
-  --output "assets/<article-slug>-covers/xhs-cover.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/xhs-cover.png" \
   --size 1024x1536 \
   --quality high \
   --background opaque \
@@ -131,7 +131,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/15-wechat-left-title-right-action.png" \
   --prompt "<final wechat cover prompt>" \
-  --output "assets/<article-slug>-covers/wechat-cover.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/wechat-cover.png" \
   --size 2048x1152 \
   --quality high \
   --background opaque \
@@ -147,7 +147,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png" \
   --dry-run
 ```
 
@@ -161,7 +161,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png"
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png"
 ```
 
 ## 批量 manifest
@@ -196,8 +196,8 @@ node scripts/xinghe_image_assets_cli.js generate \
   --mode official \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
-  --manifest "assets/<article-slug>-illustrations/manifest.json" \
-  --output-dir "assets/<article-slug>-illustrations" \
+  --manifest "outputs/xinghe-illustration-packs/<date-slug>/manifest.json" \
+  --output-dir "outputs/xinghe-illustration-packs/<date-slug>/images" \
   --prefix "<article-slug>"
 ```
 

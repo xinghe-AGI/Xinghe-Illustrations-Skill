@@ -1,11 +1,11 @@
 # 风格参考图机制
 
-`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文配图场景参考图，用来参考构图、动作、留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。
+`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文锚点、解释图、知识卡片、轻分镜和信息图海报的场景参考图，用来参考构图、动作、留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。
 
 真实生图时必须使用“双参考图”，其中人物基准图是硬门槛：
 
 1. 人物基准图：固定传入 `assets/examples/00-xinghe-ip-baseline.png`。
-2. 正文配图参考图：从 `assets/examples/01-14-*.png` 中选择 1 张最接近当前构图和星禾动作的图；封面参考图：从 `assets/examples/15-20-*.png` 中选择 1 张最接近平台版式、标题区和安全边距的图。
+2. 非封面参考图：从 `assets/examples/01-14-*.png` 中选择 1 张最接近当前构图、星禾动作和信息密度的图；封面参考图：从 `assets/examples/15-20-*.png` 中选择 1 张最接近平台版式、标题区和安全边距的图。
 
 不要只传场景参考图而漏掉人物基准图。不要用文字描述替代人物基准图。场景参考图只负责构图和动作，不负责改写星禾人物形象。
 
@@ -19,7 +19,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png"
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic.png"
 ```
 
 ## 参数区别
@@ -38,6 +38,10 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 灵感、内容生产、工作流类：优先选有星禾参与动作和留白稳定的图。
 - 排期、日历、发布节奏类：优先选有卡片、日历、白板的图。
 - 判断、复盘、证据类：优先选有圈注、放大镜、小秤或反馈回路的图。
+- 知识卡片：优先选卡片、白板、分拣、标题区和文字密度接近的参考图。
+- 解释图：优先选轻流程、白板、交接路径、自动化小盒子类参考图。
+- 多格漫画：只参考动作连续性和分区密度，不参考旧画面叙事。
+- 信息图海报：只参考留白、分区密度和手绘笔记质感，不复制旧物件和旧结构。
 
 ## 构图到参考图映射
 
@@ -64,6 +68,17 @@ node scripts/xinghe_image_assets_cli.js generate \
 | 小红书封面、上标题下人物 | `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合大字标题、关键词下划线、底部星禾动作的首图 |
 | 小红书封面、关键词下划线 | `assets/examples/19-xhs-keyword-underline-card.png` | 适合突出一个核心词的竖版封面，标题清晰，人物在底部承接 |
 | 小红书封面、标题卡片与方法堆叠 | `assets/examples/20-xhs-title-card-method-stack.png` | 适合方法帖、收藏型封面，标题卡片和星禾动作共同表达“可复用方法” |
+
+## 新视觉形态参考选择
+
+| 视觉形态 | 优先参考图 | 选择原因 |
+|---|---|---|
+| `emotion-anchor` | `assets/examples/09-common-pits-no-title.png` / `assets/examples/13-system-bearing.png` | 适合压力、卡点、风险和“系统接住问题”的情绪张力 |
+| `explanatory-diagram` | `assets/examples/02-minimum-loop.png` / `assets/examples/05-handoff-path.png` / `assets/examples/07-three-content-jobs.png` | 适合轻流程、因果、并列模块和低科技解释图 |
+| `comic-strip` | `assets/examples/05-handoff-path.png` / `assets/examples/09-common-pits-no-title.png` | 只参考动作变化和分区密度，不复刻旧场景 |
+| `knowledge-card-pack` | `assets/examples/03-sort-by-purpose.png` / `assets/examples/08-handoff-copy-toolbox.png` / `assets/examples/20-xhs-title-card-method-stack.png` | 适合卡片整理、标题区和移动端可读密度 |
+| `knowledge-card-single` | `assets/examples/03-sort-by-purpose.png` / `assets/examples/07-three-content-jobs.png` / `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合单观点、对比、清单和总结卡 |
+| `infographic-poster` | `assets/examples/02-minimum-loop.png` / `assets/examples/07-three-content-jobs.png` / `assets/examples/10-information-well.png` | 适合全局流程、模块地图和信息沉淀 |
 
 ## 失败处理
 

@@ -26,8 +26,28 @@
 
 待记录。
 
+## 情绪锚点图
+
+待记录。
+
+## 解释图
+
+待记录。
+
+## 多格漫画
+
+待记录。
+
+## 知识卡片组
+
+待记录。
+
+## 信息图海报
+
+待记录。
+
 ## 使用规则
 
 - 学习日志只沉淀经验，不自动改变硬规则。
-- 如果某条经验反复出现 3 次以上，再考虑升级到 `cover-composition-patterns.md`、`composition-patterns.md` 或 `prompt-template.md`。
+- 如果某条经验反复出现 3 次以上，再考虑升级到 `cover-composition-patterns.md`、`composition-patterns.md`、`visual-formats.md`、`text-rendering-rules.md` 或 `prompt-template.md`。
 - 记录要具体到标题结构、星禾动作、构图关系和失败点，避免写成“更好看”“更高级”。
