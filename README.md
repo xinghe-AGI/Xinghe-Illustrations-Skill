@@ -7,11 +7,11 @@
 
 ## 这个 Skill 做什么
 
-星禾内容视觉资产 Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记和方法论内容生成正文配图、平台封面、情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片、信息图海报、提示词和 manifest，或在 API key/endpoint 可用时通过内置 Node CLI 生成最终 PNG 图片。
+星禾内容视觉资产 Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记和方法论内容生成正文配图、平台封面、情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片、信息图海报、提示词和 manifest，或在官方 OpenAI 配置可用时通过内置 Node CLI 生成最终 PNG 图片。
 
 它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：先理解内容里的关键认知动作，再判断这段内容适合封面、情绪图、解释图、漫画、知识卡片还是正文配图，然后把一个判断、流程、状态或隐喻，画成星禾正在亲手参与的轻盈现场。
 
-这个仓库是唯一保留的星禾内容视觉资产 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI 或第三方兼容图片接口。
+这个仓库是唯一保留的星禾内容视觉资产 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI。
 
 ---
 
@@ -24,8 +24,8 @@
 - **知识卡片生产**：已合并 `xinghe-knowledge-card-illustration`，支持 5-9 张知识卡片组、单张总结卡、对比卡、流程卡和清单卡。
 - **平台封面适配**：支持微信公众号 2.35:1 封面、小红书 3:4 封面、文章头图和正文配图。
 - **星禾 IP 稳定性**：真实生图必须传入人物基准图，并搭配正文或封面参考图，减少人物漂移。
-- **prompt-only / 真实生图双模式**：可以只输出提示词，也可以在配置好官方 OpenAI 或第三方中转站后通过 Node CLI 生成 PNG。
-- **批量与调试**：支持 manifest 批量生成、断点续跑、inspect、probe 和 dry-run，方便先检查再花成本生成。
+- **prompt-only / 真实生图双模式**：可以只输出提示词，也可以在配置好官方 OpenAI 后通过 Node CLI 生成 PNG。
+- **批量与调试**：支持 manifest 批量生成、断点续跑、inspect 和 dry-run，方便先检查再花成本生成。
 - **条件化结构处理**：轻量机制可以做解释图、卡片或信息图；精确技术拓扑才建议 diagram fallback 或 prompt-only。
 - **中文文字铁律**：标题、术语、数字来自原文或用户确认；错字优先重生或减少文字，不做代码涂改。
 - **视觉学习日志**：当人工确认某张图效果好时，可沉淀为学习日志条目，后续再决定是否升级成长期规则。
@@ -239,7 +239,7 @@
 
 ## 你可以怎么用
 
-| 模式 | 适合场景 | 是否调用第三方图像服务 |
+| 模式 | 适合场景 | 是否真实生图 |
 |---|---|---|
 | 配图策略 | 先判断文章哪里值得配图，输出 3-7 个选点和候选方向 | 否 |
 | 正文多候选 | 每个正文配图选点给 A/B 方向，重点图可给 A/B/C | 否 |
@@ -247,7 +247,7 @@
 | 知识卡片组 | 把长文拆成 5-9 张移动端可读卡片 | 否 |
 | 情绪图/解释图/多格漫画 | 根据内容张力、机制和因果节奏选择合适形态 | 否 |
 | 信息图海报 | 整篇流程、矩阵或地图式总览，默认最多一张 | 否 |
-| prompt-only | 每个候选方向输出独立 prompt，交给其他平台或人工生成 | 否 |
+| prompt-only | 每个候选方向输出独立 prompt，交给用户后续生成或人工处理 | 否 |
 | 单张真实生成 | 用户确认某个候选后，通过 Node CLI 输出 PNG | 是 |
 | 多候选真实生成 | 用户明确要多个候选文件时，分别生成 `cover-a.png`、`cover-b.png` 等 | 是 |
 | 结构处理 | 轻结构走解释图/卡片/海报，精确技术拓扑才走 diagram fallback | 否 |
@@ -311,7 +311,7 @@ Use $xinghe-illustrations-skill prompt-only。
 
 ```text
 Use $xinghe-illustrations-skill 生成刚才候选 A。
-我已经配置好 OPENAI_API_KEY 或兼容的 proxy endpoint。
+我已经配置好 OPENAI_API_KEY。
 请先用 inspect 检查人物基准图、场景参考图和输出路径，再生成 PNG。
 ```
 
@@ -382,7 +382,7 @@ Use $xinghe-illustrations-skill 帮我编辑这张图。
 
 ## 安装与生图配置
 
-这个版本适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。它可以只输出配图策略和 prompt，也可以在你配置好官方 OpenAI 或第三方中转站，并明确授权外部上传风险后，通过内置 Node CLI 生成 PNG 图片。
+这个版本适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。它可以只输出配图策略和 prompt，也可以在你配置好官方 OpenAI，并明确授权外部上传风险后，通过内置 Node CLI 生成 PNG 图片。
 
 ### 1. 安装 Skill
 
@@ -421,9 +421,8 @@ C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
 | 使用方式 | 需要配置 | 是否真实请求图片服务 | 适合场景 |
 |---|---|---:|---|
 | 配图策略 / shot list | 不需要 | 否 | 先判断文章哪里值得配图 |
-| prompt-only | 不需要 | 否 | 只要最终提示词，交给其他平台生图 |
+| prompt-only | 不需要 | 否 | 只要最终提示词，交给用户后续生成或人工处理 |
 | 官方 OpenAI 生图 | `OPENAI_API_KEY` | 是 | 直接走 OpenAI 官方端点 |
-| 第三方中转站生图 | `GPT_IMAGE_BASE_URL` + `GPT_IMAGE_API_KEY` | 是 | 使用兼容 OpenAI 图片接口的代理或网关 |
 | inspect / dry-run | 按目标模式可选 | 否 | 检查 endpoint、参考图、输出路径和覆盖风险 |
 
 真实生成星禾图时必须能上传参考图，并且必须同时传入：
@@ -432,11 +431,11 @@ C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
 --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"
 ```
 
-`00-xinghe-ip-baseline.png` 用来锁定星禾人物形象，第二张参考图用来锁定正文配图或封面构图。正文图从 `01-14` 选择；微信公众号封面和小红书封面从 `15-20` 选择。如果某个 provider 只能纯文本生图、不能上传人物基准图，就不要声称生成了合格的星禾 IP 图片。
+`00-xinghe-ip-baseline.png` 用来锁定星禾人物形象，第二张参考图用来锁定正文配图或封面构图。正文图从 `01-14` 选择；微信公众号封面和小红书封面从 `15-20` 选择。如果当前链路只能纯文本生图、不能上传人物基准图，就不要声称生成了合格的星禾 IP 图片。
 
 ### 3. 配置环境变量
 
-不要把真实 API key、permission code 或 access token 写进仓库文件。尤其不要写进：
+不要把真实 API key 或 access token 写进仓库文件。尤其不要写进：
 
 - `SKILL.md`
 - `README.md`
@@ -458,24 +457,6 @@ C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
 ```text
 OPENAI_API_KEY=<your-openai-api-key>
 ```
-
-第三方中转站模式：
-
-```text
-GPT_IMAGE_BASE_URL=https://gateway.example.com
-GPT_IMAGE_API_KEY=<your-proxy-api-key>
-GPT_IMAGE_API_MODE=images
-GPT_IMAGE_MODEL=gpt-image-2
-```
-
-可选变量：
-
-```text
-GPT_IMAGE_PROVIDER=<optional-provider-name>
-GPT_IMAGE_PERMISSION_CODE=<optional-permission-code>
-```
-
-`GPT_IMAGE_API_STYLE` 是旧变量名，仍兼容；新配置优先使用 `GPT_IMAGE_API_MODE`，可选值为 `responses`、`images`、`auto`。
 
 ### 4. 官方 OpenAI 调用
 
@@ -508,80 +489,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 如果官方链路或当前 runtime 不能上传人物基准图，先停在 prompt-only 或命令建议，不要绕过基准图硬门槛。
 
-### 5. 第三方中转站调用
-
-推荐第三方中转站平台：[NangeAI](https://nangeai.top/)。
-
-第三方中转站可以是企业网关、私有代理或兼容 OpenAI 图片接口的平台。配置时以你购买或部署的中转站文档为准。
-
-如果中转站文档提供 `/v1/images/edits`，并支持 `multipart/form-data` 上传 `image`，优先使用：
-
-```text
-GPT_IMAGE_API_MODE=images
-```
-
-首次配置后，先探测 endpoint：
-
-```bash
-node scripts/xinghe_image_assets_cli.js probe \
-  --mode proxy \
-  --api-mode auto \
-  --base-url "$GPT_IMAGE_BASE_URL" \
-  --model gpt-image-2
-```
-
-再做零成本检查：
-
-```bash
-node scripts/xinghe_image_assets_cli.js inspect \
-  --mode proxy \
-  --api-mode images \
-  --model gpt-image-2 \
-  --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
-  --prompt "<final cover prompt>" \
-  --output "outputs/xinghe-illustration-packs/<date-slug>/images/xhs-cover-a.png" \
-  --size 1024x1536 \
-  --quality high
-```
-
-真实生成小红书封面示例：
-
-```bash
-node scripts/xinghe_image_assets_cli.js generate \
-  --mode proxy \
-  --api-mode images \
-  --model gpt-image-2 \
-  --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
-  --prompt "Generate one 3:4 Xiaohongshu cover in Xinghe IP style..." \
-  --output "outputs/xinghe-illustration-packs/demo-xhs-cover/images/xhs-cover-a.png" \
-  --size 1024x1536 \
-  --quality high \
-  --background opaque \
-  --output-format png
-```
-
-真实生成微信公众号封面示例：
-
-```bash
-node scripts/xinghe_image_assets_cli.js generate \
-  --mode proxy \
-  --api-mode images \
-  --model gpt-image-2 \
-  --base-url "$GPT_IMAGE_BASE_URL" \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/15-wechat-left-title-right-action.png" \
-  --prompt "Generate one 2.35:1 WeChat article cover in Xinghe IP style..." \
-  --output "outputs/xinghe-illustration-packs/demo-wechat-cover/images/wechat-cover-a.png" \
-  --size 2048x1152 \
-  --quality high \
-  --background opaque \
-  --output-format png
-```
-
-当命令包含 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 会把 Images API 请求切到 `/v1/images/edits` 并发送 multipart。没有图片参数时通常会走 `/v1/images/generations` 的纯 JSON 请求，这类纯文本生图不能用于合格星禾 IP 图。
-
-### 6. 推荐验证顺序
+### 5. 推荐验证顺序
 
 1. 检查脚本语法：
 
@@ -589,25 +497,14 @@ node scripts/xinghe_image_assets_cli.js generate \
 node --check scripts/xinghe_image_assets_cli.js
 ```
 
-2. 用 `inspect` 检查参数、参考图、endpoint 和输出路径，不请求 API。
-3. 用 `probe` 检查中转站兼容性。
-4. 确认密钥和 endpoint 后，再运行 `generate`。
+2. 用 `inspect` 检查参数、参考图和输出路径，不请求 API。
+3. 确认密钥和输出路径后，再运行 `generate`。
 
-### 7. 常见问题
+### 6. 常见问题
 
 **为什么必须传人物基准图？**
 
 星禾是固定个人 IP，单靠文字描述容易漂移。人物基准图负责脸、发型、服饰和气质，场景参考图只负责构图和留白。
-
-**官方 OpenAI 和第三方中转站怎么选？**
-
-能直接使用官方 OpenAI 时，优先官方链路；如果你的网络、预算或团队规范要求走代理，就用第三方中转站。无论哪条链路，都必须确认能上传人物基准图。
-
-**为什么中转站经常建议 `--api-mode images`？**
-很多中转站先兼容 `/v1/images/generations` 和 `/v1/images/edits`。星禾图需要上传参考图，所以更常用 `/v1/images/edits` multipart。
-
-**如果中转站只支持 `/v1/images/generations` 呢？**
-这通常只能纯文本生图，不适合生成稳定星禾 IP。可以输出 prompt 给用户人工处理，或换支持图片参考输入的 endpoint。
 
 ---
 
@@ -648,9 +545,9 @@ node --check scripts/xinghe_image_assets_cli.js
 - `references/prompt-template-images-api.md`：旧版 Images API 精简 prompt 模板
 - `references/qa-checklist.md`：生成后检查与返工规则
 - `references/image-generation-runtime.md`：CLI 调用、dry-run、manifest 和失败处理
-- `references/access-modes.md`：official/proxy、环境变量和安全边界
+- `references/access-modes.md`：官方调用、环境变量和安全边界
 - `references/reference-images.md`：风格参考图和星禾 IP 锚定规则
-- `scripts/xinghe_image_assets_cli.js`：真实生图、inspect、probe、manifest 和断点续跑 CLI
+- `scripts/xinghe_image_assets_cli.js`：真实生图、inspect、manifest 和断点续跑 CLI
 
 ---
 
