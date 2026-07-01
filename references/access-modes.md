@@ -12,7 +12,7 @@
 - `official` 默认 `--api-mode responses`。
 - `proxy` 默认 `--api-mode auto`：先尝试 Responses API，失败或未返回 base64 图片时回退 Images API。
 - 明确知道代理只支持 `/v1/images/generations` 或 `/v1/images/edits` 时，直接使用 `--api-mode images` 或设置 `GPT_IMAGE_API_MODE=images`。
-- 真实星禾图优先选择能上传参考图的模式；不能上传 `assets/examples/00-xinghe-ip-baseline.png` 时，不做真实生成。
+- 含人物的真实星禾图优先选择能上传参考图的模式；不能上传 `assets/examples/00-xinghe-ip-baseline.png` 时，不做含人物真实生成。明确 `no-character` 的结构图可按无人物结构图处理。
 
 ## 配置放在哪里
 
@@ -138,7 +138,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 https://api.openai.com/v1/responses
 ```
 
-注意：如果当前官方调用链路或所在 runtime 不能把人物基准图作为图片参考输入传入，就不要真实生成星禾图，只输出 prompt/命令建议。
+注意：如果当前官方调用链路或所在 runtime 不能把人物基准图作为图片参考输入传入，就不要真实生成含人物的星禾图，只输出 prompt/命令建议。无人物结构图不声称人物一致即可。
 
 ## proxy
 
@@ -221,7 +221,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 ## 星禾图强制参考图
 
-选择访问模式时，优先选择能上传参考图的模式。真实星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`；如果某个 provider 只能纯文本生成、不能使用 `/v1/images/edits` 或等价参考图输入，就不能用于合格星禾图生成。
+选择访问模式时，优先选择能上传参考图的模式。含人物的真实星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`；如果某个 provider 只能纯文本生成、不能使用 `/v1/images/edits` 或等价参考图输入，就不能用于合格星禾人物图生成。明确 `no-character` 的技术架构图或流程图可作为星禾风格结构图处理。
 
 正文配图参考图从 `assets/examples/01-14-*.png` 中选；微信公众号封面和小红书笔记封面从 `assets/examples/15-20-*.png` 中选。封面任务不要把正文配图构图硬套到封面上。
 

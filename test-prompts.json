@@ -40,6 +40,16 @@
         "expected":  "识别为 explanatory-diagram 或 infographic-poster 候选，而不是默认 diagram-fallback；说明星禾作为结构中的操作者，推荐 4:3 或 3:4。"
     },
     {
+        "id":  "technical-architecture-small-character",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把一个包含用户输入、内容清洗、LLM 生成、人工审核、图片生成、发布包归档的系统说明做成技术架构图候选方向。",
+        "expected":  "识别为 technical-architecture；输出节点、边、层级、information_goal、node_count、edge_style；人物呈现使用 small-character、partial-character 或 no-character，不要求完整星禾人物。"
+    },
+    {
+        "id":  "process-flow-partial-or-no-character",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把公众号文章转小红书发布包的流程做成流程图：读取原文、提炼观点、生成标题、生成正文、生成配图建议、人工审核、发布归档。",
+        "expected":  "识别为 process-flow；主流程清楚，回流/人工审核点清楚；人物可以小、局部或不出现；不把流程图降级为普通正文配图。"
+    },
+    {
         "id":  "comic-strip-validation",
         "prompt":  "Use $xinghe-illustrations-skill 判断下面内容是否适合四格漫画：一开始只会临时问 AI，后来把每次产出沉淀进 rules、skills 和 issue log，最后形成可复用工作区。只给方案。",
         "expected":  "先判断是否有因果和转折；如适合，输出 3-4 格漫画方案，每格推进含义；如不适合，说明降级为解释图。"

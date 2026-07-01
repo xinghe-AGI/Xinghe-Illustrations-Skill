@@ -19,6 +19,8 @@
 | `platform-cover` 公众号封面 | 3 | 标题强表达、人物动作强表达、留白/品牌感强表达 |
 | `platform-cover` 小红书封面 | 3 | 大字标题强表达、底部星禾动作强表达、关键词强调强表达 |
 | `knowledge-card-pack` | 先定卡片数，再为关键卡给 2-3 个方向 | 默认 5-9 张卡，关键卡可多候选 |
+| `technical-architecture` | 1-2 | 一个偏架构清晰，一个偏阅读友好；人物默认小、局部或不出现 |
+| `process-flow` | 1-2 | 一个偏流程顺序，一个偏关键回流/检查点；人物默认小、局部或不出现 |
 | `comic-strip` | 1-2 | 先验证每格是否推进意义 |
 | `infographic-poster` | 1-2 | 默认最多真实生成 1 张 |
 | 快速任务或省成本 | 1 | 用户明确要快、要少、只要最终图时使用 |
@@ -29,13 +31,14 @@
 
 - 候选编号：`A`、`B`、`C`
 - 核心隐喻：这张图用什么低科技物件或动作承载主题
-- 星禾动作：星禾正在亲手解决什么问题
+- 星禾动作或人物呈现等级：`full-character`、`small-character`、`partial-character`、`no-character`
 - 构图：标题/人物/物件的位置关系
 - 中文标注：最多 5-8 个短词
 - 推荐参考图：人物基准图 + 1 张正文或封面参考图
 - 适用原因：为什么这个方向值得生成
 - 建议比例：3:4、4:3、1:1、2.35:1 或 16:9
 - 生成文件名：如 `card-02-a.png`、`comic-01-a.png`、`poster-a.png`
+- 结构字段：技术架构图/流程图必须写 `node_count`、`edge_style`、`information_goal`
 
 ## 输出规则
 
@@ -47,8 +50,8 @@
 
 ## Diagram fallback
 
-`diagram-fallback` 的判定在 `cognitive-anchor-routing.md` 完成。本文件只规定候选输出：
+`diagram-fallback` 只在技术架构图或流程图仍无法清晰表达时使用。本文件只规定候选输出：
 
-- 说明“不建议做星禾 IP 图”的原因：精确技术拓扑、数据库依赖、权限流或强关系节点过多。
-- 给出结构图 prompt、Mermaid/Excalidraw 方向，或建议拆成多张星禾图。
-- 如果用户坚持星禾风格，只画一个“理解复杂系统的场景瞬间”，不要画完整架构。
+- 说明“不建议直接生成为单张图”的原因：节点超过 9 个、强关系过多、需要工程精确、状态机复杂或权限路径必须可审计。
+- 优先建议拆成多张 `technical-architecture` / `process-flow` 图，或输出 Mermaid/Excalidraw 方向。
+- 如果用户坚持星禾风格，优先使用 `small-character`、`partial-character` 或 `no-character`，不要画成大人物装饰图。

@@ -12,7 +12,7 @@
 | 内容信号 | 观点、步骤、冲突、案例、数据、情绪、总结 |
 | 读者卡点 | 非专业读者可能不理解、记不住或误判的地方 |
 | 配图判断 | `适合配图` / `不适合配图` / `适合卡片` / `适合封面` |
-| 推荐路由 | `emotion-anchor`、`explanatory-diagram`、`comic-strip`、`knowledge-card-pack`、`knowledge-card-single`、`infographic-poster`、`platform-cover`、`xinghe-article`、`prompt-only` |
+| 推荐路由 | `emotion-anchor`、`explanatory-diagram`、`technical-architecture`、`process-flow`、`comic-strip`、`knowledge-card-pack`、`knowledge-card-single`、`infographic-poster`、`platform-cover`、`xinghe-article`、`prompt-only` |
 | 理由 | 为什么画，或为什么不画 |
 
 双向原则：
@@ -37,12 +37,21 @@
 | `platform-cover` | 文章第一眼点击、公众号封面、小红书首图 | 不要把正文图硬拉成封面 |
 | `emotion-anchor` | 情绪冲突强、误区真相强、理想现实反差强 | 不要只画表情包 |
 | `explanatory-diagram` | 抽象概念、因果、步骤、轻结构、机制解释 | 不要做冷冰冰 PPT |
+| `technical-architecture` | 系统组件、服务边界、数据流、模块依赖、部署关系、权限边界 | 不要为了人物牺牲节点关系 |
+| `process-flow` | SOP、自动化流程、审批流、状态流、内容生产流程、任务流 | 不要把长流程硬塞进一张小卡 |
 | `comic-strip` | 有因果、累积、转折、前后变化、节奏感 | 如果删一格不影响理解，就降级 |
 | `knowledge-card-pack` | 长文需要轮播卡、收藏卡、文章总结卡 | 不要把全文硬塞进一张图 |
 | `knowledge-card-single` | 单观点、单流程、单对比、单清单 | 不要把卡片当普通插画 |
 | `infographic-poster` | 整篇流程、矩阵、地图或全局总览 | 默认最多一张 |
 | `xinghe-article` | 常规正文锚点图，适合一图一概念 | 不要自动默认为 16:9 |
 | `prompt-only` | 用户只要提示词，或无法上传人物基准图 | 不要假装已经生成 |
+
+技术架构图、流程图和高密度知识卡片要额外判断人物呈现等级：
+
+- `full-character`：封面、情绪图、正文锚点图，人物承担主要动作。
+- `small-character`：解释图、流程图、架构图，人物只做标注、指向、接线。
+- `partial-character`：知识卡片、流程节点密集图，只露手、半身或侧影。
+- `no-character`：结构精确或信息密度高，人物会干扰理解；输出为星禾风格结构图。
 
 ## 来源锁定
 

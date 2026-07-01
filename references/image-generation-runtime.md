@@ -4,11 +4,11 @@
 
 ## 人物基准图硬门槛
 
-真实生成星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`。优先通过 `--style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"` 同时传入人物基准图和场景/封面参考图。
+含星禾人物、手部、半身或侧影的真实生成必须上传 `assets/examples/00-xinghe-ip-baseline.png`。优先通过 `--style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"` 同时传入人物基准图和场景/封面参考图。明确 `no-character` 的技术架构图或流程图可以不上传人物基准图，但不要声称生成了人物一致的星禾图。
 
 - 正文配图：第二张参考图从 `assets/examples/01-14-*.png` 中选。
 - 微信公众号封面、小红书笔记封面、文章头图：第二张参考图从 `assets/examples/15-20-*.png` 中选。
-- 没有人物基准图、路径不存在、endpoint 不支持图片输入、或命令没有图片参考参数时，不要调用真实生图，只输出 prompt/命令建议和阻塞原因。
+- 含人物任务没有人物基准图、路径不存在、endpoint 不支持图片输入、或命令没有图片参考参数时，不要调用真实生图，只输出 prompt/命令建议和阻塞原因。
 
 ## 最小前置
 

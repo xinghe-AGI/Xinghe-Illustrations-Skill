@@ -9,6 +9,7 @@
 | 路由 | 使用模板 |
 |---|---|
 | `xinghe-article` / `emotion-anchor` / `explanatory-diagram` | 顶部“通用单图模板” |
+| `technical-architecture` / `process-flow` | “技术架构图与流程图模板” |
 | `knowledge-card-single` | “知识卡片模板” |
 | `comic-strip` | “多格漫画模板” |
 | `infographic-poster` | “信息图海报模板” |
@@ -25,8 +26,8 @@ Generate one standalone {aspect_ratio} Chinese content visual in Xinghe IP style
 Visual DNA:
 Pure white background. Crayon line art with visible grain and slightly wobbly hand-drawn strokes. Lots of empty white space. Sparse red/orange/blue handwritten Chinese annotations. Bright creator-note and social-ops whiteboard sketch feeling, friendly but restrained, clean and easy to understand. No gradients, no shadows, no paper texture, no complex background, no commercial vector style, no cold PPT-template look, no cute mascot poster, no children's illustration, no realistic UI, no yellow background.
 
-Recurring IP character required:
-星禾, a young woman personal IP matching the baseline character reference: long black slightly wavy crayon hair, light airy bangs, round bright focused eyes, gentle small smile, oversized white zip hoodie, dark navy sailor collar top with white stripes, white neckerchief, and dark navy pleated skirt. Draw her with crayon texture, black or dark navy layered hair strokes, simple non-realistic facial features, subtle warm cheek color, and blue-black hoodie folds, zipper, and cuff linework. A small transparent glass inspiration bottle with tiny star ideas is her key memory prop when relevant. 星禾 must perform the core action, not decorate the scene. Make her energetic, warm, reliable, and clear-minded, not childish, not over-cute, and not a realistic portrait.
+Character presence:
+{full-character / small-character / partial-character / no-character}. For article illustrations, covers, emotional anchors, and comics, use full-character unless the user asks otherwise. For technical architecture, process flow, and dense knowledge cards, prefer small-character, partial-character, or no-character. If any Xinghe character, hand, half body, or side silhouette appears, match the baseline character reference: long black slightly wavy crayon hair, light airy bangs, round bright focused eyes, gentle small smile, oversized white zip hoodie, dark navy sailor collar top with white stripes, white neckerchief, and dark navy pleated skirt. If no-character is selected, do not draw a human; keep Xinghe-style white-background crayon notes, hand-drawn labels, orange main path, blue feedback/data lines, and red risk markers.
 
 Action rule:
 Choose Xinghe's pose from the image meaning, not from a fixed default. Use the inspiration bottle only for inspiration-capture scenes. For blocked flows, make her move the blockage or reconnect the broken line. For classification, make her sort cards. For automation, make her plug in cables or press a button. For trust or evidence, make her lay evidence cards, inspect them, or build a small bridge. Never keep the same raised-bottle pose across unrelated images.
@@ -35,19 +36,19 @@ Theme:
 {正文配图主题}
 
 Visual route:
-{路由：xinghe-article / emotion-anchor / explanatory-diagram / comic-strip / knowledge-card-single / infographic-poster}
+{路由：xinghe-article / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card-single / infographic-poster}
 
 Illustration type:
-{图型：concept / process / comparison / data / scene / metaphor / handoff / review-loop / emotion-anchor / explanatory-diagram / comic-strip / knowledge-card}
+{图型：concept / process / comparison / data / scene / metaphor / handoff / review-loop / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card}
 
 Structure type:
-{结构类型：灵感生产小装置 / 内容流水线 / 运营白板 / 自动化小盒子 / 内容日历 / 复盘回流 / 多形态内容 / 清醒判断 / 小分镜 / 左右对比 / 知识卡片 / 信息地图}
+{结构类型：灵感生产小装置 / 内容流水线 / 运营白板 / 自动化小盒子 / 内容日历 / 复盘回流 / 多形态内容 / 清醒判断 / 小分镜 / 左右对比 / 知识卡片 / 信息地图 / 分层架构 / 数据流 / 状态流 / SOP 流程 / 输入-处理-输出}
 
 Core idea:
 {这张图要表达的核心意思}
 
 Composition:
-{具体画面：星禾在哪里、正在做什么、她的动作如何解决这张图的核心问题、主要物件是什么、信息如何流动}
+{具体画面：信息结构如何布局；如有人物，星禾在哪里、正在做什么、她的动作如何帮助理解；如无人物，说明节点、层级、路径、反馈线和风险标注如何组织}
 
 Suggested elements:
 {元素1} / {元素2} / {元素3} / {元素4}
@@ -73,6 +74,7 @@ One image explains one core information goal. Xinghe's body pose and hand action
 |---|---|---|---|
 | 知识卡片 / 小红书轮播 | 3:4 | 1024x1536 或等比 | 移动端可读优先 |
 | 解释图 / 左右对比 | 4:3 | 1536x1152 或等比 | 结构清楚，手机端仍可读 |
+| 技术架构图 / 流程图 | 4:3 或 16:9 | 1536x1152 / 1792x1024 或等比 | 结构关系优先，人物可小或不出现 |
 | 单概念卡片 | 1:1 | 1024x1024 | 摘要卡、方形社媒图 |
 | 正文横图 | 16:9 | 1536x1024 | 横向阅读更清楚时使用 |
 | 公众号封面 | 2.35:1 | 1792x768 或等比 | 保留标题区空间，但不要做商业海报 |
@@ -97,14 +99,52 @@ Title: "{卡片标题}"
 Bullets: "{要点1}" / "{要点2}" / "{要点3}" / "{可选要点4}"
 Bottom note: "{可选底部总结}"
 
-Xinghe action:
-星禾 matches the baseline character reference. She is {整理卡片 / 贴标题 / 称量两侧观点 / 接通流程线 / 圈出重点 / 把混乱信息收进卡片盒}. She must guide the knowledge structure, not decorate it.
+Character presence:
+{full-character / small-character / partial-character / no-character}. For cover card use full-character or small-character. For overview, flow, comparison, architecture, or dense checklist cards, prefer small-character, partial-character, or no-character. If Xinghe appears, she matches the baseline character reference and is {整理卡片 / 贴标题 / 称量两侧观点 / 接通流程线 / 圈出重点 / 把混乱信息收进卡片盒}. If no-character, keep the structure clean and readable without adding any human.
 
 Composition:
 {上标题 + 中部 3 点卡片 + 底部总结条 / 左右对比 + 中间星禾称量 / 顶部结论 + 中部流程 + 底部提醒}. Keep all text large enough for phone reading.
 
 Constraints:
 Do not copy reference image text, character, watermark, brand, or color scheme. Do not put paragraphs into the card. If text is too long, split into multiple cards.
+```
+
+## 技术架构图与流程图模板
+
+```text
+Generate one standalone {4:3 / 16:9 / 3:4} Chinese {technical architecture diagram / process flow diagram} in Xinghe visual style.
+
+Visual DNA:
+Pure white background, crayon line art, hand-drawn boxes and arrows, clean technical readability, not a PPT template, not a realistic UI screenshot, not a commercial tech poster. Use orange for main flow, blue for data/feedback/status lines, red for risk/failure/permission markers, black or dark navy for nodes and labels.
+
+Route:
+{technical-architecture / process-flow}
+
+Information goal:
+{读者看完要理解什么}
+
+Structure type:
+{分层架构 / 数据流 / 状态流 / SOP 流程 / 自动化链路 / 输入-处理-输出}
+
+Nodes:
+{节点1} / {节点2} / {节点3} / {节点4} / {可选节点5-9}
+
+Edges:
+Main flow: {主路径}
+Feedback or state lines: {可选}
+Risk or manual check points: {可选}
+
+Character presence:
+{small-character / partial-character / no-character}. Default to small or partial character only if it helps comprehension. Xinghe may be tiny in a corner, pointing at a boundary, holding a label, connecting one cable, or only showing one hand placing a tag. If no-character, draw no human and keep the Xinghe-style white crayon note aesthetic.
+
+Chinese labels:
+Use only short source-locked labels. Node labels should be 2-8 Chinese characters when possible. Do not add long explanations inside nodes.
+
+Composition:
+{分层布局 / 左到右流程 / 上到下流程 / 中央系统 + 周边输入输出 / 泳道式流程}. Keep node spacing generous. Preserve readable hierarchy. Do not let any character cover nodes or arrows.
+
+Constraints:
+No real app screenshot, no real UI, no logo, no QR code, no token, no secret, no fake metrics. Do not invent system components. If the diagram needs more than 9 strong relationship nodes, split into multiple diagrams or suggest Mermaid/Excalidraw.
 ```
 
 ## 多格漫画模板
@@ -244,7 +284,11 @@ This should look like a personal method note cover, not a marketing poster. One 
           "id": "A",
           "direction": "标题强表达 / 人物动作强表达 / 留白品牌感 / 正文隐喻方向 / 解释图方向 / 知识卡片方向 / 多格漫画方向",
           "core_metaphor": "把卡住的内容流重新接回轨道",
+          "character_presence": "small-character",
           "xinghe_action": "星禾正在接线并把卡住的内容卡放回轨道",
+          "information_goal": "读者理解流程如何重新跑通",
+          "node_count": 3,
+          "edge_style": "橙色主流程，蓝色反馈线，红色断点",
           "composition": "星禾在画面右侧，左侧留出短标注和流程入口",
           "chinese_labels": ["卡点", "接回", "复盘"],
           "reference_images": [
@@ -261,6 +305,7 @@ This should look like a personal method note cover, not a marketing poster. One 
           "id": "B",
           "direction": "另一个独立视觉方向",
           "core_metaphor": "把散落卡片收进一个小工作台",
+          "character_presence": "partial-character",
           "xinghe_action": "星禾正在整理卡片并贴上简短标签",
           "composition": "中心低科技工作台，四周大量留白",
           "chinese_labels": ["选题", "生产", "发布"],
