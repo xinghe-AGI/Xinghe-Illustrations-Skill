@@ -1,17 +1,17 @@
-# 星禾内容配图
+# 星禾内容视觉资产 Skill
 
-> 把中文内容里的判断、流程、灵感和运营闭环，转化成“星禾”个人 IP 风格的正文配图。
+> 把中文内容里的判断、流程、情绪、知识结构和运营闭环，转化成“星禾”个人 IP 风格的封面、正文图、解释图、知识卡片和信息图。
 > 这是适合所有 Agent 的统一版本：策略、prompt-only、参考图约束生图和 API/CLI 生成都在一个 skill 内完成。
 
 ---
 
 ## 这个 Skill 做什么
 
-星禾内容配图是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记和方法论内容生成正文配图、平台封面、情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片、信息图海报、提示词和 manifest，或在 API key/endpoint 可用时通过内置 Node CLI 生成最终 PNG 图片。
+星禾内容视觉资产 Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记和方法论内容生成正文配图、平台封面、情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片、信息图海报、提示词和 manifest，或在 API key/endpoint 可用时通过内置 Node CLI 生成最终 PNG 图片。
 
 它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：先理解内容里的关键认知动作，再判断这段内容适合封面、情绪图、解释图、漫画、知识卡片还是正文配图，然后把一个判断、流程、状态或隐喻，画成星禾正在亲手参与的轻盈现场。
 
-这个仓库是唯一保留的星禾内容配图 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI 或第三方兼容图片接口。
+这个仓库是唯一保留的星禾内容视觉资产 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI 或第三方兼容图片接口。
 
 ---
 
@@ -29,6 +29,19 @@
 - **条件化结构处理**：轻量机制可以做解释图、卡片或信息图；精确技术拓扑才建议 diagram fallback 或 prompt-only。
 - **中文文字铁律**：标题、术语、数字来自原文或用户确认；错字优先重生或减少文字，不做代码涂改。
 - **视觉学习日志**：当人工确认某张图效果好时，可沉淀为学习日志条目，后续再决定是否升级成长期规则。
+
+---
+
+## 推荐工作流
+
+默认不要一上来直接生图。推荐按下面顺序推进：
+
+1. **读内容**：读取文章、Markdown、截图、标题或主题，提炼文体、真意、张力、灵魂句和必须保留的术语/数字。
+2. **做路由**：逐节判断哪些地方值得画，决定走正文图、封面、情绪图、解释图、多格漫画、知识卡片组、单张知识卡片或信息图海报。
+3. **给候选**：先输出 A/B/C 候选方向，每个候选都写清核心隐喻、星禾动作、构图、中文标注、参考图、比例和文件名。
+4. **写 prompt/manifest**：用户确认方向后，再输出完整 prompt 或批量生成 manifest。
+5. **真实生成**：只有在用户明确授权外部上传风险，并且 API/endpoint 能上传人物基准图时，才调用 Node CLI 生成 PNG。
+6. **检查返工**：生成后检查星禾是否参与核心动作、中文是否可读、信息层级是否适合手机端、是否有错字/水印/品牌误用。
 
 ---
 
@@ -55,7 +68,7 @@
 | 参考图 | 用途 |
 |---|---|
 | `assets/examples/00-xinghe-ip-baseline.png` | 锁定星禾人物脸、发型、服饰和气质 |
-| `assets/examples/01-14-*.png` | 参考正文配图的构图、动作、留白、线条和批注密度 |
+| `assets/examples/01-14-*.png` | 参考正文锚点、解释图、知识卡片、轻分镜和信息图海报的构图、动作、留白、线条和批注密度 |
 | `assets/examples/15-20-*.png` | 参考微信公众号文章封面和小红书笔记封面的标题区、人物区、安全边距和排版关系 |
 
 通过 Node CLI 生成时，优先使用：
@@ -241,6 +254,19 @@
 | 学习日志 | 用户确认某张图效果好后，生成可写入学习日志的条目建议 | 否 |
 | inspect/dry-run | 调试参数、检查参考图和覆盖风险 | 否 |
 | 改图提示 | 修改已有图片、纠正不符合 QA 的结果 | 视用户要求 |
+
+### 视觉形态怎么选
+
+| 形态 | 优先使用场景 | 不适合场景 |
+|---|---|---|
+| 正文锚点图 | 文章中一个判断、动作、转折、场景瞬间 | 需要承载整篇文章全部信息 |
+| 情绪锚点图 | 痛点、误区、理想现实反差、压力和卡点 | 纯步骤教程或精确流程 |
+| 解释图 | 抽象概念、轻量机制、因果链、3-5 步流程 | 数据库拓扑、权限流、复杂技术依赖 |
+| 多格漫画 | 有明显前后变化、累积、转折或因果推进 | 每格只是重复同一个观点 |
+| 知识卡片组 | 长文总结、小红书轮播、方法论拆解 | 只需要一张封面或一个情绪瞬间 |
+| 单张知识卡 | 单观点、单流程、单对比、单清单 | 信息超过手机端单屏可读范围 |
+| 信息图海报 | 整篇流程、矩阵、地图式总览 | 把全文原文硬塞进一张图 |
+| 平台封面 | 公众号头图、小红书首图、文章封面 | 正文里解释复杂机制 |
 
 ### 正文配图多候选
 
@@ -463,7 +489,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png"
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic-a.png"
 ```
 
 真实生成：
@@ -474,7 +500,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --api-mode responses \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
   --prompt "<final image prompt>" \
-  --output "assets/<article-slug>-illustrations/01-topic.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic-a.png" \
   --size 1536x1024 \
   --quality high \
   --output-format png
@@ -514,7 +540,7 @@ node scripts/xinghe_image_assets_cli.js inspect \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
   --prompt "<final cover prompt>" \
-  --output "assets/<article-slug>-covers/xhs-cover.png" \
+  --output "outputs/xinghe-illustration-packs/<date-slug>/images/xhs-cover-a.png" \
   --size 1024x1536 \
   --quality high
 ```
@@ -529,7 +555,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/18-xhs-typed-title-bottom-xinghe.png" \
   --prompt "Generate one 3:4 Xiaohongshu cover in Xinghe IP style..." \
-  --output "assets/demo-covers/xhs-cover.png" \
+  --output "outputs/xinghe-illustration-packs/demo-xhs-cover/images/xhs-cover-a.png" \
   --size 1024x1536 \
   --quality high \
   --background opaque \
@@ -546,7 +572,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --base-url "$GPT_IMAGE_BASE_URL" \
   --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/15-wechat-left-title-right-action.png" \
   --prompt "Generate one 2.35:1 WeChat article cover in Xinghe IP style..." \
-  --output "assets/demo-covers/wechat-cover.png" \
+  --output "outputs/xinghe-illustration-packs/demo-wechat-cover/images/wechat-cover-a.png" \
   --size 2048x1152 \
   --quality high \
   --background opaque \
@@ -616,7 +642,7 @@ node --check scripts/xinghe_image_assets_cli.js
 - `references/output-spec.md`：输出包目录、prompts.json 和 manifest 规范
 - `references/xinghe-ip.md`：星禾形象、动作库和禁忌
 - `references/illustration-selection.md`：智能选点、图型分类和 prompt-only 模式
-- `references/visual-routing-and-candidates.md`：视觉路由、多候选方向和条件化结构处理规则
+- `references/visual-routing-and-candidates.md`：路由确定后的候选数量、候选字段和真实生成确认规则
 - `references/visual-learning-log.md`：人工确认好图后的视觉经验沉淀
 - `references/prompt-template.md`：生图和改图提示词模板
 - `references/prompt-template-images-api.md`：旧版 Images API 精简 prompt 模板
