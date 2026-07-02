@@ -19,11 +19,17 @@
 
 - **逐节配图判断**：先按小节判断适合配图、不适合配图、适合卡片还是适合封面，不按标题平均配图。
 - **深度提炼**：提炼文体、真意、张力、灵魂句和必须出现的原文术语/数字。
+- **文章类型策略**：先识别方法论、项目复盘、技术说明、观点文章、工具介绍、故事型文章等类型，再给默认视觉策略。
+- **路由评分标准**：给候选图型打 1-5 分，输出理由、风险和输出角色，再决定主路由和辅助路由。
 - **自主视觉路由**：读完文章后自动判断主路由和辅助路由，支持 `emotion-anchor`、`explanatory-diagram`、`technical-architecture`、`process-flow`、`comic-strip`、`knowledge-card-pack`、`knowledge-card-single`、`infographic-poster`、`platform-cover` 和常规正文图。
 - **混合路由编排**：支持 `comic-strip + emotion-anchor`、`infographic-poster + knowledge-card-pack`、`knowledge-card-single + explanatory-diagram`、`process-flow + knowledge-card-pack` 等组合，但会明确主次和拆图边界。
 - **多候选方向**：正文配图默认每个选点给 2 个候选方向，重点图可给 3 个；公众号封面和小红书封面默认给 3 个方向。
 - **知识卡片生产**：支持横版/竖版知识卡片组、单张总结卡、对比卡、流程卡、架构卡和清单卡；多个相关知识点可以放进同一卡，但必须有并列、因果、流程、分层、汇聚、决策或对比关系；按内容排版和发布场景选择 `4:3`、`16:9`、`3:4` 或 `1:1`。
+- **卡片组叙事结构**：支持“问题-原因-方法-案例-总结”“误区-真相-做法-检查-收藏”等卡片组阅读路径。
+- **文字密度分级**：按图型控制文字量；封面极低、情绪图低、解释图中等、知识卡中高、信息图高密度但必须分区。
 - **高密度信息图**：信息图海报允许承载较多文章信息，但必须短标签化、分区化、有清晰阅读路径；信息过多时拆成知识卡片组。
+- **失败回收策略**：针对人物漂移、错字、太挤、太散、太像 PPT 等问题给出返工动作和重写 prompt。
+- **样例任务包**：提供方法论、技术说明、项目复盘、小红书首图和高密度文章的 dry-run 样例。
 - **技术结构表达**：支持技术架构图、流程图、节点关系图、SOP 流程和自动化链路图。
 - **平台封面适配**：支持微信公众号 2.35:1 封面、小红书 3:4 封面、文章头图和正文配图。
 - **星禾 IP 稳定性**：含人物的真实生图必须传入人物基准图，并搭配正文或封面参考图，减少人物漂移。
@@ -40,11 +46,13 @@
 默认不要一上来直接生图。推荐按下面顺序推进：
 
 1. **读内容**：读取文章、Markdown、截图、标题或主题，提炼文体、真意、张力、灵魂句和必须保留的术语/数字。
-2. **做路由**：逐节判断哪些地方值得画，自主选择 `primary_route` 和 `secondary_routes`，决定走正文图、封面、情绪图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片、信息图海报或混合路由。
-3. **给候选**：先输出 A/B/C 候选方向，每个候选都写清核心隐喻、星禾动作、构图、中文标注、参考图、比例和文件名。
-4. **写 prompt/manifest**：用户确认方向后，再输出完整 prompt 或批量生成 manifest。
-5. **真实生成**：只有在用户明确授权外部上传风险，并且 API/endpoint 能上传任务所需参考图时，才调用 Node CLI 生成 PNG；含人物图必须能上传人物基准图。
-6. **检查返工**：生成后检查星禾是否参与核心动作、中文是否可读、信息层级是否适合手机端、是否有错字/水印/品牌误用。
+2. **判类型**：识别 `article_type`、可信度、类型信号和默认视觉策略。
+3. **做评分**：按 1-5 分给候选路由评分，输出理由、风险和输出角色。
+4. **做路由**：自主选择 `primary_route` 和 `secondary_routes`，决定走正文图、封面、情绪图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片、信息图海报或混合路由。
+5. **给候选**：先输出 A/B/C 候选方向，每个候选都写清核心隐喻、星禾动作、构图、中文标注、文字密度、参考图、比例和文件名。
+6. **写 prompt/manifest**：用户确认方向后，再输出完整 prompt 或批量生成 manifest。
+7. **真实生成**：只有在用户明确授权外部上传风险，并且 API/endpoint 能上传任务所需参考图时，才调用 Node CLI 生成 PNG；含人物图必须能上传人物基准图。
+8. **检查返工**：生成后检查星禾是否参与核心动作、中文是否可读、信息层级是否适合手机端、是否有错字/水印/品牌误用；失败时按失败回收策略返工。
 
 ---
 
@@ -55,6 +63,19 @@
 ```json
 {
   "routing_decision": {
+    "article_type": "方法论文章",
+    "article_type_confidence": "high",
+    "type_signals": ["有框架", "有步骤", "有适用条件"],
+    "default_visual_strategy": ["knowledge-card-pack", "infographic-poster"],
+    "route_scores": [
+      {
+        "route": "infographic-poster",
+        "score": 5,
+        "reason": "文章需要全局地图",
+        "risk": "信息过密、文字过小",
+        "output_role": "主输出"
+      }
+    ],
     "primary_route": "infographic-poster",
     "secondary_routes": ["knowledge-card-pack"],
     "information_density": "high",
@@ -72,7 +93,11 @@
           "primary_route": "knowledge-card-single",
           "secondary_routes": ["explanatory-diagram"],
           "information_density": "medium",
+          "text_density_level": "medium",
+          "text_budget": "1 标题 + 4 要点 + 1 底部总结",
+          "text_overflow_plan": "超过 5 个要点时拆成第二张卡",
           "knowledge_relation": "流程 / 因果 / 分层 / 输入汇聚 / 决策分流 / 左右对比",
+          "card_pack_narrative": "总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡",
           "composition_pattern": "左因右果路径卡",
           "layout_flow": "左侧问题 -> 中间机制 -> 右侧结果",
           "character_presence": "small-character",
@@ -89,10 +114,12 @@
 
 - `primary_route`：这张图最主要的视觉形态。
 - `secondary_routes`：辅助表达方式，没有则为空数组。
+- `route_scores`：候选图型评分，包含分数、理由、风险和输出角色。
 - `information_density`：信息密度，取 `low`、`medium` 或 `high`。
 - `recommended_outputs`：建议最终生成哪些图，而不是盲目按小节凑图。
 - `route_risks`：提前暴露可能失败的点，例如信息过密、情绪过火、人物遮挡结构。
 - `knowledge_relation`：同一卡内多个知识点之间的关系；没有关系就拆卡。
+- `text_density_level`：文字密度等级；超过预算时拆图，不缩小字号硬塞。
 
 ---
 
@@ -273,7 +300,7 @@
 默认可以输出：
 
 - 文章配图策略、shot list 和多候选方向
-- 视觉路由决策：`primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`
+- 视觉路由决策：`article_type`、`route_scores`、`primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`
 - 每个配图选点的放置位置、选点理由、图型、主题、结构、星禾动作和推荐候选
 - 逐节配图判断表和视觉路由
 - 情绪锚点图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片和信息图海报方案
@@ -304,7 +331,9 @@
 | 情绪图/解释图/多格漫画 | 根据内容张力、机制和因果节奏选择合适形态 | 否 |
 | 信息图海报 | 整篇流程、矩阵或地图式总览，默认最多一张 | 否 |
 | 自主路由 | 读完文章后自动判断应该生成哪些图，而不是用户先选图型 | 否 |
+| 路由评分 | 给候选图型打分，解释为什么选或不选 | 否 |
 | 混合路由 | 漫画搭配情绪图、信息图搭配知识卡、知识卡内嵌解释图 | 否 |
+| 失败回收 | 针对出图失败生成返工动作和重写 prompt | 否 |
 | prompt-only | 每个候选方向输出独立 prompt，交给用户后续生成或人工处理 | 否 |
 | 单张真实生成 | 用户确认某个候选后，通过 Node CLI 输出 PNG | 是 |
 | 多候选真实生成 | 用户明确要多个候选文件时，分别生成 `cover-a.png`、`cover-b.png` 等 | 是 |
@@ -338,8 +367,20 @@ Use $xinghe-illustrations-skill 先不要生图。
 请输出：
 1. 逐节配图判断表
 2. routing_decision：primary_route、secondary_routes、information_density、recommended_outputs、route_risks
-3. 每张建议图片的 A/B 候选方向
-4. 每个候选的推荐比例、人物呈现等级、参考图和适用原因
+3. route_scores：每个候选图型的分数、理由、风险和输出角色
+4. 每张建议图片的 A/B 候选方向
+5. 每个候选的推荐比例、人物呈现等级、文字密度、参考图和适用原因
+
+<粘贴文章>
+```
+
+### 路由评分 dry-run
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请只做路由评分，不写完整 prompt。
+先判断文章类型，再给 platform-cover、emotion-anchor、explanatory-diagram、technical-architecture、process-flow、comic-strip、knowledge-card-pack、knowledge-card-single、infographic-poster 分别打 1-5 分。
+每个路由写 reason、risk 和 output_role，最后给 primary_route、secondary_routes 和 recommended_outputs。
 
 <粘贴文章>
 ```
@@ -497,6 +538,22 @@ Use $xinghe-illustrations-skill 这张图我决定采用。
 需要包含：日期、平台/用途、标题或主题、采用方向、为什么好、失败点、后续复用规则、相关文件或参考图。
 ```
 
+### 失败回收
+
+```text
+Use $xinghe-illustrations-skill 先不要重新生图。
+这张图的问题是：人物有点漂移、文字太多、画面像 PPT。
+请按 failure-recovery-playbook 输出 failure_type、root_cause、recovery_action 和 rewrite_prompt。
+```
+
+### 样例任务 dry-run
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请用 docs/examples/sample-task-packs.md 的第 1 个样例做 dry-run。
+输出文章类型、路由评分、推荐产物、候选方向和默认 prompt-only 交付格式。
+```
+
 ### 编辑已有图片
 
 ```text
@@ -645,13 +702,20 @@ node --check scripts/xinghe_image_assets_cli.js
 ├── assets/examples/
 ├── references/
 │   ├── cognitive-anchor-routing.md
+│   ├── article-type-visual-strategy.md
+│   ├── route-scoring.md
 │   ├── visual-formats.md
 │   ├── knowledge-card-composition-patterns.md
+│   ├── card-pack-narrative-structures.md
+│   ├── text-density-rules.md
 │   ├── text-rendering-rules.md
+│   ├── failure-recovery-playbook.md
 │   ├── output-spec.md
 │   ├── visual-routing-and-candidates.md
 │   ├── prompt-template.md
 │   └── ...
+├── docs/examples/
+│   └── sample-task-packs.md
 └── scripts/
     └── xinghe_image_assets_cli.js
 ```
@@ -662,8 +726,12 @@ node --check scripts/xinghe_image_assets_cli.js
 
 - `SKILL.md`：Skill 触发描述和主工作流
 - `references/cognitive-anchor-routing.md`：逐节配图判断、深度提炼、自主路由和混合路由
+- `references/article-type-visual-strategy.md`：文章类型和默认视觉策略
+- `references/route-scoring.md`：候选路由 1-5 分评分标准
 - `references/visual-formats.md`：情绪图、解释图、多格漫画、知识卡片和信息图海报规则
 - `references/knowledge-card-composition-patterns.md`：知识卡片横版/竖版构图骨架
+- `references/card-pack-narrative-structures.md`：知识卡片组叙事结构
+- `references/text-density-rules.md`：不同图型的文字密度分级和拆图阈值
 - `references/technical-architecture-and-flow.md`：技术架构图、流程图和人物缩放/可省略规则
 - `references/text-rendering-rules.md`：中文文字渲染铁律
 - `references/output-spec.md`：输出包目录、prompts.json 和 manifest 规范
@@ -674,10 +742,12 @@ node --check scripts/xinghe_image_assets_cli.js
 - `references/prompt-template.md`：生图和改图提示词模板
 - `references/prompt-template-images-api.md`：Images edits 精简 prompt 模板
 - `references/qa-checklist.md`：生成后检查与返工规则
+- `references/failure-recovery-playbook.md`：失败类型、修复动作和重写 prompt
 - `references/image-generation-runtime.md`：CLI 调用、dry-run、manifest 和失败处理
 - `references/access-modes.md`：官方调用、环境变量和安全边界
 - `references/reference-images.md`：风格参考图和星禾 IP 锚定规则
 - `scripts/xinghe_image_assets_cli.js`：真实生图、inspect、manifest 和断点续跑 CLI
+- `docs/examples/sample-task-packs.md`：典型任务 dry-run 样例
 
 ---
 

@@ -7,6 +7,8 @@
 使用本文件前，应已经完成：
 
 - 已按 `cognitive-anchor-routing.md` 做逐节判断和路由选择。
+- 已按 `article-type-visual-strategy.md` 判断文章类型。
+- 已按 `route-scoring.md` 输出路由评分。
 - 已明确 `primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`。
 - 已按 `visual-formats.md` 确认视觉形态边界。
 - 已确认用户当前要的是策略、prompt-only 还是真实图片文件。
@@ -33,7 +35,9 @@
 - 候选编号：`A`、`B`、`C`
 - 主路由：`primary_route`
 - 辅助路由：`secondary_routes`，没有则写 `[]`
+- 路由评分：`route_score` 或引用顶层 `route_scores`
 - 信息密度：`low`、`medium` 或 `high`
+- 文字密度：`text_density_level`、`text_budget`、`text_overflow_plan`
 - 核心隐喻：这张图用什么低科技物件或动作承载主题
 - 星禾动作或人物呈现等级：`full-character`、`small-character`、`partial-character`、`no-character`
 - 构图：标题/人物/物件的位置关系
@@ -46,6 +50,7 @@
 - 漫画字段：多格漫画必须写 `panel_count`、`panel_progression`，若辅助 `emotion-anchor`，还要写 `emotion_arc`
 - 信息图字段：信息图海报必须写 `section_count`、`density_strategy`、`reading_path`
 - 知识卡字段：知识卡片必须写 `knowledge_relation`，说明同一卡内多个知识点如何关联
+- 卡片组字段：`knowledge-card-pack` 必须写 `card_pack_narrative`、`card_count`、`card_roles`
 
 ## 混合路由候选
 
@@ -58,6 +63,18 @@
 - `technical-architecture + process-flow`：候选中写清是否拆成两张图；如果不拆，必须说明主图结构和辅助主路径如何不互相挤压。
 
 如果辅助路由只是装饰，删除辅助路由。若主路由信息已经过密，不要继续叠加辅助路由，应拆图。
+
+## 默认交付
+
+用户没有要求真实生图时，默认输出：
+
+1. 文章理解和文章类型。
+2. 路由评分和最终路由决策。
+3. 推荐生成清单。
+4. 每张图 A/B 候选方向。
+5. 每个候选的推荐比例、人物呈现等级、文字密度和参考图。
+6. prompt 或 prompt-only JSON。
+7. 生成前检查清单。
 
 ## 输出规则
 

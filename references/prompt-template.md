@@ -40,6 +40,8 @@ Visual route:
 Primary route: {xinghe-article / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card-single / infographic-poster}
 Secondary routes: {[] / [emotion-anchor] / [explanatory-diagram] / [knowledge-card-pack] / [process-flow] / [technical-architecture]}
 Information density: {low / medium / high}. High-density is allowed only for infographic posters, architecture diagrams, process maps, and relationship-based knowledge cards with clear sections and reading path.
+Route score: {1-5 score and one sentence reason from route-scoring.md}
+Text density: {very-low / low / medium / medium-high / high}. Follow text-density-rules.md. If text exceeds the budget, split into cards or reduce labels.
 
 Illustration type:
 {图型：concept / process / comparison / data / scene / metaphor / handoff / review-loop / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card}
@@ -96,6 +98,9 @@ Cool white or very light blue-gray background, crayon line art, clean mobile-rea
 Card role:
 {封面卡 / 总览卡 / 核心观点卡 / 对比卡 / 流程卡 / 清单卡 / 总结卡}
 
+Card pack narrative:
+{如果属于 knowledge-card-pack，写：问题 -> 原因 -> 方法 -> 案例 -> 总结 / 误区 -> 真相 -> 做法 -> 检查清单 -> 收藏卡 / 背景 -> 旧流程 -> 新流程 -> 工具链 -> 落地建议 / 总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡 / 冲突 -> 转折 -> 重构 -> 稳定 -> 复用}
+
 Knowledge relation:
 {说明同一张卡内多个知识点的关系：并列 / 因果 / 流程 / 分层 / 输入汇聚 / 决策分流 / 角色进化 / 左右对比。If the knowledge points are unrelated, split them into multiple cards.}
 
@@ -113,6 +118,9 @@ Render these Chinese words exactly and only these words:
 Title: "{卡片标题}"
 Bullets: "{要点1}" / "{要点2}" / "{要点3}" / "{可选要点4}"
 Bottom note: "{可选底部总结}"
+
+Text budget:
+{very-low / low / medium / medium-high / high；例如 1 标题 + 3-5 要点 + 1 底部总结。If the text exceeds the budget, split into another card instead of shrinking font size.}
 
 Character presence:
 {full-character / small-character / partial-character / no-character}. For cover card use full-character or small-character. For overview, flow, comparison, architecture, or dense checklist cards, prefer small-character, partial-character, or no-character. If Xinghe appears, she matches the baseline character reference and is {整理卡片 / 贴标题 / 称量两侧观点 / 接通流程线 / 圈出重点 / 把混乱信息收进卡片盒}. If no-character, keep the structure clean and readable without adding any human.
@@ -296,6 +304,19 @@ This should look like a personal method note cover, not a marketing poster. One 
   "article": "文章或主题名称",
   "platform": "article / wechat-cover / xhs-cover / knowledge-card-pack / knowledge-card-single / comic-strip / infographic-poster",
   "routing_decision": {
+    "article_type": "方法论文章",
+    "article_type_confidence": "high",
+    "type_signals": ["有框架", "有步骤", "有适用条件"],
+    "default_visual_strategy": ["knowledge-card-pack", "infographic-poster"],
+    "route_scores": [
+      {
+        "route": "infographic-poster",
+        "score": 5,
+        "reason": "文章需要全局地图",
+        "risk": "信息过密",
+        "output_role": "主输出"
+      }
+    ],
     "primary_route": "infographic-poster",
     "secondary_routes": ["knowledge-card-pack"],
     "information_density": "high",
@@ -316,6 +337,10 @@ This should look like a personal method note cover, not a marketing poster. One 
           "primary_route": "process-flow",
           "secondary_routes": ["knowledge-card-single"],
           "information_density": "medium",
+          "text_density_level": "medium",
+          "text_budget": "1 标题 + 4 要点 + 1 底部总结",
+          "text_overflow_plan": "超过 5 个要点时拆成第二张卡",
+          "card_pack_narrative": "总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡",
           "direction": "标题强表达 / 人物动作强表达 / 留白品牌感 / 正文隐喻方向 / 解释图方向 / 知识卡片方向 / 多格漫画方向",
           "composition_pattern": "左因右果路径卡 / 顶层原则 + 三列路径卡 / 决策树路径卡 / 三输入汇聚结果卡",
           "why_this_pattern": "说明该构图匹配的内容关系",

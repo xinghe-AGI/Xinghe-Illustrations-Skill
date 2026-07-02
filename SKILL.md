@@ -19,8 +19,12 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 
 - `references/cognitive-anchor-routing.md`：逐节配图判断、深度提炼、视觉路由和来源锁定；做文章配图、知识卡片或多格漫画前先读。
 - `references/README.md`：references 目录索引；需要重组规则或判断该读哪个 reference 时先读。
+- `references/article-type-visual-strategy.md`：文章类型到默认视觉策略；读完整篇文章后先读。
+- `references/route-scoring.md`：路由评分标准；自主选择主路由和辅助路由时读取。
 - `references/visual-formats.md`：情绪图、解释图、多格漫画、知识卡片、信息图海报的构图规则。
 - `references/knowledge-card-composition-patterns.md`：知识卡片横版/竖版构图骨架；做文章笔记、方法论总结、路径图、决策图和卡片组时读取。
+- `references/card-pack-narrative-structures.md`：知识卡片组叙事结构；做 `knowledge-card-pack` 时读取。
+- `references/text-density-rules.md`：不同图型的文字密度、文字上限和溢出拆图规则。
 - `references/technical-architecture-and-flow.md`：技术架构图、流程图、节点关系图和人物缩放/可省略规则。
 - `references/text-rendering-rules.md`：中文标题、术语、数字、代码、表格和错字处理规则。
 - `references/visual-routing-and-candidates.md`：多候选数量、候选字段、真实生成前确认规则。
@@ -30,7 +34,9 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - `references/prompt-template.md`：正文图、封面、知识卡片、解释图、多格漫画、信息图海报的提示词模板。
 - `references/output-spec.md`：默认输出目录、交付包字段和 manifest 规范。
 - `references/qa-checklist.md`：生成后检查和返工规则。
+- `references/failure-recovery-playbook.md`：生成失败后的问题分类和返工 prompt。
 - `references/image-generation-runtime.md`、`references/access-modes.md`、`references/reference-images.md`：真实生图、API/CLI、参考图和安全边界。
+- `docs/examples/sample-task-packs.md`：典型任务 dry-run 样例；测试路由稳定性时读取。
 - `learning/visual-learning-log.md`：用户确认好图后才读取，用于生成学习日志建议；学习系统不混入 references 主流程。
 
 ## 统一使用边界
@@ -64,6 +70,13 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - 灵魂句：最适合变成封面标题、卡片标题或图中短标注的句子
 - 必须出现内容：原文里的关键术语、数字、步骤、案例和风险边界
 
+再按 `references/article-type-visual-strategy.md` 判断文章类型：
+
+- `article_type`
+- `article_type_confidence`
+- `type_signals`
+- `default_visual_strategy`
+
 ### 2. 自主选择视觉路由
 
 读完整篇文章后，不要让用户先指定图型，也不要默认只做正文配图。先根据内容信号自主做“视觉路由编排”，为整篇文章选择一个主路由和若干辅助路由：
@@ -80,6 +93,8 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - `xinghe-article`：常规星禾正文配图。
 - `prompt-only`：用户只要提示词，或当前环境不能满足真实生图门槛。
 
+先按 `references/route-scoring.md` 给候选路由打分。每个路由都要写 `score`、`reason`、`risk` 和 `output_role`；最高分通常成为 `primary_route`，4 分以上或能补足短板的路由进入 `secondary_routes`。
+
 路由可以组合，但必须说明主次：
 
 - `comic-strip + emotion-anchor`：内容有明显误区、压力、反转或成长过程时，多格漫画可以承载情绪变化；每格的表情和动作要推动剧情，不只是卖萌。
@@ -91,6 +106,8 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 
 每次路由决策至少写清：
 
+- `article_type`：文章类型。
+- `route_scores`：候选路由评分表。
 - `primary_route`：本次最主要的图型。
 - `secondary_routes`：可选辅助图型，没有则写空数组。
 - `why_this_route`：为什么这种图型最能帮助读者理解。
@@ -112,7 +129,9 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - 信息图海报：只在整篇内容需要总览地图时使用，默认最多 1 张；允许承载较多文章信息，但必须分区、分层、短标签化，不把原文段落硬塞进去。
 - 知识卡片：允许多个相关知识点放在同一卡片里，但必须有关系骨架，例如并列、因果、输入汇聚、决策分流、分层或左右对比；不把无关系的知识点挤在一起。
 
-每个候选方向必须写清：主路由、辅助路由、核心隐喻、信息密度、星禾动作或人物呈现等级、构图、中文标注、参考图、适用原因、建议比例和生成文件名。人物呈现等级使用：`full-character`、`small-character`、`partial-character`、`no-character`。
+知识卡片组必须按 `references/card-pack-narrative-structures.md` 选择 `card_pack_narrative`，例如“问题 -> 原因 -> 方法 -> 案例 -> 总结”或“总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡”。
+
+每个候选方向必须写清：主路由、辅助路由、核心隐喻、信息密度、文字密度等级、星禾动作或人物呈现等级、构图、中文标注、参考图、适用原因、建议比例和生成文件名。人物呈现等级使用：`full-character`、`small-character`、`partial-character`、`no-character`。文字密度等级按 `references/text-density-rules.md` 写 `text_density_level`、`text_budget` 和 `text_overflow_plan`。
 
 ### 4. 选择比例和输出包
 
@@ -157,6 +176,7 @@ outputs/xinghe-illustration-packs/{日期}-{短标题}/
 写提示词前先回答：这张图里信息主体是什么？如果是正文图、封面、情绪图或漫画，再回答“星禾正在亲手解决什么问题”。如果是技术架构图、流程图或高密度知识卡片，优先回答“结构如何让读者看懂”，然后决定人物是小、局部还是不出现。不要为了露出人物牺牲结构可读性。
 
 中文文字遵守 `references/text-rendering-rules.md`：标题、术语和数字必须来自原文或用户确认；色值不写进画面；错字优先重生或减少文字，不做代码涂改。
+文字数量遵守 `references/text-density-rules.md`：如果超过当前图型上限，拆成知识卡片组或降低密度，不缩小字号硬塞。
 
 ### 6. 真实生图
 
@@ -195,6 +215,8 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 信息层级是否适合手机端阅读。
 - 是否复制了第三方参考图或旧案例的具体内容。
 - 是否有水印、联系方式、二维码、无关品牌或错字。
+
+如果出现失败结果，读取 `references/failure-recovery-playbook.md`，按失败类型输出 `failure_type`、`root_cause`、`recovery_action` 和 `rewrite_prompt`，再决定局部编辑、重生或拆图。
 
 用户反馈“这张好 / 采用 / 效果好 / 以后沿用”时，读取 `learning/visual-learning-log.md`，生成学习日志建议。只有用户明确要求写入时才修改学习日志；不要把一次生成结果自动升级成长期规则。
 

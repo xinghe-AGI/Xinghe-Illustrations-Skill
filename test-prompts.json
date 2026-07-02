@@ -83,5 +83,35 @@
         "id":  "related-knowledge-points-single-card",
         "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把 4 个相关知识点放在同一张知识卡片里：输入、处理、审核、回流。它们是同一条内容生产链路。",
         "expected":  "识别为 knowledge-card-single + explanatory-diagram；说明 knowledge_relation 是流程或输入汇聚，选择合适 composition_pattern 和 layout_flow；允许同一卡多个知识点，但必须关系清楚。"
+    },
+    {
+        "id":  "route-scoring-dry-run",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请只做路由评分：一篇方法论文章讲 AI 工作区如何从对话沉淀为规则、台账、复盘和可复用流程。请给所有候选路由打 1-5 分。",
+        "expected":  "输出 article_type、route_scores；每个 route_scores 项包含 route、score、reason、risk、output_role；最终给 primary_route、secondary_routes、recommended_outputs；不调用 CLI。"
+    },
+    {
+        "id":  "article-type-default-strategy",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请判断这篇文章类型：它讲一个项目从混乱需求、返工、清单治理到稳定流程的复盘。只输出文章类型和默认视觉策略。",
+        "expected":  "识别为项目复盘；输出 article_type_confidence、type_signals、default_visual_strategy；默认策略包含 process-flow、emotion-anchor 或 knowledge-card-single。"
+    },
+    {
+        "id":  "card-pack-narrative-structure",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把一篇讲旧流程到新流程升级的文章拆成知识卡片组，并说明卡片组叙事结构。",
+        "expected":  "输出 card_pack_narrative、card_count、card_roles；优先选择 背景 -> 旧流程 -> 新流程 -> 工具链 -> 落地建议；不把卡片做成散卡。"
+    },
+    {
+        "id":  "text-density-budget",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请为一张信息图海报和一张小红书封面分别给文字密度预算。",
+        "expected":  "输出 text_density_level、text_budget、text_overflow_plan；信息图允许 high 但要分区，小红书封面为 very-low；超出预算时拆图或减少标签。"
+    },
+    {
+        "id":  "failure-recovery-playbook",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要重新生图。这张图人物漂移、文字太多、画面像 PPT。请给返工策略。",
+        "expected":  "输出 failure_type、root_cause、recovery_action、rewrite_prompt；分别处理人物漂移、信息太挤、太像 PPT；不调用 CLI。"
+    },
+    {
+        "id":  "sample-task-pack-dry-run",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请用 docs/examples/sample-task-packs.md 的第 5 个样例做 dry-run。",
+        "expected":  "识别为高密度资料整理；输出 infographic-poster + knowledge-card-pack，包含 route_scores、information_density high、recommended_outputs 和默认 prompt-only 交付格式。"
     }
 ]
