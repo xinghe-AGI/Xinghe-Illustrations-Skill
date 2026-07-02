@@ -56,70 +56,17 @@
 
 ---
 
-## 核心产出结构
+## 产出核心结构
 
-策略和 prompt-only 模式下，推荐输出结构如下：
+这个 skill 的核心不是“套模板生成一张图”，而是把文章内容转成一套稳定的星禾视觉 IP 表达：
 
-```json
-{
-  "routing_decision": {
-    "article_type": "方法论文章",
-    "article_type_confidence": "high",
-    "type_signals": ["有框架", "有步骤", "有适用条件"],
-    "default_visual_strategy": ["knowledge-card-pack", "infographic-poster"],
-    "route_scores": [
-      {
-        "route": "infographic-poster",
-        "score": 5,
-        "reason": "文章需要全局地图",
-        "risk": "信息过密、文字过小",
-        "output_role": "主输出"
-      }
-    ],
-    "primary_route": "infographic-poster",
-    "secondary_routes": ["knowledge-card-pack"],
-    "information_density": "high",
-    "recommended_outputs": ["1 张总览信息图", "5-7 张知识卡片"],
-    "route_risks": ["信息过密", "文字过小", "主次不清"]
-  },
-  "pictures": [
-    {
-      "position": "第 2 节后 / cover / summary",
-      "topic": "这张图要解决的问题",
-      "recommended_candidate": "A",
-      "candidates": [
-        {
-          "id": "A",
-          "primary_route": "knowledge-card-single",
-          "secondary_routes": ["explanatory-diagram"],
-          "information_density": "medium",
-          "text_density_level": "medium",
-          "text_budget": "1 标题 + 4 要点 + 1 底部总结",
-          "text_overflow_plan": "超过 5 个要点时拆成第二张卡",
-          "knowledge_relation": "流程 / 因果 / 分层 / 输入汇聚 / 决策分流 / 左右对比",
-          "card_pack_narrative": "总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡",
-          "composition_pattern": "左因右果路径卡",
-          "layout_flow": "左侧问题 -> 中间机制 -> 右侧结果",
-          "character_presence": "small-character",
-          "aspect_ratio": "4:3",
-          "prompt": "完整生图提示词"
-        }
-      ]
-    }
-  ]
-}
-```
+1. **内容理解层**：读文章，提炼主题、真意、冲突、关键术语和必须保留的数字。
+2. **视觉路由层**：判断这次应该做解释图、情绪图、知识卡片、流程图、技术架构图、多格漫画、信息图还是封面图。
+3. **星禾视觉 IP 层**：根据内容安排星禾的动作、位置和参与方式；信息密度高时可以缩小人物、局部出现或不出现。
+4. **信息版式层**：根据内容选择横版、竖版、对比、流程、分层、矩阵、总分、卡片组等结构，不默认全部做竖图。
+5. **生成落地层**：先给候选方向和 prompt，用户确认后再生成图片或导出 manifest。
 
-字段含义：
-
-- `primary_route`：这张图最主要的视觉形态。
-- `secondary_routes`：辅助表达方式，没有则为空数组。
-- `route_scores`：候选图型评分，包含分数、理由、风险和输出角色。
-- `information_density`：信息密度，取 `low`、`medium` 或 `high`。
-- `recommended_outputs`：建议最终生成哪些图，而不是盲目按小节凑图。
-- `route_risks`：提前暴露可能失败的点，例如信息过密、情绪过火、人物遮挡结构。
-- `knowledge_relation`：同一卡内多个知识点之间的关系；没有关系就拆卡。
-- `text_density_level`：文字密度等级；超过预算时拆图，不缩小字号硬塞。
+更详细的字段规范和生成包结构放在 [references/output-spec.md](references/output-spec.md)，README 只保留使用入口和视觉判断方法。
 
 ---
 
@@ -140,55 +87,19 @@
 
 ---
 
-## 双参考图机制
-
-真实生图前按人物呈现等级选择视觉锚点：
-
-| 参考图 | 用途 |
-|---|---|
-| `assets/examples/00-xinghe-ip-baseline.png` | 画面含星禾人物、手部、半身或侧影时，用来锁定脸、发型、服饰和气质 |
-| `assets/examples/01-14-*.png` | 参考正文锚点、解释图、技术架构图、流程图、知识卡片、轻分镜和信息图海报的构图、动作、留白、线条和批注密度 |
-| `assets/examples/15-20-*.png` | 参考微信公众号文章封面和小红书笔记封面的标题区、人物区、安全边距和排版关系 |
-
-画面含人物时，通过 Node CLI 生成优先使用：
-
-```bash
---style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"
-```
-
-人物基准图负责星禾形象，场景参考图只负责构图、动作、留白、线条和批注密度。含人物时不要只传场景图而漏掉人物基准图。明确 `no-character` 的技术架构图或流程图可以不展示人物，但不要声称它是人物一致的星禾图。
-
----
-
 ## 示例效果
 
-示例图用于校准星禾形象、留白、线条密度、中文批注的数量与密度。实际使用时要根据当前内容重新设计动作和隐喻，不要照抄旧案例的物件和构图。
+这里只放精选示例，帮助快速判断这个 skill 能产出什么类型的视觉资产。完整示例图集见 [docs/examples/visual-gallery.md](docs/examples/visual-gallery.md)。
+
+### 解释图 / 正文结构图
+
+适合解释机制、流程、分层、承接路径和内容工作台。
 
 <table>
   <tr>
     <td width="50%">
-      <strong>人物基准图</strong><br>
-      <img src="assets/examples/00-xinghe-ip-baseline.png" alt="星禾人物基准图">
-    </td>
-    <td width="50%">
-      <strong>两个断点</strong><br>
-      <img src="assets/examples/01-two-breakpoints.png" alt="两个断点">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
       <strong>最小闭环</strong><br>
       <img src="assets/examples/02-minimum-loop.png" alt="最小闭环">
-    </td>
-    <td width="50%">
-      <strong>按目的分拣</strong><br>
-      <img src="assets/examples/03-sort-by-purpose.png" alt="按目的分拣">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <strong>一鱼多吃</strong><br>
-      <img src="assets/examples/04-one-fish-many-uses.png" alt="一鱼多吃">
     </td>
     <td width="50%">
       <strong>承接路径</strong><br>
@@ -197,24 +108,21 @@
   </tr>
   <tr>
     <td width="50%">
-      <strong>三个来源</strong><br>
-      <img src="assets/examples/06-three-sources.png" alt="三个来源">
-    </td>
-    <td width="50%">
-      <strong>三个内容工作</strong><br>
-      <img src="assets/examples/07-three-content-jobs.png" alt="三个内容工作">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
       <strong>交接文案工具箱</strong><br>
       <img src="assets/examples/08-handoff-copy-toolbox.png" alt="交接文案工具箱">
     </td>
     <td width="50%">
-      <strong>常见坑位</strong><br>
-      <img src="assets/examples/09-common-pits-no-title.png" alt="常见坑位">
+      <strong>系统承重</strong><br>
+      <img src="assets/examples/13-system-bearing.png" alt="系统承重">
     </td>
   </tr>
+</table>
+
+### 情绪图 / 卡点表达
+
+适合表达混乱、卡住、压力、转折和“终于理顺”的情绪变化。
+
+<table>
   <tr>
     <td width="50%">
       <strong>信息井</strong><br>
@@ -227,32 +135,29 @@
   </tr>
   <tr>
     <td width="50%">
-      <strong>内容发酵</strong><br>
-      <img src="assets/examples/12-content-fermentation.png" alt="内容发酵">
+      <strong>常见坑位</strong><br>
+      <img src="assets/examples/09-common-pits-no-title.png" alt="常见坑位">
     </td>
     <td width="50%">
-      <strong>系统承重</strong><br>
-      <img src="assets/examples/13-system-bearing.png" alt="系统承重">
+      <strong>两个断点</strong><br>
+      <img src="assets/examples/01-two-breakpoints.png" alt="两个断点">
     </td>
   </tr>
+</table>
+
+### 封面图
+
+微信公众号封面偏横版信息判断，小红书封面偏竖版大字标题和首屏停留。
+
+<table>
   <tr>
-    <td width="50%">
-      <strong>信任桥</strong><br>
-      <img src="assets/examples/14-trust-bridge.png" alt="信任桥">
-    </td>
     <td width="50%">
       <strong>微信公众号封面：左标题右行动</strong><br>
       <img src="assets/examples/15-wechat-left-title-right-action.png" alt="微信公众号封面：左标题右行动">
     </td>
-  </tr>
-  <tr>
     <td width="50%">
       <strong>微信公众号封面：宽留白单物件</strong><br>
       <img src="assets/examples/16-wechat-wide-white-space.png" alt="微信公众号封面：宽留白单物件">
-    </td>
-    <td width="50%">
-      <strong>微信公众号封面：轻流程线</strong><br>
-      <img src="assets/examples/17-wechat-process-line.png" alt="微信公众号封面：轻流程线">
     </td>
   </tr>
   <tr>
@@ -265,489 +170,118 @@
       <img src="assets/examples/19-xhs-keyword-underline-card.png" alt="小红书封面：关键词下划线">
     </td>
   </tr>
+</table>
+
+### 综合结构 / 知识卡片方向
+
+适合表达多来源、内容分工、信任建立和一图多用的结构。
+
+<table>
   <tr>
     <td width="50%">
-      <strong>小红书封面：标题卡片与方法堆叠</strong><br>
-      <img src="assets/examples/20-xhs-title-card-method-stack.png" alt="小红书封面：标题卡片与方法堆叠">
+      <strong>三个来源</strong><br>
+      <img src="assets/examples/06-three-sources.png" alt="三个来源">
     </td>
     <td width="50%">
-      <strong>主要用途</strong><br>
-      API 出图、批量生成、dry-run、inspect、manifest。
+      <strong>三个内容工作</strong><br>
+      <img src="assets/examples/07-three-content-jobs.png" alt="三个内容工作">
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <strong>一鱼多吃</strong><br>
+      <img src="assets/examples/04-one-fish-many-uses.png" alt="一鱼多吃">
+    </td>
+    <td width="50%">
+      <strong>信任桥</strong><br>
+      <img src="assets/examples/14-trust-bridge.png" alt="信任桥">
     </td>
   </tr>
 </table>
 
 ---
 
-## 设计边界
-
-- 每张图只讲一个核心结构；整篇总览只能走信息图海报或知识卡片组，不把全文硬塞进一张图。
-- 正文图、封面、情绪图和漫画里，星禾必须承担核心动作；如果去掉星禾画面仍然完全成立，说明角色太装饰。
-- 技术架构图、流程图和高密度知识卡片里，结构必须优先可读；星禾可以是小人物、局部人物或无人物。
-- 中文批注尽量短，避免错字和说明书感。
-- 不做模板 PPT、课程页、冷硬正式流程图、科技 UI 或商业插画；但可以做冷白/浅蓝灰底蜡笔风格的技术架构图、流程图、手绘解释图、知识卡片、多格漫画和信息图海报。
-- 不复刻 `assets/examples/` 的旧构图、旧物件或旧案例。
-- 不生成多个星禾、头像气泡或右下角 inset portrait。
-- 不在左上角写“运营流程 / Workflow / 系统架构图 / 自动化 SOP / 研究框架 / 路线图”等类型标题。
-- 不覆盖已有输出文件，除非用户明确要求替换。
-- 不在用户只要策略、shot list 或 prompt-only 时调用 CLI。
-- 不把 API key、permission code、access token 写入仓库文件、命令示例或最终交付。
-
----
-
-## 输出内容
-
-默认可以输出：
-
-- 文章配图策略、shot list 和多候选方向
-- 视觉路由决策：`article_type`、`route_scores`、`primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`
-- 每个配图选点的放置位置、选点理由、图型、主题、结构、星禾动作和推荐候选
-- 逐节配图判断表和视觉路由
-- 情绪锚点图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片和信息图海报方案
-- 单张完整生图提示词
-- `outputs/xinghe-illustration-packs/{日期}-{短标题}/` 发布包
-- 改图提示词
-- 在用户明确要求真实生成且环境可用时，通过 Node CLI 输出 PNG 图片
-
-默认不输出：
-
-- PPTX、PDF、Keynote 或课程课件
-- SVG、HTML、Canvas 可编辑源文件
-- 商业海报、品牌 KV、工程精确到可审计的复杂系统拓扑图
-- 大段文字型信息图或把全文硬塞进一张图
-
----
-
 ## 你可以怎么用
 
-| 模式 | 适合场景 | 是否真实生图 |
-|---|---|---|
-| 配图策略 | 先判断文章哪里值得配图，输出 3-7 个选点和候选方向 | 否 |
-| 正文多候选 | 每个正文配图选点给 A/B 方向，重点图可给 A/B/C | 否 |
-| 平台封面候选 | 为公众号封面或小红书封面先给 3 个不同视觉方向 | 否 |
-| 知识卡片组 | 根据内容和发布场景拆成 5-9 张横版或竖版卡片 | 否 |
-| 技术架构图 | 表达系统组件、服务边界、数据流、模块依赖 | 否 |
-| 流程图 | 表达 SOP、自动化流程、审批流、状态流、内容生产流程 | 否 |
-| 情绪图/解释图/多格漫画 | 根据内容张力、机制和因果节奏选择合适形态 | 否 |
-| 信息图海报 | 整篇流程、矩阵或地图式总览，默认最多一张 | 否 |
-| 自主路由 | 读完文章后自动判断应该生成哪些图，而不是用户先选图型 | 否 |
-| 路由评分 | 给候选图型打分，解释为什么选或不选 | 否 |
-| 混合路由 | 漫画搭配情绪图、信息图搭配知识卡、知识卡内嵌解释图 | 否 |
-| 失败回收 | 针对出图失败生成返工动作和重写 prompt | 否 |
-| prompt-only | 每个候选方向输出独立 prompt，交给用户后续生成或人工处理 | 否 |
-| 单张真实生成 | 用户确认某个候选后，通过 Node CLI 输出 PNG | 是 |
-| 多候选真实生成 | 用户明确要多个候选文件时，分别生成 `cover-a.png`、`cover-b.png` 等 | 是 |
-| 结构处理 | 技术结构走架构图/流程图；过复杂才拆图或 diagram fallback | 否 |
-| 学习日志 | 用户确认某张图效果好后，生成可写入学习日志的条目建议 | 否 |
-| inspect/dry-run | 调试参数、检查参考图和覆盖风险 | 否 |
-| 改图提示 | 修改已有图片、纠正不符合 QA 的结果 | 视用户要求 |
+最简单的方式：把文章、标题、主题或本地文件发给 Agent，并明确你要“先给方案”还是“直接生成图片”。
 
-### 视觉形态怎么选
+| 你想做什么 | 可以这样说 |
+|---|---|
+| 让 skill 自主判断图型 | `请读完这篇文章，判断适合生成哪些图，先不要生图。` |
+| 做文章正文配图 | `请给这篇文章 3-7 个配图选点，每个点给 A/B 候选方向。` |
+| 做公众号封面 | `请为这篇文章做 3 个公众号封面候选方向。` |
+| 做小红书封面 | `请为这个标题做 3 个小红书首图候选方向。` |
+| 做知识卡片组 | `请把这篇文章拆成知识卡片组，先判断横版还是竖版。` |
+| 做技术架构图 / 流程图 | `请把这段说明设计成技术架构图或流程图，人物可以小一点或不出现。` |
+| 真实生成图片 | `我确认生成候选 A，请先 inspect，再生成 PNG。` |
 
-| 形态 | 优先使用场景 | 不适合场景 |
-|---|---|---|
-| 正文锚点图 | 文章中一个判断、动作、转折、场景瞬间 | 需要承载整篇文章全部信息 |
-| 情绪锚点图 | 痛点、误区、理想现实反差、压力和卡点 | 纯步骤教程或精确流程 |
-| 解释图 | 抽象概念、轻量机制、因果链、3-5 步流程 | 数据库拓扑、权限流、复杂技术依赖 |
-| 技术架构图 | 系统组件、服务边界、数据流、模块依赖、权限边界 | 纯情绪表达或封面点击图 |
-| 流程图 | SOP、自动化流程、审批流、状态流、内容生产流程 | 只有单个观点或一句结论 |
-| 多格漫画 | 有明显前后变化、累积、转折或因果推进 | 每格只是重复同一个观点 |
-| 知识卡片组 | 长文总结、文章笔记、小红书轮播、方法论拆解 | 只需要一张封面或一个情绪瞬间 |
-| 单张知识卡 | 单观点、单流程、单对比、单清单 | 信息超过手机端单屏可读范围 |
-| 信息图海报 | 整篇流程、矩阵、地图式总览 | 把全文原文硬塞进一张图 |
-| 平台封面 | 公众号头图、小红书首图、文章封面 | 正文里解释复杂机制 |
+详细请求模板、真实生成命令、manifest 和 dry-run 示例见 [docs/usage-and-generation.md](docs/usage-and-generation.md)。
 
-### 自主判断生成什么图
+---
 
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请读完下面这篇文章后，自主判断应该生成哪些类型的图。
-不要让我先选图型。
+## 视觉形态怎么选
 
-请输出：
-1. 逐节配图判断表
-2. routing_decision：primary_route、secondary_routes、information_density、recommended_outputs、route_risks
-3. route_scores：每个候选图型的分数、理由、风险和输出角色
-4. 每张建议图片的 A/B 候选方向
-5. 每个候选的推荐比例、人物呈现等级、文字密度、参考图和适用原因
+先看内容要解决的问题，再选图型：
 
-<粘贴文章>
-```
+| 内容目标 | 推荐视觉形态 |
+|---|---|
+| 让读者点进来 | 公众号封面 / 小红书封面 |
+| 解释一个概念或机制 | 解释图 |
+| 表达卡住、焦虑、转折、爽点 | 情绪图 |
+| 梳理步骤、SOP、状态流 | 流程图 |
+| 解释系统组件、数据流、模块边界 | 技术架构图 |
+| 汇总一篇文章的知识点 | 知识卡片组 |
+| 做全局地图、矩阵、路径总览 | 信息图海报 |
+| 表达前后变化或剧情推进 | 多格漫画 |
 
-### 路由评分 dry-run
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请只做路由评分，不写完整 prompt。
-先判断文章类型，再给 platform-cover、emotion-anchor、explanatory-diagram、technical-architecture、process-flow、comic-strip、knowledge-card-pack、knowledge-card-single、infographic-poster 分别打 1-5 分。
-每个路由写 reason、risk 和 output_role，最后给 primary_route、secondary_routes 和 recommended_outputs。
-
-<粘贴文章>
-```
-
-### 正文配图多候选
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请分析下面这篇文章哪里值得配图，输出 5 个左右的配图选点。
-每个选点给出 A/B 候选方向，重点图可以给 A/B/C。
-每个候选方向写清：核心隐喻、星禾动作、构图、中文标注、推荐参考图和适用原因。
-
-<粘贴文章>
-```
-
-### 公众号封面三候选
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请为公众号文章封面标题《我把 AI 对话工具变成了工作区系统》给 3 个候选方向。
-方向需要覆盖：标题强表达、人物动作强表达、留白/品牌感强表达。
-每个方向写清标题区、星禾动作、核心物件、参考图和适用原因。
-```
-
-### 小红书封面三候选
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请为小红书封面标题《这套 AI 工作流我会反复用》给 3 个候选方向。
-要求包含大字标题排版、关键词强调方式、底部星禾动作和 18-20 封面参考图建议。
-```
-
-### 只输出多候选提示词
-
-```text
-Use $xinghe-illustrations-skill prompt-only。
-请为下面 3 个段落分别设计星禾正文配图。
-每个段落给 A/B 两个候选方向，并为每个候选输出独立完整 prompt。
-不要调用 CLI。
-
-<粘贴段落>
-```
-
-### 确认候选后真实生成
-
-```text
-Use $xinghe-illustrations-skill 生成刚才候选 A。
-我已经配置好 OPENAI_API_KEY。
-请先用 inspect 检查人物基准图、场景参考图和输出路径，再生成 PNG。
-```
-
-### 生成多个候选文件
-
-```text
-Use $xinghe-illustrations-skill 生成小红书封面候选 A 和 B。
-两个候选分别保存为 xhs-cover-a.png 和 xhs-cover-b.png，不要合成一张，也不要覆盖已有文件。
-```
-
-### 技术架构图 / 流程图
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请把下面这段技术说明设计成一张技术架构图或流程图。
-要求先判断 route 是 technical-architecture 还是 process-flow。
-人物呈现优先 small-character / partial-character / no-character，不要让完整人物抢走节点和箭头。
-输出节点、边、层级、人物呈现等级、候选方向和 prompt。
-
-<粘贴复杂段落>
-```
-
-### 横版知识卡片组
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请把下面这篇方法论文章拆成横版知识卡片组，不是小红书轮播。
-先根据内容判断每张卡适合 4:3 还是 16:9；流程、对比、结构关系清楚时优先横版。
-输出 5-7 张卡片计划，每张卡包含：卡片角色、标题、信息目标、推荐比例、布局、人物呈现等级、卡面文字、候选方向和推荐参考图。流程卡、架构卡和清单卡可以使用小人物、局部人物或无人物。
-
-<粘贴文章>
-```
-
-### 小红书竖版知识卡片组
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请把下面这篇文章拆成小红书 3:4 知识卡片组。
-这是小红书轮播场景，所以使用竖版；每张卡只保留一个信息目标。
-输出 5-9 张卡片计划，每张卡包含：卡片角色、标题、信息目标、布局、人物呈现等级、卡面文字、候选方向和推荐参考图。
-
-<粘贴文章>
-```
-
-### 情绪图 / 解释图 / 多格漫画
-
-```text
-Use $xinghe-illustrations-skill 先判断视觉路由。
-这段内容如果适合情绪锚点图、解释图或多格漫画，请分别给出候选方向；
-如果多格漫画删掉任一格也不影响理解，就降级成单张解释图。
-
-<粘贴段落>
-```
-
-### 多格漫画 + 情绪锚点
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请判断下面这段内容是否适合 comic-strip + emotion-anchor。
-如果适合，请输出 panel_count、panel_progression 和 emotion_arc。
-每格必须推进剧情，同时体现情绪阶段；不要做无关表情包。
-
-<粘贴有误区、压力、转折或成长过程的段落>
-```
-
-### 信息图海报
-
-```text
-Use $xinghe-illustrations-skill prompt-only。
-请把这篇方法论文章做成一张 3:4 信息图海报 prompt。
-默认最多一张，不要把全文硬塞进去，只保留全局结构、关键路径和短标签。
-
-<粘贴文章>
-```
-
-### 高密度信息图 + 知识卡片组
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-这篇文章信息量很大，请判断是否适合 infographic-poster + knowledge-card-pack。
-如果适合，请让信息图只负责全局地图，知识卡片负责分点解释。
-输出 section_count、density_strategy、reading_path，以及建议拆成几张知识卡。
-
-<粘贴文章>
-```
-
-### 单张知识卡承载多个相关知识点
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请把下面这些相关知识点放在同一张知识卡片里。
-先判断它们的 knowledge_relation 是并列、因果、流程、分层、输入汇聚、决策分流还是左右对比。
-如果没有明确关系，请拆成多张卡。
-
-知识点：
-1. <知识点一>
-2. <知识点二>
-3. <知识点三>
-4. <知识点四>
-```
-
-### 记录视觉学习日志
-
-```text
-Use $xinghe-illustrations-skill 这张图我决定采用。
-请根据这次采用结果生成一条 learning/visual-learning-log.md 学习日志建议，不要直接改文件。
-需要包含：日期、平台/用途、标题或主题、采用方向、为什么好、失败点、后续复用规则、相关文件或参考图。
-```
-
-### 失败回收
-
-```text
-Use $xinghe-illustrations-skill 先不要重新生图。
-这张图的问题是：人物有点漂移、文字太多、画面像 PPT。
-请按 failure-recovery-playbook 输出 failure_type、root_cause、recovery_action 和 rewrite_prompt。
-```
-
-### 样例任务 dry-run
-
-```text
-Use $xinghe-illustrations-skill 先不要生图。
-请用 docs/examples/sample-task-packs.md 的第 1 个样例做 dry-run。
-输出文章类型、路由评分、推荐产物、候选方向和默认 prompt-only 交付格式。
-```
-
-### 编辑已有图片
-
-```text
-Use $xinghe-illustrations-skill 帮我编辑这张图。
-去掉左上角的“流程图”标题，保留冷白/浅蓝灰底蜡笔线稿和星禾主体动作。
-```
-
+比例不要固定套竖版：小红书和手机轮播优先 `3:4`；方法论总结、流程、对比、技术结构优先 `4:3` 或 `16:9`；公众号封面使用横版。更完整的判断规则见 [docs/usage-and-generation.md](docs/usage-and-generation.md)。
 
 ---
 
 ## 安装与生图配置
 
-这个版本适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。它可以只输出配图策略和 prompt，也可以在你配置好官方 OpenAI，并明确授权外部上传风险后，通过内置 Node CLI 生成 PNG 图片。
+安装后可以先只做策略和 prompt，不需要 API key。只有要真实生成 PNG 时，才需要配置图片服务。安装完成后先做三件事：
 
-### 1. 安装 Skill
+1. 选择调用方式：官方 OpenAI 或第三方中转站。
+2. 在本机环境变量或 Agent runtime 的私有 secrets 中配置 URL 和 API key。
+3. 先做 `inspect` / `probe` 检查，再真实生成图片。
 
-克隆仓库：
+### 安装
 
 ```bash
 git clone https://github.com/xinghe-AGI/Xinghe-Illustrations-Skill.git
 ```
 
-复制或同步整个目录到你的 Skills 目录。建议安装目录名保持为：
+把整个目录放到你的 skills 目录，建议目录名保持为：
 
 ```text
 <skills-root>/xinghe-illustrations-skill/
 ```
 
-目录中应保留：
+更新或安装后，重启运行环境或开启新会话，让 skill 被重新加载。
 
-```text
-SKILL.md
-agents/
-assets/examples/
-references/
-scripts/
-```
+### 生图配置
 
-本机路径示例：
+官方 OpenAI：配置 `OPENAI_API_KEY`。
 
-```text
-C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
-```
+第三方中转站：配置 `GPT_IMAGE_BASE_URL`、`GPT_IMAGE_API_KEY`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`。
 
-安装或更新后，重启运行环境或开启新会话，让 skill 被重新加载。
+这些变量应放在本机环境变量、Agent runtime 的私有 secrets，或不会提交到 GitHub 的私有 env 文件里。不要写进 README、SKILL.md、references、scripts 或任何仓库文件。
 
-### 2. 选择使用方式
-
-| 使用方式 | 需要配置 | 是否真实请求图片服务 | 适合场景 |
-|---|---|---:|---|
-| 配图策略 / shot list | 不需要 | 否 | 先判断文章哪里值得配图 |
-| prompt-only | 不需要 | 否 | 只要最终提示词，交给用户后续生成或人工处理 |
-| 官方 OpenAI 生图 | `OPENAI_API_KEY` | 是 | 直接走 OpenAI 官方端点 |
-| inspect / dry-run | 按目标模式可选 | 否 | 检查 endpoint、参考图、输出路径和覆盖风险 |
-
-画面含星禾人物、手部、半身或侧影时，真实生成必须能上传人物基准图，并且建议同时传入场景参考图：
-
-```bash
---style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"
-```
-
-`00-xinghe-ip-baseline.png` 用来锁定星禾人物形象，第二张参考图用来锁定正文配图或封面构图。正文图、技术架构图、流程图和知识卡片从 `01-14` 选择；微信公众号封面和小红书封面从 `15-20` 选择。如果当前链路只能纯文本生图、不能上传人物基准图，就不要声称生成了合格的星禾人物图片，也不要调用 Images API。明确 `no-character` 的结构图可以不展示人物。
-
-### 3. 配置环境变量
-
-不要把真实 API key 或 access token 写进仓库文件。尤其不要写进：
-
-- `SKILL.md`
-- `README.md`
-- `references/*.md`
-- `scripts/*.js`
-- `assets/`
-- 任何会进入 git commit 的文件
-
-推荐配置位置：
-
-| 使用环境 | 推荐位置 | 生效方式 |
+| 调用方式 | 必填配置 | 适合情况 |
 |---|---|---|
-| Windows / 通用环境 | 系统“用户环境变量”，或本机启动器明确加载的私有 env 文件 | 重启运行环境或开启新会话 |
-| macOS / Linux / 通用环境 | shell profile、系统用户环境变量，或本机启动器明确加载的私有 env 文件 | 重启 shell/运行环境或开启新会话 |
-| OpenClaw / Hermes / 其他运行环境 | 对应 runtime 的私有 `.env`、secrets 或环境变量注入配置 | 按 runtime 文档重启或刷新 |
+| 官方 OpenAI | `OPENAI_API_KEY` | 直接使用 OpenAI 官方接口 |
+| 第三方中转站 | `GPT_IMAGE_BASE_URL`、`GPT_IMAGE_API_KEY`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL` | 使用兼容 OpenAI 图片接口的代理、企业网关或中转服务 |
 
-官方 OpenAI 模式：
-
-```text
-OPENAI_API_KEY=<your-openai-api-key>
-```
-
-### 4. 官方 OpenAI 调用
-
-官方模式默认使用 OpenAI Responses API，也可以按需要使用支持参考图上传的 Images edits。Responses API 通过 `image_generation` 工具返回图片数据；Images API 在本 skill 中只用于带参考图的编辑式生成。
-
-先做零成本检查：
-
-```bash
-node scripts/xinghe_image_assets_cli.js inspect \
-  --mode official \
-  --api-mode responses \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
-  --prompt "<final image prompt>" \
-  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic-a.png"
-```
-
-真实生成：
-
-```bash
-node scripts/xinghe_image_assets_cli.js generate \
-  --mode official \
-  --api-mode responses \
-  --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/05-handoff-path.png" \
-  --prompt "<final image prompt>" \
-  --output "outputs/xinghe-illustration-packs/<date-slug>/images/01-topic-a.png" \
-  --size 1536x1024 \
-  --quality high \
-  --output-format png
-```
-
-如果官方链路或当前 runtime 不能上传人物基准图，含人物任务先停在 prompt-only 或命令建议，不要绕过基准图硬门槛。无人物结构图可按 `no-character` 规则处理。
-
-### 5. 推荐验证顺序
-
-1. 检查脚本语法：
-
-```bash
-node --check scripts/xinghe_image_assets_cli.js
-```
-
-2. 用 `inspect` 检查参数、参考图和输出路径，不请求 API。
-3. 确认密钥和输出路径后，再运行 `generate`。
-
-### 6. 常见问题
-
-**为什么含人物时必须传人物基准图？**
-
-星禾是固定个人 IP，单靠文字描述容易漂移。人物基准图负责脸、发型、服饰和气质，场景参考图只负责构图和留白。技术架构图、流程图或高密度知识卡片如果选择 `no-character`，可以不画人物。
-
----
-
-## 目录结构
+含星禾人物的真实生图必须能上传人物基准图：
 
 ```text
-.
-├── README.md
-├── SKILL.md
-├── agents/
-├── assets/examples/
-├── references/
-│   ├── cognitive-anchor-routing.md
-│   ├── article-type-visual-strategy.md
-│   ├── route-scoring.md
-│   ├── visual-formats.md
-│   ├── knowledge-card-composition-patterns.md
-│   ├── card-pack-narrative-structures.md
-│   ├── text-density-rules.md
-│   ├── text-rendering-rules.md
-│   ├── failure-recovery-playbook.md
-│   ├── output-spec.md
-│   ├── visual-routing-and-candidates.md
-│   ├── prompt-template.md
-│   └── ...
-├── docs/examples/
-│   └── sample-task-packs.md
-└── scripts/
-    └── xinghe_image_assets_cli.js
+assets/examples/00-xinghe-ip-baseline.png
 ```
 
----
+如果你的图片服务不能上传人物基准图，就不要生成含人物的星禾图；可以先停在 prompt-only，或只做无人物的技术架构图 / 流程图。
 
-## 相关文件
-
-- `SKILL.md`：Skill 触发描述和主工作流
-- `references/cognitive-anchor-routing.md`：逐节配图判断、深度提炼、自主路由和混合路由
-- `references/article-type-visual-strategy.md`：文章类型和默认视觉策略
-- `references/route-scoring.md`：候选路由 1-5 分评分标准
-- `references/visual-formats.md`：情绪图、解释图、多格漫画、知识卡片和信息图海报规则
-- `references/knowledge-card-composition-patterns.md`：知识卡片横版/竖版构图骨架
-- `references/card-pack-narrative-structures.md`：知识卡片组叙事结构
-- `references/text-density-rules.md`：不同图型的文字密度分级和拆图阈值
-- `references/technical-architecture-and-flow.md`：技术架构图、流程图和人物缩放/可省略规则
-- `references/text-rendering-rules.md`：中文文字渲染铁律
-- `references/output-spec.md`：输出包目录、prompts.json 和 manifest 规范
-- `references/xinghe-ip.md`：星禾形象、动作库和禁忌
-- `references/illustration-selection.md`：智能选点、图型分类和 prompt-only 模式
-- `references/visual-routing-and-candidates.md`：主/辅路由确定后的候选数量、候选字段和真实生成确认规则
-- `learning/visual-learning-log.md`：人工确认好图后的视觉经验沉淀
-- `references/prompt-template.md`：生图和改图提示词模板
-- `references/prompt-template-images-api.md`：Images edits 精简 prompt 模板
-- `references/qa-checklist.md`：生成后检查与返工规则
-- `references/failure-recovery-playbook.md`：失败类型、修复动作和重写 prompt
-- `references/image-generation-runtime.md`：CLI 调用、dry-run、manifest 和失败处理
-- `references/access-modes.md`：官方调用、环境变量和安全边界
-- `references/reference-images.md`：风格参考图和星禾 IP 锚定规则
-- `scripts/xinghe_image_assets_cli.js`：真实生图、inspect、manifest 和断点续跑 CLI
-- `docs/examples/sample-task-packs.md`：典型任务 dry-run 样例
+完整配置、URL/API Key 填写方式、inspect 检查和生成命令见 [docs/usage-and-generation.md](docs/usage-and-generation.md)。
 
 ---
 
@@ -776,6 +310,7 @@ node --check scripts/xinghe_image_assets_cli.js
 - 微信号: xinghe_AGI
 
 ---
+
 ## License
 
 请按仓库实际 license 文件为准。如果后续准备公开发布，建议补充明确的开源协议和必要的二次开发说明。

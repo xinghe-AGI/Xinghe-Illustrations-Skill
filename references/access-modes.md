@@ -14,6 +14,17 @@
 - 明确知道代理支持 Images edits 且可以上传参考图时，直接使用 `--api-mode images` 或设置 `GPT_IMAGE_API_MODE=images`。
 - 含人物的真实星禾图优先选择能上传参考图的模式；不能上传 `assets/examples/00-xinghe-ip-baseline.png` 时，不做含人物真实生成。明确 `no-character` 的结构图可按无人物结构图处理。
 
+## 安装后的引导顺序
+
+当用户刚安装 skill 或询问 URL/API key 怎么配置时，按下面顺序引导，不要直接给真实生成命令：
+
+1. 先问清或判断用户使用官方 OpenAI 还是第三方中转站。
+2. 官方 OpenAI 只需要配置 `OPENAI_API_KEY`。
+3. 第三方中转站需要配置 `GPT_IMAGE_BASE_URL`、`GPT_IMAGE_API_KEY`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`；如平台要求，再配置 `GPT_IMAGE_PROVIDER` 或 `GPT_IMAGE_PERMISSION_CODE`。
+4. 提醒用户把配置写到本机环境变量、Agent runtime 私有 secrets 或不会提交的私有 env 文件，不要写进仓库。
+5. 配置后先运行 `inspect` 检查 endpoint 解析、参考图路径和输出覆盖风险；第三方中转站再运行 `probe` 检查兼容性。
+6. 只有 endpoint 能上传参考图时，才允许真实生成含星禾人物的图片。
+
 ## 配置放在哪里
 
 第三方请求地址和 API key 必须配置在本机 Agent runtime 的私有环境变量里，不要写进本 skill 仓库，也不要提交到 GitHub。

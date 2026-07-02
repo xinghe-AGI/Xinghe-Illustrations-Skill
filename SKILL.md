@@ -47,6 +47,15 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 
 不要把真实 API key、permission code、access token 写进 `SKILL.md`、`README.md`、`references/`、`scripts/`、`assets/` 或任何会提交到 GitHub 的文件。
 
+用户刚安装 skill、询问“怎么配置生图”“URL/API key 填哪里”“为什么不能真实生成”时，先读取 `docs/usage-and-generation.md` 和 `references/access-modes.md`，按以下顺序引导：
+
+1. 先确认用户要使用官方 OpenAI 还是第三方中转站。
+2. 官方 OpenAI：让用户在本机或 Agent runtime 的私有环境变量中配置 `OPENAI_API_KEY`。
+3. 第三方中转站：让用户配置 `GPT_IMAGE_BASE_URL`、`GPT_IMAGE_API_KEY`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`，必要时再配置 `GPT_IMAGE_PROVIDER` 和 `GPT_IMAGE_PERMISSION_CODE`。
+4. 强调不要把真实密钥写进仓库文件、聊天记录中准备提交的文档、命令示例或最终交付。
+5. 配置后先让用户运行 `inspect` 或 `probe` 检查 URL、API key、模型和参考图上传能力，再真实生成。
+6. 如果 endpoint 不能上传 `assets/examples/00-xinghe-ip-baseline.png`，含人物任务停在 prompt-only；只有 `no-character` 的结构图、流程图或技术架构图可以继续真实生成。
+
 ## 工作流
 
 ### 1. 读取来源并建立内容锚点
