@@ -20,7 +20,7 @@ const SKILL_ROOT = path.resolve(__dirname, "..");
 function usage() {
   return `xinghe_image_assets_cli v${VERSION}
 
-Generate Xinghe-style image assets through Responses API image_generation or legacy Images API endpoints.
+Generate Xinghe-style image assets through Responses API image_generation or Images API edits with reference images.
 
 Usage:
   node scripts/xinghe_image_assets_cli.js generate --prompt <text> --output <path> [options]
@@ -143,22 +143,24 @@ function resolveResponsesEndpoint(mode, baseUrl) {
   return `${clean}/v1/responses`;
 }
 
-function resolveImagesEndpoint(mode, baseUrl, isEdit) {
-  const suffix = isEdit ? "edits" : "generations";
+function resolveImagesEndpoint(mode, baseUrl) {
   if (mode === "official") {
-    return `https://api.openai.com/v1/images/${suffix}`;
+    return "https://api.openai.com/v1/images/edits";
   }
   if (!baseUrl) {
     fail("Proxy Images API requires --base-url or GPT_IMAGE_BASE_URL.");
   }
   const clean = baseUrl.replace(/\/+$/, "");
-  if (/\/images\/(generations|edits)$/i.test(clean)) {
-    return clean.replace(/\/images\/(generations|edits)$/i, `/images/${suffix}`);
+  if (/\/images\/[^/]+$/i.test(clean) && !/\/images\/edits$/i.test(clean)) {
+    fail("Only Images edits endpoints with reference images are supported by this skill.");
   }
-  if (/\/images$/i.test(clean)) return `${clean}/${suffix}`;
-  if (/\/v1$/i.test(clean)) return `${clean}/images/${suffix}`;
-  if (/\/responses$/i.test(clean)) return clean.replace(/\/responses$/i, `/images/${suffix}`);
-  return `${clean}/v1/images/${suffix}`;
+  if (/\/images\/edits$/i.test(clean)) {
+    return clean;
+  }
+  if (/\/images$/i.test(clean)) return `${clean}/edits`;
+  if (/\/v1$/i.test(clean)) return `${clean}/images/edits`;
+  if (/\/responses$/i.test(clean)) return clean.replace(/\/responses$/i, "/images/edits");
+  return `${clean}/v1/images/edits`;
 }
 
 function safeEndpointLabel(endpoint) {
@@ -245,18 +247,6 @@ function buildResponsesPayload(args, format) {
       },
     ],
     tool_choice: "required",
-  };
-}
-
-function buildImagesGenerationPayload(args, format) {
-  return {
-    model: imagesModel(args),
-    prompt: args.prompt,
-    n: Number(args.n || 1),
-    size: args.size || DEFAULT_SIZE,
-    quality: args.quality || DEFAULT_QUALITY,
-    response_format: "b64_json",
-    output_format: format,
   };
 }
 
@@ -454,21 +444,17 @@ async function generateViaResponses(args, context) {
 }
 
 async function generateViaImages(args, context) {
-  const isEdit = referenceImagePaths(args).length > 0;
-  const endpoint = resolveImagesEndpoint(context.mode, context.baseUrl, isEdit);
+  if (referenceImagePaths(args).length === 0) {
+    fail("Images API mode requires reference images. Pure text image generation is not supported.");
+  }
+  const endpoint = resolveImagesEndpoint(context.mode, context.baseUrl);
   const headers = {
     authorization: `Bearer ${context.apiKey}`,
   };
   if (context.permissionCode) headers["x-permission-code"] = context.permissionCode;
   if (context.providerName) headers["x-provider-name"] = context.providerName;
 
-  let body;
-  if (isEdit) {
-    body = buildImagesEditBody(args, context.format);
-  } else {
-    headers["content-type"] = "application/json";
-    body = JSON.stringify(buildImagesGenerationPayload(args, context.format));
-  }
+  const body = buildImagesEditBody(args, context.format);
 
   return requestImage({
     endpoint,
@@ -597,7 +583,10 @@ async function runProbe(args) {
     if (result) compatible = "responses-api";
   }
   if (!compatible && (apiStyle === "images" || apiStyle === "auto")) {
-    const result = await attempt("images-generations", { api: "images", "api-mode": "images", image: null, reference: null, references: null });
+    const reference = args.reference || defaultProbeReference();
+    const result = reference
+      ? await attempt("images-edits-reference", { api: "images", "api-mode": "images", image: null, reference, references: null })
+      : null;
     if (result) compatible = "images-api";
   }
 
@@ -640,7 +629,6 @@ function runInspect(args) {
   const apiStyle = resolveApiStyle(args, mode);
   const baseUrl = args["base-url"] || process.env.GPT_IMAGE_BASE_URL;
   const imagePaths = referenceImagePaths(args);
-  const isEdit = imagePaths.length > 0;
   const outputPath = args.output && args.output !== true ? path.resolve(args.output) : null;
   const format = outputPath ? inferFormat(outputPath, args["output-format"]) : (args["output-format"] || DEFAULT_FORMAT);
   const referenceChecks = imagePaths.map((imagePath) => {
@@ -653,13 +641,13 @@ function runInspect(args) {
   });
 
   const summary = {
-    ok: referenceChecks.every((item) => item.exists),
+    ok: referenceChecks.every((item) => item.exists) && !(apiStyle === "images" && imagePaths.length === 0),
     inspect_only: true,
     no_api_request: true,
     mode,
     api_mode: apiStyle,
     planned_api: apiStyle === "auto" ? "responses first, images fallback" : apiStyle,
-    images_request_type: isEdit ? "edits multipart/form-data" : "generations json",
+    images_request_type: imagePaths.length > 0 ? "edits multipart/form-data" : "unsupported: reference images required",
     reference_count: imagePaths.length,
     references: referenceChecks,
     output: outputPath,
@@ -679,7 +667,7 @@ function runInspect(args) {
     },
     endpoints: {
       responses: endpointOrError(() => resolveResponsesEndpoint(mode, baseUrl)),
-      images: endpointOrError(() => resolveImagesEndpoint(mode, baseUrl, isEdit)),
+      images: endpointOrError(() => resolveImagesEndpoint(mode, baseUrl)),
     },
   };
 

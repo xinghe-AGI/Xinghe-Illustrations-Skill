@@ -1,17 +1,17 @@
 # 星禾内容视觉资产 Skill
 
-> 把中文内容里的判断、流程、情绪、知识结构、技术架构和运营闭环，转化成“星禾”个人 IP 风格的封面、正文图、解释图、知识卡片、技术架构图、流程图和信息图。
-> 这是适合所有 Agent 的统一版本：策略、prompt-only、参考图约束生图和 API/CLI 生成都在一个 skill 内完成。
+> 先读懂文章，再自主判断应该生成什么图。
+> 本 skill 把中文内容里的判断、流程、情绪、知识结构、技术架构和运营闭环，转化成“星禾”个人 IP 风格的封面、正文图、情绪图、解释图、知识卡片、技术架构图、流程图、多格漫画和信息图。
 
 ---
 
 ## 这个 Skill 做什么
 
-星禾内容视觉资产 Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记、技术说明和方法论内容生成正文配图、平台封面、情绪锚点图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片、信息图海报、提示词和 manifest，或在官方 OpenAI 配置可用时通过内置 Node CLI 生成最终 PNG 图片。
+星禾内容视觉资产 Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记、技术说明和方法论内容生成视觉方案、提示词、manifest，或在官方 OpenAI 配置可用时通过内置 Node CLI 生成最终 PNG 图片。
 
-它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：先理解内容里的关键认知动作，再判断这段内容适合封面、情绪图、解释图、漫画、知识卡片还是正文配图，然后把一个判断、流程、状态或隐喻，画成星禾正在亲手参与的轻盈现场。
+它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：读完文章后先做视觉路由，判断应该生成封面、情绪图、解释图、技术架构图、流程图、多格漫画、知识卡片、信息图还是普通正文图，再输出候选方向和可生成的 prompt。
 
-这个仓库是唯一保留的星禾内容视觉资产 skill 仓库，适合所有支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。真实图片参考约束统一通过本仓库内置 Node CLI/API 路线完成，并且必须在用户明确授权外部上传风险后调用官方 OpenAI。
+这个仓库是当前保留的星禾内容视觉资产 skill 仓库，适合支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。默认先输出策略和 prompt；只有用户明确要求真实生成、并确认外部上传风险后，才调用图片生成链路。
 
 ---
 
@@ -19,9 +19,11 @@
 
 - **逐节配图判断**：先按小节判断适合配图、不适合配图、适合卡片还是适合封面，不按标题平均配图。
 - **深度提炼**：提炼文体、真意、张力、灵魂句和必须出现的原文术语/数字。
-- **视觉路由**：支持 `emotion-anchor`、`explanatory-diagram`、`technical-architecture`、`process-flow`、`comic-strip`、`knowledge-card-pack`、`knowledge-card-single`、`infographic-poster`、`platform-cover` 和常规正文图。
+- **自主视觉路由**：读完文章后自动判断主路由和辅助路由，支持 `emotion-anchor`、`explanatory-diagram`、`technical-architecture`、`process-flow`、`comic-strip`、`knowledge-card-pack`、`knowledge-card-single`、`infographic-poster`、`platform-cover` 和常规正文图。
+- **混合路由编排**：支持 `comic-strip + emotion-anchor`、`infographic-poster + knowledge-card-pack`、`knowledge-card-single + explanatory-diagram`、`process-flow + knowledge-card-pack` 等组合，但会明确主次和拆图边界。
 - **多候选方向**：正文配图默认每个选点给 2 个候选方向，重点图可给 3 个；公众号封面和小红书封面默认给 3 个方向。
-- **知识卡片生产**：支持 5-9 张知识卡片组、单张总结卡、对比卡、流程卡、架构卡和清单卡。
+- **知识卡片生产**：支持横版/竖版知识卡片组、单张总结卡、对比卡、流程卡、架构卡和清单卡；多个相关知识点可以放进同一卡，但必须有并列、因果、流程、分层、汇聚、决策或对比关系；按内容排版和发布场景选择 `4:3`、`16:9`、`3:4` 或 `1:1`。
+- **高密度信息图**：信息图海报允许承载较多文章信息，但必须短标签化、分区化、有清晰阅读路径；信息过多时拆成知识卡片组。
 - **技术结构表达**：支持技术架构图、流程图、节点关系图、SOP 流程和自动化链路图。
 - **平台封面适配**：支持微信公众号 2.35:1 封面、小红书 3:4 封面、文章头图和正文配图。
 - **星禾 IP 稳定性**：含人物的真实生图必须传入人物基准图，并搭配正文或封面参考图，减少人物漂移。
@@ -38,11 +40,59 @@
 默认不要一上来直接生图。推荐按下面顺序推进：
 
 1. **读内容**：读取文章、Markdown、截图、标题或主题，提炼文体、真意、张力、灵魂句和必须保留的术语/数字。
-2. **做路由**：逐节判断哪些地方值得画，决定走正文图、封面、情绪图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片或信息图海报。
+2. **做路由**：逐节判断哪些地方值得画，自主选择 `primary_route` 和 `secondary_routes`，决定走正文图、封面、情绪图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片、信息图海报或混合路由。
 3. **给候选**：先输出 A/B/C 候选方向，每个候选都写清核心隐喻、星禾动作、构图、中文标注、参考图、比例和文件名。
 4. **写 prompt/manifest**：用户确认方向后，再输出完整 prompt 或批量生成 manifest。
 5. **真实生成**：只有在用户明确授权外部上传风险，并且 API/endpoint 能上传任务所需参考图时，才调用 Node CLI 生成 PNG；含人物图必须能上传人物基准图。
 6. **检查返工**：生成后检查星禾是否参与核心动作、中文是否可读、信息层级是否适合手机端、是否有错字/水印/品牌误用。
+
+---
+
+## 核心产出结构
+
+策略和 prompt-only 模式下，推荐输出结构如下：
+
+```json
+{
+  "routing_decision": {
+    "primary_route": "infographic-poster",
+    "secondary_routes": ["knowledge-card-pack"],
+    "information_density": "high",
+    "recommended_outputs": ["1 张总览信息图", "5-7 张知识卡片"],
+    "route_risks": ["信息过密", "文字过小", "主次不清"]
+  },
+  "pictures": [
+    {
+      "position": "第 2 节后 / cover / summary",
+      "topic": "这张图要解决的问题",
+      "recommended_candidate": "A",
+      "candidates": [
+        {
+          "id": "A",
+          "primary_route": "knowledge-card-single",
+          "secondary_routes": ["explanatory-diagram"],
+          "information_density": "medium",
+          "knowledge_relation": "流程 / 因果 / 分层 / 输入汇聚 / 决策分流 / 左右对比",
+          "composition_pattern": "左因右果路径卡",
+          "layout_flow": "左侧问题 -> 中间机制 -> 右侧结果",
+          "character_presence": "small-character",
+          "aspect_ratio": "4:3",
+          "prompt": "完整生图提示词"
+        }
+      ]
+    }
+  ]
+}
+```
+
+字段含义：
+
+- `primary_route`：这张图最主要的视觉形态。
+- `secondary_routes`：辅助表达方式，没有则为空数组。
+- `information_density`：信息密度，取 `low`、`medium` 或 `high`。
+- `recommended_outputs`：建议最终生成哪些图，而不是盲目按小节凑图。
+- `route_risks`：提前暴露可能失败的点，例如信息过密、情绪过火、人物遮挡结构。
+- `knowledge_relation`：同一卡内多个知识点之间的关系；没有关系就拆卡。
 
 ---
 
@@ -208,7 +258,7 @@
 - 正文图、封面、情绪图和漫画里，星禾必须承担核心动作；如果去掉星禾画面仍然完全成立，说明角色太装饰。
 - 技术架构图、流程图和高密度知识卡片里，结构必须优先可读；星禾可以是小人物、局部人物或无人物。
 - 中文批注尽量短，避免错字和说明书感。
-- 不做模板 PPT、课程页、冷硬正式流程图、科技 UI 或商业插画；但可以做白底蜡笔风格的技术架构图、流程图、手绘解释图、知识卡片、多格漫画和信息图海报。
+- 不做模板 PPT、课程页、冷硬正式流程图、科技 UI 或商业插画；但可以做冷白/浅蓝灰底蜡笔风格的技术架构图、流程图、手绘解释图、知识卡片、多格漫画和信息图海报。
 - 不复刻 `assets/examples/` 的旧构图、旧物件或旧案例。
 - 不生成多个星禾、头像气泡或右下角 inset portrait。
 - 不在左上角写“运营流程 / Workflow / 系统架构图 / 自动化 SOP / 研究框架 / 路线图”等类型标题。
@@ -223,6 +273,7 @@
 默认可以输出：
 
 - 文章配图策略、shot list 和多候选方向
+- 视觉路由决策：`primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`
 - 每个配图选点的放置位置、选点理由、图型、主题、结构、星禾动作和推荐候选
 - 逐节配图判断表和视觉路由
 - 情绪锚点图、解释图、技术架构图、流程图、多格漫画、知识卡片组、单张知识卡片和信息图海报方案
@@ -247,11 +298,13 @@
 | 配图策略 | 先判断文章哪里值得配图，输出 3-7 个选点和候选方向 | 否 |
 | 正文多候选 | 每个正文配图选点给 A/B 方向，重点图可给 A/B/C | 否 |
 | 平台封面候选 | 为公众号封面或小红书封面先给 3 个不同视觉方向 | 否 |
-| 知识卡片组 | 把长文拆成 5-9 张移动端可读卡片 | 否 |
+| 知识卡片组 | 根据内容和发布场景拆成 5-9 张横版或竖版卡片 | 否 |
 | 技术架构图 | 表达系统组件、服务边界、数据流、模块依赖 | 否 |
 | 流程图 | 表达 SOP、自动化流程、审批流、状态流、内容生产流程 | 否 |
 | 情绪图/解释图/多格漫画 | 根据内容张力、机制和因果节奏选择合适形态 | 否 |
 | 信息图海报 | 整篇流程、矩阵或地图式总览，默认最多一张 | 否 |
+| 自主路由 | 读完文章后自动判断应该生成哪些图，而不是用户先选图型 | 否 |
+| 混合路由 | 漫画搭配情绪图、信息图搭配知识卡、知识卡内嵌解释图 | 否 |
 | prompt-only | 每个候选方向输出独立 prompt，交给用户后续生成或人工处理 | 否 |
 | 单张真实生成 | 用户确认某个候选后，通过 Node CLI 输出 PNG | 是 |
 | 多候选真实生成 | 用户明确要多个候选文件时，分别生成 `cover-a.png`、`cover-b.png` 等 | 是 |
@@ -270,10 +323,26 @@
 | 技术架构图 | 系统组件、服务边界、数据流、模块依赖、权限边界 | 纯情绪表达或封面点击图 |
 | 流程图 | SOP、自动化流程、审批流、状态流、内容生产流程 | 只有单个观点或一句结论 |
 | 多格漫画 | 有明显前后变化、累积、转折或因果推进 | 每格只是重复同一个观点 |
-| 知识卡片组 | 长文总结、小红书轮播、方法论拆解 | 只需要一张封面或一个情绪瞬间 |
+| 知识卡片组 | 长文总结、文章笔记、小红书轮播、方法论拆解 | 只需要一张封面或一个情绪瞬间 |
 | 单张知识卡 | 单观点、单流程、单对比、单清单 | 信息超过手机端单屏可读范围 |
 | 信息图海报 | 整篇流程、矩阵、地图式总览 | 把全文原文硬塞进一张图 |
 | 平台封面 | 公众号头图、小红书首图、文章封面 | 正文里解释复杂机制 |
+
+### 自主判断生成什么图
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请读完下面这篇文章后，自主判断应该生成哪些类型的图。
+不要让我先选图型。
+
+请输出：
+1. 逐节配图判断表
+2. routing_decision：primary_route、secondary_routes、information_density、recommended_outputs、route_risks
+3. 每张建议图片的 A/B 候选方向
+4. 每个候选的推荐比例、人物呈现等级、参考图和适用原因
+
+<粘贴文章>
+```
 
 ### 正文配图多候选
 
@@ -341,12 +410,24 @@ Use $xinghe-illustrations-skill 先不要生图。
 <粘贴复杂段落>
 ```
 
-### 知识卡片组
+### 横版知识卡片组
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请把下面这篇方法论文章拆成横版知识卡片组，不是小红书轮播。
+先根据内容判断每张卡适合 4:3 还是 16:9；流程、对比、结构关系清楚时优先横版。
+输出 5-7 张卡片计划，每张卡包含：卡片角色、标题、信息目标、推荐比例、布局、人物呈现等级、卡面文字、候选方向和推荐参考图。流程卡、架构卡和清单卡可以使用小人物、局部人物或无人物。
+
+<粘贴文章>
+```
+
+### 小红书竖版知识卡片组
 
 ```text
 Use $xinghe-illustrations-skill 先不要生图。
 请把下面这篇文章拆成小红书 3:4 知识卡片组。
-输出 5-9 张卡片计划，每张卡包含：卡片角色、标题、信息目标、布局、人物呈现等级、卡面文字、候选方向和推荐参考图。流程卡、架构卡和清单卡可以使用小人物、局部人物或无人物。
+这是小红书轮播场景，所以使用竖版；每张卡只保留一个信息目标。
+输出 5-9 张卡片计划，每张卡包含：卡片角色、标题、信息目标、布局、人物呈现等级、卡面文字、候选方向和推荐参考图。
 
 <粘贴文章>
 ```
@@ -361,6 +442,17 @@ Use $xinghe-illustrations-skill 先判断视觉路由。
 <粘贴段落>
 ```
 
+### 多格漫画 + 情绪锚点
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请判断下面这段内容是否适合 comic-strip + emotion-anchor。
+如果适合，请输出 panel_count、panel_progression 和 emotion_arc。
+每格必须推进剧情，同时体现情绪阶段；不要做无关表情包。
+
+<粘贴有误区、压力、转折或成长过程的段落>
+```
+
 ### 信息图海报
 
 ```text
@@ -371,11 +463,37 @@ Use $xinghe-illustrations-skill prompt-only。
 <粘贴文章>
 ```
 
+### 高密度信息图 + 知识卡片组
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+这篇文章信息量很大，请判断是否适合 infographic-poster + knowledge-card-pack。
+如果适合，请让信息图只负责全局地图，知识卡片负责分点解释。
+输出 section_count、density_strategy、reading_path，以及建议拆成几张知识卡。
+
+<粘贴文章>
+```
+
+### 单张知识卡承载多个相关知识点
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请把下面这些相关知识点放在同一张知识卡片里。
+先判断它们的 knowledge_relation 是并列、因果、流程、分层、输入汇聚、决策分流还是左右对比。
+如果没有明确关系，请拆成多张卡。
+
+知识点：
+1. <知识点一>
+2. <知识点二>
+3. <知识点三>
+4. <知识点四>
+```
+
 ### 记录视觉学习日志
 
 ```text
 Use $xinghe-illustrations-skill 这张图我决定采用。
-请根据这次采用结果生成一条 visual-learning-log.md 学习日志建议，不要直接改文件。
+请根据这次采用结果生成一条 learning/visual-learning-log.md 学习日志建议，不要直接改文件。
 需要包含：日期、平台/用途、标题或主题、采用方向、为什么好、失败点、后续复用规则、相关文件或参考图。
 ```
 
@@ -383,7 +501,7 @@ Use $xinghe-illustrations-skill 这张图我决定采用。
 
 ```text
 Use $xinghe-illustrations-skill 帮我编辑这张图。
-去掉左上角的“流程图”标题，保留白底蜡笔线稿和星禾主体动作。
+去掉左上角的“流程图”标题，保留冷白/浅蓝灰底蜡笔线稿和星禾主体动作。
 ```
 
 
@@ -440,7 +558,7 @@ C:\Users\<you>\.codex\skills\xinghe-illustrations-skill\
 --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"
 ```
 
-`00-xinghe-ip-baseline.png` 用来锁定星禾人物形象，第二张参考图用来锁定正文配图或封面构图。正文图、技术架构图、流程图和知识卡片从 `01-14` 选择；微信公众号封面和小红书封面从 `15-20` 选择。如果当前链路只能纯文本生图、不能上传人物基准图，就不要声称生成了合格的星禾人物图片。明确 `no-character` 的结构图可以不展示人物。
+`00-xinghe-ip-baseline.png` 用来锁定星禾人物形象，第二张参考图用来锁定正文配图或封面构图。正文图、技术架构图、流程图和知识卡片从 `01-14` 选择；微信公众号封面和小红书封面从 `15-20` 选择。如果当前链路只能纯文本生图、不能上传人物基准图，就不要声称生成了合格的星禾人物图片，也不要调用 Images API。明确 `no-character` 的结构图可以不展示人物。
 
 ### 3. 配置环境变量
 
@@ -469,7 +587,7 @@ OPENAI_API_KEY=<your-openai-api-key>
 
 ### 4. 官方 OpenAI 调用
 
-官方模式默认使用 OpenAI Responses API，也可以按需要使用 Images API。Responses API 通过 `image_generation` 工具返回图片数据；Images API 提供 `/images/generations`、`/images/edits` 和 `/images/variations`。
+官方模式默认使用 OpenAI Responses API，也可以按需要使用支持参考图上传的 Images edits。Responses API 通过 `image_generation` 工具返回图片数据；Images API 在本 skill 中只用于带参考图的编辑式生成。
 
 先做零成本检查：
 
@@ -528,6 +646,7 @@ node --check scripts/xinghe_image_assets_cli.js
 ├── references/
 │   ├── cognitive-anchor-routing.md
 │   ├── visual-formats.md
+│   ├── knowledge-card-composition-patterns.md
 │   ├── text-rendering-rules.md
 │   ├── output-spec.md
 │   ├── visual-routing-and-candidates.md
@@ -542,17 +661,18 @@ node --check scripts/xinghe_image_assets_cli.js
 ## 相关文件
 
 - `SKILL.md`：Skill 触发描述和主工作流
-- `references/cognitive-anchor-routing.md`：逐节配图判断、深度提炼和视觉路由
+- `references/cognitive-anchor-routing.md`：逐节配图判断、深度提炼、自主路由和混合路由
 - `references/visual-formats.md`：情绪图、解释图、多格漫画、知识卡片和信息图海报规则
+- `references/knowledge-card-composition-patterns.md`：知识卡片横版/竖版构图骨架
 - `references/technical-architecture-and-flow.md`：技术架构图、流程图和人物缩放/可省略规则
 - `references/text-rendering-rules.md`：中文文字渲染铁律
 - `references/output-spec.md`：输出包目录、prompts.json 和 manifest 规范
 - `references/xinghe-ip.md`：星禾形象、动作库和禁忌
 - `references/illustration-selection.md`：智能选点、图型分类和 prompt-only 模式
-- `references/visual-routing-and-candidates.md`：路由确定后的候选数量、候选字段和真实生成确认规则
-- `references/visual-learning-log.md`：人工确认好图后的视觉经验沉淀
+- `references/visual-routing-and-candidates.md`：主/辅路由确定后的候选数量、候选字段和真实生成确认规则
+- `learning/visual-learning-log.md`：人工确认好图后的视觉经验沉淀
 - `references/prompt-template.md`：生图和改图提示词模板
-- `references/prompt-template-images-api.md`：旧版 Images API 精简 prompt 模板
+- `references/prompt-template-images-api.md`：Images edits 精简 prompt 模板
 - `references/qa-checklist.md`：生成后检查与返工规则
 - `references/image-generation-runtime.md`：CLI 调用、dry-run、manifest 和失败处理
 - `references/access-modes.md`：官方调用、环境变量和安全边界

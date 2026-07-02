@@ -5,13 +5,13 @@
 | 概念 | 可选值 | 含义 |
 |---|---|---|
 | access mode | `official` / `proxy` | 使用 OpenAI 官方端点，或第三方代理/企业网关端点 |
-| API protocol | `responses` / `images` / `auto` | 使用 `/v1/responses` + `image_generation`，或 `/v1/images/*`，或自动回退 |
+| API protocol | `responses` / `images` / `auto` | 使用 `/v1/responses` + `image_generation`，或支持参考图上传的 Images edits，或自动回退 |
 
 默认规则：
 
 - `official` 默认 `--api-mode responses`。
 - `proxy` 默认 `--api-mode auto`：先尝试 Responses API，失败或未返回 base64 图片时回退 Images API。
-- 明确知道代理只支持 `/v1/images/generations` 或 `/v1/images/edits` 时，直接使用 `--api-mode images` 或设置 `GPT_IMAGE_API_MODE=images`。
+- 明确知道代理支持 Images edits 且可以上传参考图时，直接使用 `--api-mode images` 或设置 `GPT_IMAGE_API_MODE=images`。
 - 含人物的真实星禾图优先选择能上传参考图的模式；不能上传 `assets/examples/00-xinghe-ip-baseline.png` 时，不做含人物真实生成。明确 `no-character` 的结构图可按无人物结构图处理。
 
 ## 配置放在哪里
@@ -170,12 +170,12 @@ GPT_IMAGE_MODEL=gpt-image-2
 
 当 `--api-mode images` 或 auto fallback 到 Images API 时：
 
-- 纯文本生图调用 `/v1/images/generations`，发送 JSON。
-- 带 `--image`、`--style-reference`、`--style-references`、`--reference` 或 `--references` 时，调用 `/v1/images/edits`，发送 `multipart/form-data`。
-- 如果 `--base-url` 传入 `/v1`，CLI 自动追加 `/images/generations` 或 `/images/edits`。
-- 如果 `--base-url` 已经是 `/v1/images/generations` 或 `/v1/images/edits`，CLI 会按是否有图片参数纠正到对应 endpoint。
+- 必须带 `--image`、`--style-reference`、`--style-references`、`--reference` 或 `--references`，发送 `multipart/form-data`。
+- 如果没有任何参考图参数，CLI 会停止；本 skill 不支持纯文本 Images 生成。
+- 如果 `--base-url` 传入 `/v1`，CLI 自动追加 Images edits endpoint。
+- 如果 `--base-url` 已经是 Images edits endpoint，CLI 直接使用。
 
-旧版 Images API 示例：
+Images edits 示例：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -195,7 +195,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 NangeAI 可作为第三方中转站示例。具体 base URL、鉴权 header、permission code 和模型支持情况，以你自己的中转站控制台或接口文档为准，不要把真实密钥写进仓库。
 
-如果文档指向 `/v1/images/edits`，请求体是 `multipart/form-data`，其中 `image` 可传 1 张或多张图片，常用字段包括 `prompt`、`model`、`n`、`size`、`quality`、`background`、`moderation`。这种场景直接使用 Images API，并用 `--style-references` 同时上传星禾人物基准图和场景/封面参考图：
+如果文档指向 Images edits，请求体是 `multipart/form-data`，其中 `image` 可传 1 张或多张图片，常用字段包括 `prompt`、`model`、`n`、`size`、`quality`、`background`、`moderation`。这种场景直接使用 Images API，并用 `--style-references` 同时上传星禾人物基准图和场景/封面参考图：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -212,7 +212,7 @@ node scripts/xinghe_image_assets_cli.js generate \
   --output-format png
 ```
 
-没有图片参数时走 `/v1/images/generations` JSON，不能用于合格星禾图；只能作为普通 prompt-only 或非 IP 强约束测试。
+没有图片参数时不要调用 Images API；只能输出 prompt-only 或改用能上传参考图的链路。
 
 可选 header：
 
@@ -221,7 +221,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 ## 星禾图强制参考图
 
-选择访问模式时，优先选择能上传参考图的模式。含人物的真实星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`；如果某个 provider 只能纯文本生成、不能使用 `/v1/images/edits` 或等价参考图输入，就不能用于合格星禾人物图生成。明确 `no-character` 的技术架构图或流程图可作为星禾风格结构图处理。
+选择访问模式时，优先选择能上传参考图的模式。含人物的真实星禾图必须上传 `assets/examples/00-xinghe-ip-baseline.png`；如果某个 provider 只能纯文本生成、不能使用 Images edits 或等价参考图输入，就不能用于合格星禾人物图生成。明确 `no-character` 的技术架构图或流程图可作为星禾风格结构图处理。
 
 正文配图参考图从 `assets/examples/01-14-*.png` 中选；微信公众号封面和小红书笔记封面从 `assets/examples/15-20-*.png` 中选。封面任务不要把正文配图构图硬套到封面上。
 
@@ -229,7 +229,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 1. 用户明确给了代理端点：用 `proxy`。
 2. 用户只配置了 `OPENAI_API_KEY`：用 `official`。
-3. 代理文档只写 `/v1/images/generations` 或 `/v1/images/edits`：用 `--api-mode images`。
+3. 代理文档支持 Images edits 和参考图上传：用 `--api-mode images`。
 4. 代理文档写 `/v1/responses` 或 `image_generation tool`：用 `--api-mode responses`。
 5. 不确定代理协议：用 `--api-mode auto`，先 `probe`，再 `inspect`。
 6. 两者都不可用，或无法上传人物基准图：不要假装已经生成图片，输出完整提示词和命令，说明缺少的前置条件。
@@ -237,6 +237,6 @@ node scripts/xinghe_image_assets_cli.js generate \
 ## 不要做
 
 - 不把只支持 Images API 的代理端点误当作 Responses API。
-- 不用只支持纯文本 `/v1/images/generations` 的 provider 生成合格星禾 IP 图。
+- 不用只支持纯文本图片生成的 provider 生成合格星禾 IP 图。
 - 不要求某个 runtime 专属工具；OpenClaw、Hermes 和其他无原生生图 Agent 都应能通过 Node CLI 使用。
 - 不把 access token、permission code 或 API key 写进日志、文件名、Markdown 交付结果。

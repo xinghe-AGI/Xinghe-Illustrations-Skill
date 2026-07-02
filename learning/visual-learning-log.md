@@ -46,8 +46,16 @@
 
 待记录。
 
+## 技术架构图
+
+待记录。
+
+## 流程图
+
+待记录。
+
 ## 使用规则
 
 - 学习日志只沉淀经验，不自动改变硬规则。
-- 如果某条经验反复出现 3 次以上，再考虑升级到 `cover-composition-patterns.md`、`composition-patterns.md`、`visual-formats.md`、`text-rendering-rules.md` 或 `prompt-template.md`。
-- 记录要具体到标题结构、星禾动作、构图关系和失败点，避免写成“更好看”“更高级”。
+- 如果某条经验反复出现 3 次以上，再考虑升级到 `cover-composition-patterns.md`、`composition-patterns.md`、`visual-formats.md`、`technical-architecture-and-flow.md`、`text-rendering-rules.md` 或 `prompt-template.md`。
+- 记录要具体到标题结构、星禾动作、人物大小、背景分区、构图关系和失败点，避免写成“更好看”“更高级”。

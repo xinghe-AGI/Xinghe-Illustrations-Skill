@@ -26,13 +26,18 @@
     },
     {
         "id":  "learning-log-dry-run",
-        "prompt":  "Use $xinghe-illustrations-skill 这张小红书封面我决定采用，标题是：这套 AI 工作流我会反复用。请根据这次采用结果生成一条 visual-learning-log.md 学习日志建议，不要直接改文件。",
+        "prompt":  "Use $xinghe-illustrations-skill 这张小红书封面我决定采用，标题是：这套 AI 工作流我会反复用。请根据这次采用结果生成一条 learning/visual-learning-log.md 学习日志建议，不要直接改文件。",
         "expected":  "输出学习日志条目建议，包含日期、平台/用途、标题或主题、采用方向、为什么好、失败点、后续复用规则、相关文件或参考图；不直接修改文件，不把一次结果自动升级为长期规则。"
     },
     {
         "id":  "knowledge-card-pack-routing",
         "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把一篇讲 AI 工作区方法论的长文拆成小红书 3:4 知识卡片组，输出 5-9 张卡片计划和关键卡 A/B 候选方向。",
-        "expected":  "识别为 knowledge-card-pack；输出卡片角色、标题、信息目标、布局、星禾动作、卡面文字、候选方向和参考图；默认 3:4；不调用 CLI。"
+        "expected":  "识别为 knowledge-card-pack；因为用户明确小红书 3:4，输出竖版卡片角色、标题、信息目标、布局、星禾动作、卡面文字、候选方向和参考图；每张关键卡包含 composition_pattern；不调用 CLI。"
+    },
+    {
+        "id":  "horizontal-knowledge-card-pack-routing",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把一篇讲 AI 工作区方法论的文章做成知识卡片组，用于文章笔记和公众号正文配图，不是小红书轮播。请根据内容判断 4:3 或 16:9。",
+        "expected":  "识别为 knowledge-card-pack；不默认 3:4；根据文章笔记/公众号正文场景优先推荐 4:3 或 16:9 横版卡片，并为每张卡说明推荐比例、composition_pattern、layout_flow、布局和原因；不调用 CLI。"
     },
     {
         "id":  "explanatory-diagram-not-fallback",
@@ -58,5 +63,25 @@
         "id":  "infographic-poster-one-max",
         "prompt":  "Use $xinghe-illustrations-skill prompt-only。请把一篇介绍内容工作流从选题、生产、发布、复盘到回流的文章做成一张信息图海报 prompt。",
         "expected":  "识别为 infographic-poster；默认最多一张；锁定全局结构和短标签，不把全文硬塞进去；输出 3:4 或 4:3 prompt。"
+    },
+    {
+        "id":  "autonomous-routing-mixed-article",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。读完一篇讲 AI 内容工作区从混乱、卡住、重构到稳定复用的文章后，请你自主判断应该生成哪些类型的图，不要让我先选图型。",
+        "expected":  "输出主路由和辅助路由，包含 primary_route、secondary_routes、information_density、recommended_outputs 和 route_risks；能在情绪图、解释图、知识卡片、多格漫画、流程图、信息图和封面图之间自主取舍；不调用 CLI。"
+    },
+    {
+        "id":  "comic-with-emotion-anchor",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请判断这段内容是否适合多格漫画：用户一开始焦虑地临时问 AI，后来星禾把需求拆进规则、台账和复盘，最后工作区稳定运转。需要体现情绪变化。",
+        "expected":  "识别为 comic-strip + emotion-anchor；comic-strip 是 primary_route，emotion-anchor 是 secondary_routes；输出 panel_count、panel_progression 和 emotion_arc；每格情绪推动剧情，不做无关表情包。"
+    },
+    {
+        "id":  "high-density-infographic-routing",
+        "prompt":  "Use $xinghe-illustrations-skill prompt-only。请把一篇信息量很大的文章做成一张总览信息图，内容包括背景、问题、路径、工具、检查点和结果。",
+        "expected":  "识别为 infographic-poster，information_density 为 high；允许承载较多信息，但必须给出 section_count、density_strategy、reading_path，并说明信息过多时拆成 knowledge-card-pack。"
+    },
+    {
+        "id":  "related-knowledge-points-single-card",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把 4 个相关知识点放在同一张知识卡片里：输入、处理、审核、回流。它们是同一条内容生产链路。",
+        "expected":  "识别为 knowledge-card-single + explanatory-diagram；说明 knowledge_relation 是流程或输入汇聚，选择合适 composition_pattern 和 layout_flow；允许同一卡多个知识点，但必须关系清楚。"
     }
 ]

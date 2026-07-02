@@ -7,6 +7,7 @@
 使用本文件前，应已经完成：
 
 - 已按 `cognitive-anchor-routing.md` 做逐节判断和路由选择。
+- 已明确 `primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`。
 - 已按 `visual-formats.md` 确认视觉形态边界。
 - 已确认用户当前要的是策略、prompt-only 还是真实图片文件。
 
@@ -21,8 +22,8 @@
 | `knowledge-card-pack` | 先定卡片数，再为关键卡给 2-3 个方向 | 默认 5-9 张卡，关键卡可多候选 |
 | `technical-architecture` | 1-2 | 一个偏架构清晰，一个偏阅读友好；人物默认小、局部或不出现 |
 | `process-flow` | 1-2 | 一个偏流程顺序，一个偏关键回流/检查点；人物默认小、局部或不出现 |
-| `comic-strip` | 1-2 | 先验证每格是否推进意义 |
-| `infographic-poster` | 1-2 | 默认最多真实生成 1 张 |
+| `comic-strip` | 1-2 | 先验证每格是否推进意义；有情绪变化时补充 `emotion_arc` |
+| `infographic-poster` | 1-2 | 默认最多真实生成 1 张；允许高信息密度，但必须分层分区 |
 | 快速任务或省成本 | 1 | 用户明确要快、要少、只要最终图时使用 |
 
 ## 候选方向字段
@@ -30,6 +31,9 @@
 每个候选方向必须写清：
 
 - 候选编号：`A`、`B`、`C`
+- 主路由：`primary_route`
+- 辅助路由：`secondary_routes`，没有则写 `[]`
+- 信息密度：`low`、`medium` 或 `high`
 - 核心隐喻：这张图用什么低科技物件或动作承载主题
 - 星禾动作或人物呈现等级：`full-character`、`small-character`、`partial-character`、`no-character`
 - 构图：标题/人物/物件的位置关系
@@ -39,6 +43,21 @@
 - 建议比例：3:4、4:3、1:1、2.35:1 或 16:9
 - 生成文件名：如 `card-02-a.png`、`comic-01-a.png`、`poster-a.png`
 - 结构字段：技术架构图/流程图必须写 `node_count`、`edge_style`、`information_goal`
+- 漫画字段：多格漫画必须写 `panel_count`、`panel_progression`，若辅助 `emotion-anchor`，还要写 `emotion_arc`
+- 信息图字段：信息图海报必须写 `section_count`、`density_strategy`、`reading_path`
+- 知识卡字段：知识卡片必须写 `knowledge_relation`，说明同一卡内多个知识点如何关联
+
+## 混合路由候选
+
+混合路由必须把“主路由”和“辅助路由”的职责拆开写：
+
+- `comic-strip + emotion-anchor`：候选中写清每格剧情和情绪变化。漫画负责叙事，情绪负责读者共鸣，不要把每格做成无关表情。
+- `infographic-poster + knowledge-card-pack`：候选中写清海报总览负责什么，卡片组负责什么。海报可以信息多，但必须有分区和阅读路径。
+- `knowledge-card-single + explanatory-diagram`：候选中写清卡片内多个知识点的关系骨架，例如并列、因果、分层或汇聚。
+- `process-flow + knowledge-card-pack`：候选中写清流程拆卡逻辑，每张卡对应一个阶段、节点或检查点。
+- `technical-architecture + process-flow`：候选中写清是否拆成两张图；如果不拆，必须说明主图结构和辅助主路径如何不互相挤压。
+
+如果辅助路由只是装饰，删除辅助路由。若主路由信息已经过密，不要继续叠加辅助路由，应拆图。
 
 ## 输出规则
 

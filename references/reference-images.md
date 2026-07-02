@@ -1,6 +1,6 @@
 # 风格参考图机制
 
-`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文锚点、解释图、技术架构图、流程图、知识卡片、轻分镜和信息图海报的场景参考图，用来参考构图、动作、留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。
+`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文锚点、解释图、技术架构图、流程图、知识卡片、轻分镜和信息图海报的场景参考图，用来参考构图、动作、呼吸感留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。
 
 真实生图时按人物呈现等级选择参考图。含人物时必须使用“双参考图”，其中人物基准图是硬门槛：
 
@@ -29,7 +29,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 - `--reference <path>` / `--references <paths>`：旧参数，继续兼容，语义等同于 style reference。
 - `--image <path>`：用户提供的待编辑图片，也会作为 API `image` 文件上传。
 
-当 `--api-mode images` 且存在 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 自动调用 `/v1/images/edits` 并发送 `multipart/form-data`。含人物的星禾图不得走没有图片参数的 `/v1/images/generations`；如果没有上传 `00-xinghe-ip-baseline.png`，本次输出不能判定为合格星禾人物图。明确 `no-character` 的结构图不受人物一致性校验约束。
+当 `--api-mode images` 且存在 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 自动调用 Images edits 并发送 `multipart/form-data`。含人物的星禾图不得走没有图片参数的纯文本图片生成；如果没有上传 `00-xinghe-ip-baseline.png`，本次输出不能判定为合格星禾人物图。明确 `no-character` 的结构图不受人物一致性校验约束。
 
 ## 如何选择场景参考图
 
@@ -38,12 +38,12 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 灵感、内容生产、工作流类：优先选有星禾参与动作和留白稳定的图。
 - 排期、日历、发布节奏类：优先选有卡片、日历、白板的图。
 - 判断、复盘、证据类：优先选有圈注、放大镜、小秤或反馈回路的图。
-- 技术架构图：优先选白板、分层、系统承重、信息井、最小闭环类参考图，只参考结构密度和留白。
+- 技术架构图：优先选白板、分层、系统承重、信息井、最小闭环类参考图，只参考结构密度、背景分区和呼吸感留白。
 - 流程图：优先选最小闭环、承接路径、轻流程线、三类来源类参考图，只参考路径和回流关系。
 - 知识卡片：优先选卡片、白板、分拣、标题区和文字密度接近的参考图。
 - 解释图：优先选轻流程、白板、交接路径、自动化小盒子类参考图。
 - 多格漫画：只参考动作连续性和分区密度，不参考旧画面叙事。
-- 信息图海报：只参考留白、分区密度和手绘笔记质感，不复制旧物件和旧结构。
+- 信息图海报：只参考呼吸感留白、分区密度和手绘笔记质感，不复制旧物件和旧结构。
 
 ## 构图到参考图映射
 

@@ -22,7 +22,7 @@ outputs/xinghe-illustration-packs/{日期}-{短标题}/
 | 文件 | 内容 |
 |---|---|
 | `source-summary.md` | 来源、核心观点、目标读者、风险点、必须保留的术语和数字 |
-| `visual-routing.md` | 逐节配图判断表、深度提炼五问、最终视觉路由 |
+| `visual-routing.md` | 逐节配图判断表、深度提炼五问、主路由/辅助路由、信息密度、建议产物和路由风险 |
 | `visual-candidates.md` | 每个配图点或卡片的 A/B/C 候选方向 |
 | `prompts.json` | prompt-only 交付，包含每个候选的完整 prompt |
 | `manifest.json` | 真实生成用 manifest，可包含混合比例、文件名和参考图 |
@@ -36,22 +36,39 @@ outputs/xinghe-illustration-packs/{日期}-{短标题}/
   "title": "内容标题",
   "source_type": "wechat / markdown / pasted-text / screenshot / topic",
   "default_output_dir": "outputs/xinghe-illustration-packs/2026-06-30-title",
+  "routing_decision": {
+    "primary_route": "knowledge-card-pack",
+    "secondary_routes": ["infographic-poster"],
+    "information_density": "high",
+    "recommended_outputs": ["1 张总览信息图", "5 张知识卡片"],
+    "route_risks": ["信息过密", "卡片之间关系不清"]
+  },
   "items": [
     {
       "id": 1,
       "route": "knowledge-card-single",
+      "primary_route": "knowledge-card-single",
+      "secondary_routes": ["explanatory-diagram"],
+      "information_density": "medium",
       "position": "第 2 节后",
       "topic": "核心观点卡",
-      "aspect_ratio": "3:4",
+      "aspect_ratio": "4:3",
       "recommended_candidate": "A",
       "candidates": [
         {
           "id": "A",
           "direction": "解释图方向",
+          "primary_route": "knowledge-card-single",
+          "secondary_routes": ["explanatory-diagram"],
+          "information_density": "medium",
+          "composition_pattern": "左因右果路径卡",
+          "knowledge_relation": "旧问题到新结果的因果关系",
+          "layout_flow": "左侧问题 -> 中间转折 -> 右侧方法卡",
+          "reading_path": "先看左侧卡点，再看中间机制，最后看右侧输出",
           "core_metaphor": "把混乱内容整理成三张方法卡",
           "character_presence": "small-character",
           "xinghe_action": "星禾把散落卡片贴到白板上",
-          "composition": "上方标题，中部三张卡，底部一句总结",
+          "composition": "左侧标题和结论，右侧三张方法卡，底部一句总结",
           "chinese_labels": ["输入", "整理", "输出"],
           "reference_images": [
             "assets/examples/00-xinghe-ip-baseline.png",

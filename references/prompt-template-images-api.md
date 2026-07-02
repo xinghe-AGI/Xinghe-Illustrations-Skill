@@ -1,13 +1,13 @@
-# Images API 精简提示词模板
+# Images Edits API 精简提示词模板
 
-用于只支持 `/v1/images/generations` 和 `/v1/images/edits` 的第三方代理。旧版 Images API 对长 prompt 更容易超时；这里使用短 prompt，把人物一致性交给 `assets/examples/00-xinghe-ip-baseline.png`，把构图动作交给场景参考图。真实生成时优先用 `--style-references` 同时传入两类参考图。
+用于只支持 Images edits 且能上传参考图的第三方代理。旧版 Images API 对长 prompt 更容易超时；这里使用短 prompt，把人物一致性交给 `assets/examples/00-xinghe-ip-baseline.png`，把构图动作交给场景参考图。真实生成必须用 `--style-references` 同时传入两类参考图；不支持纯文本 Images 生成作为合格星禾图链路。
 
 ## 单张生图模板
 
 ```text
 Create one {aspect_ratio} Chinese Xinghe content visual.
 
-Pure white background, crayon line art, lots of blank space, light hand-drawn grain. Main character Xinghe must match the baseline reference: young woman, long black slightly wavy hair, airy bangs, gentle smile, oversized white zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt. She must perform the core action, not stand as decoration. Show only one Xinghe figure; do not add portrait bubbles, duplicate characters, or avatar insets.
+Cool white or very light blue-gray background, crayon line art, breathable spacing, subtle hand-drawn panels or dotted dividers when structure is needed, light hand-drawn grain. Main character Xinghe must match the baseline reference: young woman, long black slightly wavy hair, airy bangs, gentle smile, oversized white zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt. She must perform the core action, not stand as decoration. Show only one Xinghe figure; do not add portrait bubbles, duplicate characters, or avatar insets.
 
 Visual route: {xinghe-article / emotion-anchor / explanatory-diagram / comic-strip / knowledge-card-single / infographic-poster}
 
@@ -19,7 +19,7 @@ Elements: {2-4 个物件，例如 inspiration bottle, content cards, calendar, w
 
 Handwritten Chinese labels, short and sparse: {3-5 个短词}
 
-Use black/dark navy for lines, orange for main flow, blue for feedback/AI notes, red only for key warning or conclusion.
+Use black/dark navy for lines and baseline readable labels, cool blue-gray for panels or secondary structure, orange as optional text color for selected title words, keywords, short labels, and main flow, blue for feedback/AI notes, red only for key warning or conclusion.
 
 Do not create a cold PPT template, course slide, commercial poster, cute mascot, realistic UI screenshot, yellow background, generic top-left type title, duplicate Xinghe, or portrait bubble. A simple hand-drawn explanatory diagram, card, comic strip, or infographic map is allowed when it clarifies the content. Use the baseline reference for Xinghe character only; use the scene reference for composition and annotation density only; invent a fresh composition.
 ```
@@ -30,8 +30,8 @@ Do not create a cold PPT template, course slide, commercial poster, cute mascot,
 
 ```text
 Use the provided baseline image as Xinghe character anchor, and the scene reference only as composition/style anchor.
-Create a new {aspect_ratio} Chinese Xinghe content visual on a clean white background.
-Keep Xinghe consistent with the baseline: long black wavy hair, airy bangs, oversized white zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt, gentle smile, crayon line art, sparse red/orange/blue handwritten labels.
+Create a new {aspect_ratio} Chinese Xinghe content visual on a cool white or very light blue-gray background.
+Keep Xinghe consistent with the baseline: long black wavy hair, airy bangs, oversized white zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt, gentle smile, crayon line art, readable dark labels, cool blue-gray structure, and sparse orange/blue/red handwritten labels.
 Show only one Xinghe figure; do not add portrait bubbles, duplicate characters, or avatar insets.
 
 Visual route: {视觉路由}

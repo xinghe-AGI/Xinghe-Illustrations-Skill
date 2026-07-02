@@ -41,7 +41,7 @@
 ## 调用步骤
 
 1. 先按 `references/prompt-template.md` 生成完整英文生图提示词。
-2. 确认提示词包含星禾视觉 DNA：白底、蜡笔线稿、留白、少量红橙蓝中文批注、星禾执行核心动作。
+2. 确认提示词包含星禾视觉 DNA：冷白/浅蓝灰背景、蜡笔线稿、有结构的呼吸感留白、少量橙色重点和红蓝批注、星禾执行核心动作。
 3. 按任务类型选择第二张参考图：正文配图选 `01-14`，封面选 `15-20`。
 4. 确认用户要真实图片文件，且 API key/endpoint 可用。
 5. 先运行 `inspect`，确认 endpoint、参考图和输出路径无风险。
@@ -88,7 +88,7 @@ node scripts/xinghe_image_assets_cli.js probe \
   --model gpt-image-2
 ```
 
-如果第三方 API 文档只提供 `/v1/images/generations` 和 `/v1/images/edits`，直接使用旧版 Images API。真实星禾图必须带 `--style-references`，此时 CLI 会使用 `/v1/images/edits` multipart：
+如果第三方 API 文档支持 Images edits 且允许上传参考图，可以使用 Images API。真实星禾图必须带 `--style-references`，此时 CLI 会使用 multipart 请求：
 
 ```bash
 node scripts/xinghe_image_assets_cli.js generate \
@@ -252,4 +252,4 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 不把 API key 写进 SKILL.md、reference、脚本或交付结果。
 - 不打印完整带 query 的 endpoint，不打印任何密钥。
 - 不覆盖已有输出文件，除非用户明确要求替换；文件存在时先换序号命名或加 `--force`。
-- 不用纯文本 `/v1/images/generations` 链路冒充稳定星禾 IP 出图。
+- 不用纯文本图片生成链路冒充稳定星禾 IP 出图。
