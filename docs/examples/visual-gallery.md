@@ -4,6 +4,29 @@
 
 这些图片用于参考构图、信息层级、人物参与方式和平台比例，不要求每次复刻同一种画风。
 
+## README 专用生成样张
+
+这些图片位于 `assets/readme-showcase/`，用于 README 首页展示。它们是用本 skill 的规则重新生成的样张，不是 `assets/examples/` 的构图参考图。
+
+| 类型 | 示例 |
+|---|---|
+| 正文图 | <img src="../../assets/readme-showcase/01-article-illustration.png" alt="正文图：内容工作区整理" width="420"> |
+| 情绪图：低落 | <img src="../../assets/readme-showcase/02a-emotion-low-mood.png" alt="情绪图：低落" width="260"> |
+| 情绪图：慌张 | <img src="../../assets/readme-showcase/02b-emotion-panic.png" alt="情绪图：慌张" width="260"> |
+| 情绪图：烦躁 | <img src="../../assets/readme-showcase/02c-emotion-irritated.png" alt="情绪图：烦躁" width="260"> |
+| 情绪图：迷茫 | <img src="../../assets/readme-showcase/02d-emotion-confused.png" alt="情绪图：迷茫" width="260"> |
+| 情绪图：专注 | <img src="../../assets/readme-showcase/02e-emotion-focused.png" alt="情绪图：专注" width="260"> |
+| 情绪图：释然 | <img src="../../assets/readme-showcase/02f-emotion-relieved.png" alt="情绪图：释然" width="260"> |
+| 解释图：输入到生成 | <img src="../../assets/readme-showcase/03-explanatory-diagram.png" alt="解释图：输入到生成" width="420"> |
+| 解释图：先做路由 | <img src="../../assets/readme-showcase/03b-explanatory-comparison.png" alt="解释图：先做路由" width="420"> |
+| 知识卡片：形态选择 | <img src="../../assets/readme-showcase/04-knowledge-card.png" alt="知识卡片：形态选择" width="420"> |
+| 知识卡片：决策树 | <img src="../../assets/readme-showcase/04a-knowledge-decision-card.png" alt="知识卡片：决策树" width="420"> |
+| 知识卡片：矩阵 | <img src="../../assets/readme-showcase/04b-knowledge-matrix-card.png" alt="知识卡片：矩阵" width="420"> |
+| 技术架构图 | <img src="../../assets/readme-showcase/05-technical-architecture.png" alt="技术架构图：输入到输出" width="420"> |
+| 流程图 | <img src="../../assets/readme-showcase/06-process-flow.png" alt="流程图：读内容到检查" width="420"> |
+| 多格漫画 | <img src="../../assets/readme-showcase/07-comic-strip.png" alt="多格漫画：从需求乱到可复用" width="260"> |
+| 信息图 | <img src="../../assets/readme-showcase/08-infographic-poster.png" alt="信息图：内容到发布地图" width="260"> |
+
 ## 星禾人物基准
 
 | 类型 | 示例 |
@@ -57,4 +80,3 @@
 | 大字标题 + 底部星禾 | <img src="../../assets/examples/18-xhs-typed-title-bottom-xinghe.png" alt="小红书封面：大字标题和底部星禾" width="360"> |
 | 关键词下划线卡片 | <img src="../../assets/examples/19-xhs-keyword-underline-card.png" alt="小红书封面：关键词下划线卡片" width="360"> |
 | 方法栈封面 | <img src="../../assets/examples/20-xhs-title-card-method-stack.png" alt="小红书封面：方法栈" width="360"> |
-

@@ -1,5 +1,6 @@
 ---
 name: xinghe-illustrations-skill
+display_name: "[Xinghe-Illustrations-Skill](https://github.com/xinghe-AGI/Xinghe-Illustrations-Skill/tree/main)"
 description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文章正文配图、微信公众号封面、小红书封面、情绪锚点图、解释图、多格漫画、知识卡片组、单张知识卡片、信息图海报、技术架构图和流程图。用于公众号文章、Markdown、本地长文、方法论、项目复盘、技术说明、工作流说明、教程、产品介绍或社媒内容的视觉路由、候选方向、prompt-only、manifest 和 PNG 生成。含人物时必须传入 `assets/examples/00-xinghe-ip-baseline.png` 人物基准图；结构主导图可让人物变小、局部出现或不出现。
 ---
 

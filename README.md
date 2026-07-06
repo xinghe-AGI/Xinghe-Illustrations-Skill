@@ -1,4 +1,4 @@
-# 星禾内容视觉资产 Skill
+# Xinghe Illustrations Skill
 
 > 先读懂文章，再自主判断应该生成什么图。
 > 本 skill 把中文内容里的判断、流程、情绪、知识结构、技术架构和运营闭环，转化成“星禾”个人 IP 风格的封面、正文图、情绪图、解释图、知识卡片、技术架构图、流程图、多格漫画和信息图。
@@ -7,11 +7,11 @@
 
 ## 这个 Skill 做什么
 
-星禾内容视觉资产 Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记、技术说明和方法论内容生成视觉方案、提示词、manifest，或在官方 OpenAI 配置可用时通过内置 Node CLI 生成最终 PNG 图片。
+Xinghe Illustrations Skill 是一个面向中文内容创作者和 AI 工作流的综合生图 skill。它适合为文章、公众号、小红书、运营 SOP、AI 自动化流程、研究笔记、技术说明和方法论内容生成视觉方案、提示词、manifest，或在官方 OpenAI 配置可用时通过内置 Node CLI 生成最终 PNG 图片。
 
 它不是通用插画 prompt，也不是 PPT 信息图模板。它的核心能力是：读完文章后先做视觉路由，判断应该生成封面、情绪图、解释图、技术架构图、流程图、多格漫画、知识卡片、信息图还是普通正文图，再输出候选方向和可生成的 prompt。
 
-这个仓库是当前保留的星禾内容视觉资产 skill 仓库，适合支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。默认先输出策略和 prompt；只有用户明确要求真实生成、并确认外部上传风险后，才调用图片生成链路。
+这个仓库是当前保留的 Xinghe Illustrations Skill 仓库，适合支持本地 skills、Node CLI 或外部工具调用的 Agent / AI 工作流环境。默认先输出策略和 prompt；只有用户明确要求真实生成、并确认外部上传风险后，才调用图片生成链路。
 
 ---
 
@@ -58,143 +58,136 @@
 
 ## 产出核心结构
 
-这个 skill 的核心不是“套模板生成一张图”，而是把文章内容转成一套稳定的星禾视觉 IP 表达：
+这个 skill 的核心不是“套模板生成一张图”，而是把文章内容转成一套稳定的视觉生产结构：
 
 1. **内容理解层**：读文章，提炼主题、真意、冲突、关键术语和必须保留的数字。
 2. **视觉路由层**：判断这次应该做解释图、情绪图、知识卡片、流程图、技术架构图、多格漫画、信息图还是封面图。
-3. **星禾视觉 IP 层**：根据内容安排星禾的动作、位置和参与方式；信息密度高时可以缩小人物、局部出现或不出现。
+3. **角色参与层**：根据内容安排人物动作、位置和参与方式；信息密度高时可以缩小人物、局部出现或不出现。
 4. **信息版式层**：根据内容选择横版、竖版、对比、流程、分层、矩阵、总分、卡片组等结构，不默认全部做竖图。
 5. **生成落地层**：先给候选方向和 prompt，用户确认后再生成图片或导出 manifest。
 
 更详细的字段规范和生成包结构放在 [references/output-spec.md](references/output-spec.md)，README 只保留使用入口和视觉判断方法。
 
----
-
-## 星禾视觉 IP
-
-默认视觉角色是“星禾”：
-
-- 黑色长发或微卷长发，轻薄空气刘海
-- 圆润大眼睛，浅笑，亲切但不卖萌
-- 白色宽松拉链连帽外套
-- 内搭深蓝水手领上衣和白色领结
-- 下身为深蓝百褶裙
-- 气质是元气创造者 + 运营小导师，也带一点清醒研究员感
-- 正文图、封面、情绪图和漫画里必须参与核心动作，不能只是站在旁边当装饰
-- 技术架构图、流程图和高密度知识卡片里可以很小、局部出现，或不出现
-
-人物形象以 `assets/examples/00-xinghe-ip-baseline.png` 为基准。星禾的动作要根据内容变化：搬起卡住的素材箱、接住掉落内容、铺证据卡、拉复盘回流线、整理内容卡片、排内容日历、称量证据、圈关键节点。透明小玻璃灵感瓶只适合“灵感捕捉 / 创意启动”场景，不是固定姿势。结构类图优先保证可读性，人物可以缩成角落里的小标注者、只露手贴标签，或完全不出现。
-
----
-
 ## 示例效果
 
-这里只放精选示例，帮助快速判断这个 skill 能产出什么类型的视觉资产。完整示例图集见 [docs/examples/visual-gallery.md](docs/examples/visual-gallery.md)。
+这里展示的是用本 skill 重新生成的 README 专用示例图，覆盖正文图、情绪图、解释图、知识卡片、技术架构图、流程图、多格漫画和信息图。完整示例图集见 [docs/examples/visual-gallery.md](docs/examples/visual-gallery.md)。
 
-### 解释图 / 正文结构图
+### 正文图
 
-适合解释机制、流程、分层、承接路径和内容工作台。
+正文图用于承接文章里的具体场景，让读者先看到“内容正在发生什么”。
 
 <table>
   <tr>
-    <td width="50%">
-      <strong>最小闭环</strong><br>
-      <img src="assets/examples/02-minimum-loop.png" alt="最小闭环">
-    </td>
-    <td width="50%">
-      <strong>承接路径</strong><br>
-      <img src="assets/examples/05-handoff-path.png" alt="承接路径">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <strong>交接文案工具箱</strong><br>
-      <img src="assets/examples/08-handoff-copy-toolbox.png" alt="交接文案工具箱">
-    </td>
-    <td width="50%">
-      <strong>系统承重</strong><br>
-      <img src="assets/examples/13-system-bearing.png" alt="系统承重">
+    <td>
+      <strong>正文图：内容工作区整理</strong><br>
+      <img src="assets/readme-showcase/01-article-illustration.png" alt="正文图：内容工作区整理">
     </td>
   </tr>
 </table>
 
-### 情绪图 / 卡点表达
+### 情绪图组
 
-适合表达混乱、卡住、压力、转折和“终于理顺”的情绪变化。
+情绪图不是固定微笑表情，而是根据内容状态表达低落、慌张、烦躁、迷茫、专注和释然。
 
 <table>
   <tr>
-    <td width="50%">
-      <strong>信息井</strong><br>
-      <img src="assets/examples/10-information-well.png" alt="信息井">
+    <td width="33%">
+      <strong>低落：没反馈</strong><br>
+      <img src="assets/readme-showcase/02a-emotion-low-mood.png" alt="情绪图：低落">
     </td>
-    <td width="50%">
-      <strong>想法压机</strong><br>
-      <img src="assets/examples/11-idea-press.png" alt="想法压机">
+    <td width="33%">
+      <strong>慌张：任务爆了</strong><br>
+      <img src="assets/readme-showcase/02b-emotion-panic.png" alt="情绪图：慌张">
+    </td>
+    <td width="33%">
+      <strong>烦躁：线打结</strong><br>
+      <img src="assets/readme-showcase/02c-emotion-irritated.png" alt="情绪图：烦躁">
     </td>
   </tr>
   <tr>
-    <td width="50%">
-      <strong>常见坑位</strong><br>
-      <img src="assets/examples/09-common-pits-no-title.png" alt="常见坑位">
+    <td width="33%">
+      <strong>迷茫：选哪种</strong><br>
+      <img src="assets/readme-showcase/02d-emotion-confused.png" alt="情绪图：迷茫">
     </td>
-    <td width="50%">
-      <strong>两个断点</strong><br>
-      <img src="assets/examples/01-two-breakpoints.png" alt="两个断点">
+    <td width="33%">
+      <strong>专注：最后检查</strong><br>
+      <img src="assets/readme-showcase/02e-emotion-focused.png" alt="情绪图：专注">
+    </td>
+    <td width="33%">
+      <strong>释然：跑通了</strong><br>
+      <img src="assets/readme-showcase/02f-emotion-relieved.png" alt="情绪图：释然">
     </td>
   </tr>
 </table>
 
-### 封面图
+### 解释图组
 
-微信公众号封面偏横版信息判断，小红书封面偏竖版大字标题和首屏停留。
+解释图用于说明机制、因果、对比和轻量流程。
 
 <table>
   <tr>
     <td width="50%">
-      <strong>微信公众号封面：左标题右行动</strong><br>
-      <img src="assets/examples/15-wechat-left-title-right-action.png" alt="微信公众号封面：左标题右行动">
+      <strong>解释图：输入到生成</strong><br>
+      <img src="assets/readme-showcase/03-explanatory-diagram.png" alt="解释图：输入到生成">
     </td>
     <td width="50%">
-      <strong>微信公众号封面：宽留白单物件</strong><br>
-      <img src="assets/examples/16-wechat-wide-white-space.png" alt="微信公众号封面：宽留白单物件">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <strong>小红书封面：大字标题 + 底部星禾</strong><br>
-      <img src="assets/examples/18-xhs-typed-title-bottom-xinghe.png" alt="小红书封面：大字标题和底部星禾">
-    </td>
-    <td width="50%">
-      <strong>小红书封面：关键词下划线</strong><br>
-      <img src="assets/examples/19-xhs-keyword-underline-card.png" alt="小红书封面：关键词下划线">
+      <strong>解释图：先做路由</strong><br>
+      <img src="assets/readme-showcase/03b-explanatory-comparison.png" alt="解释图：先做路由">
     </td>
   </tr>
 </table>
 
-### 综合结构 / 知识卡片方向
+### 知识卡片组
 
-适合表达多来源、内容分工、信任建立和一图多用的结构。
+知识卡片用于把判断压缩成可阅读、可收藏的结构；可以横版、竖版、矩阵、决策树或对比卡，不默认全做竖图。
+
+<table>
+  <tr>
+    <td width="33%">
+      <strong>形态选择卡</strong><br>
+      <img src="assets/readme-showcase/04-knowledge-card.png" alt="知识卡片：内容先选形态">
+    </td>
+    <td width="33%">
+      <strong>决策树卡</strong><br>
+      <img src="assets/readme-showcase/04a-knowledge-decision-card.png" alt="知识卡片：决策树">
+    </td>
+    <td width="33%">
+      <strong>矩阵卡</strong><br>
+      <img src="assets/readme-showcase/04b-knowledge-matrix-card.png" alt="知识卡片：矩阵">
+    </td>
+  </tr>
+</table>
+
+### 技术架构图 / 流程图
+
+结构类图优先保证关系清楚，人物可以缩小、局部出现或不出现。
 
 <table>
   <tr>
     <td width="50%">
-      <strong>三个来源</strong><br>
-      <img src="assets/examples/06-three-sources.png" alt="三个来源">
+      <strong>技术架构图：输入到输出</strong><br>
+      <img src="assets/readme-showcase/05-technical-architecture.png" alt="技术架构图：输入到输出">
     </td>
     <td width="50%">
-      <strong>三个内容工作</strong><br>
-      <img src="assets/examples/07-three-content-jobs.png" alt="三个内容工作">
+      <strong>流程图：读内容到检查</strong><br>
+      <img src="assets/readme-showcase/06-process-flow.png" alt="流程图：读内容到检查">
     </td>
   </tr>
+</table>
+
+### 多格漫画 / 信息图
+
+多格漫画用于表达前后变化；信息图用于承载全局地图和高密度信息。
+
+<table>
   <tr>
     <td width="50%">
-      <strong>一鱼多吃</strong><br>
-      <img src="assets/examples/04-one-fish-many-uses.png" alt="一鱼多吃">
+      <strong>多格漫画：从需求乱到可复用</strong><br>
+      <img src="assets/readme-showcase/07-comic-strip.png" alt="多格漫画：从需求乱到可复用">
     </td>
     <td width="50%">
-      <strong>信任桥</strong><br>
-      <img src="assets/examples/14-trust-bridge.png" alt="信任桥">
+      <strong>信息图：内容到发布地图</strong><br>
+      <img src="assets/readme-showcase/08-infographic-poster.png" alt="信息图：内容到发布地图">
     </td>
   </tr>
 </table>

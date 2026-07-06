@@ -42,6 +42,8 @@ Secondary routes: {[] / [emotion-anchor] / [explanatory-diagram] / [knowledge-ca
 Information density: {low / medium / high}. High-density is allowed only for infographic posters, architecture diagrams, process maps, and relationship-based knowledge cards with clear sections and reading path.
 Route score: {1-5 score and one sentence reason from route-scoring.md}
 Text density: {very-low / low / medium / medium-high / high}. Follow text-density-rules.md. If text exceeds the budget, split into cards or reduce labels.
+Emotion state:
+{低落 / 不开心 / 慌张 / 烦躁 / 迷茫 / 专注紧绷 / 释然开心 / none}. For emotion-anchor and comic-strip, choose a visible facial expression and body posture that matches the state. Do not default to a gentle smile. Only use smiling when the state is 释然开心, 鼓励, or完成后的轻松.
 
 Illustration type:
 {图型：concept / process / comparison / data / scene / metaphor / handoff / review-loop / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card}

@@ -1,0 +1,108 @@
+{
+  "pictures": [
+    {
+      "id": "article",
+      "topic": "README showcase article illustration",
+      "filename": "01-article-illustration.png",
+      "size": "1536x1024",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/08-handoff-copy-toolbox.png"
+      ],
+      "prompt": "Generate one standalone 16:9 Chinese article illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art with visible grain, clean creator-notebook feeling, breathable spacing but not empty. One Xinghe character matching the baseline reference: black slightly wavy hair, airy bangs, round focused eyes, white oversized zip hoodie, dark navy sailor collar top, white neckerchief, dark navy pleated skirt. Theme: AI content workspace. Primary route: xinghe-article. Information density: low. Text density: low. Core idea: scattered article materials become one reusable workspace. Composition: Xinghe sits at a simple desk, sorting loose content cards into three small trays labeled exactly: 选题 / 素材 / 复盘. A tiny hand-drawn box on the right connects the trays with one orange line, showing work becoming organized. Use only these Chinese labels: 选题, 素材, 复盘, 工作区. Xinghe is actively moving a card into the correct tray, not posing. Use black/dark navy for readable labels, orange for the main connection line and one keyword, pale blue-gray for background panels. No title in the top-left corner, no QR code, no logo, no realistic UI, no PPT template, no copied example composition."
+    },
+    {
+      "id": "emotion",
+      "topic": "README showcase emotion anchor",
+      "filename": "02-emotion-anchor.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/10-information-well.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, friendly but restrained, not childish. One Xinghe character matching the baseline reference. Theme: before using a skill, content tasks feel overloaded. Primary route: emotion-anchor. Information density: low. Text density: low. Composition: Xinghe is pulling a red-orange ribbon labeled 卡住 out from a pile of tangled notes, while three loose paper stacks around her are labeled exactly: 想法, 草稿, 发布. Her expression is focused and slightly stressed, then determined, not crying or exaggerated. The pile should feel messy but readable. Use only these Chinese labels: 卡住, 想法, 草稿, 发布. Use orange directly for the word 卡住 and the pulling ribbon; dark navy for other labels; pale blue-gray shadow panels. No marketing poster, no long subtitle, no top-left route title, no QR code, no copied old scene."
+    },
+    {
+      "id": "explanation",
+      "topic": "README showcase explanatory diagram",
+      "filename": "03-explanatory-diagram.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/05-handoff-path.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese explanatory diagram in Xinghe IP style. Cool white or very light blue-gray background with subtle hand-drawn panels and dotted dividers, crayon line art, not a PPT template. Theme: how a skill turns a vague request into usable visual output. Primary route: explanatory-diagram. Secondary route: xinghe-article. Information density: medium. Text density: medium. Character presence: small-character. Composition: left-to-right hand-drawn mechanism with four rounded boxes connected by an orange path. Labels exactly: 输入, 判断, 候选, 生成. Xinghe appears small near the middle, holding a pencil and circling 判断, helping the reader see the decision point. Add one blue feedback loop from 生成 back to 判断 labeled 返工. Use only these Chinese labels: 输入, 判断, 候选, 生成, 返工. Keep nodes large and readable, with pale blue-gray structure blocks and orange main path. No route title, no full paragraph text, no logo, no realistic UI."
+    },
+    {
+      "id": "knowledge-card",
+      "topic": "README showcase knowledge card",
+      "filename": "04-knowledge-card.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/06-three-sources.png"
+      ],
+      "prompt": "Generate one standalone 4:3 horizontal Chinese knowledge card in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, clean readable card, not a PPT slide. Theme: choose the right visual form for content. Primary route: knowledge-card-single. Information density: medium. Text density: medium. Composition pattern: top principle plus three-column path card. Title text exactly: 内容先选形态. Three columns under it labeled exactly: 情绪图, 解释图, 卡片组. Each column has one tiny icon-like object: pressure knot for 情绪图, connected nodes for 解释图, stacked cards for 卡片组. Xinghe is small at bottom-right placing a check mark card, not dominating. Bottom note exactly: 先判断 再生成. Use only these Chinese labels: 内容先选形态, 情绪图, 解释图, 卡片组, 先判断 再生成. Orange may be used directly for title words and selected labels; dark navy for baseline text; pale blue-gray panel dividers. No long paragraphs, no copied example, no QR code."
+    },
+    {
+      "id": "technical-architecture",
+      "topic": "README showcase technical architecture",
+      "filename": "05-technical-architecture.png",
+      "size": "1536x1024",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/17-wechat-process-line.png"
+      ],
+      "prompt": "Generate one standalone 16:9 Chinese technical architecture diagram in Xinghe visual style. Cool white or very light blue-gray background, crayon line art, hand-drawn boxes and arrows, clean technical readability, not a PPT template and not a realistic UI. Primary route: technical-architecture. Information density: medium-high. Character presence: partial-character. Structure type: layered architecture. Composition: three horizontal layers with pale blue-gray zones. Top layer label: 输入层. Middle layer label: 处理层. Bottom layer label: 输出层. Nodes: 文章, Skill, API, 图片, 检查. Orange main flow from 文章 to Skill to API to 图片. Blue feedback line from 检查 back to Skill. A small partial Xinghe hand on the side places a label on 检查; no full character needed. Use only these Chinese labels: 输入层, 处理层, 输出层, 文章, Skill, API, 图片, 检查. Keep labels short, nodes readable, no secrets, no real domain, no logo, no UI screenshot."
+    },
+    {
+      "id": "process-flow",
+      "topic": "README showcase process flow",
+      "filename": "06-process-flow.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/02-minimum-loop.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese process flow diagram in Xinghe visual style. Cool white or very light blue-gray background, crayon line art, rounded hand-drawn boxes, readable arrows, not a PPT workflow slide. Primary route: process-flow. Information density: medium. Character presence: small-character. Theme: safe generation workflow. Composition: five-step flow from left to right with one blue return loop. Step labels exactly: 读内容, 选形态, 写提示词, 生成, 检查. Blue return loop from 检查 back to 写提示词 labeled 返工. Xinghe is a tiny figure near 检查, holding a magnifier and pointing at a typo mark, not blocking arrows. Use orange for main arrows and some title words; blue for return loop; red small circle only around 检查. Use only these Chinese labels: 读内容, 选形态, 写提示词, 生成, 检查, 返工. No top-left title, no long descriptions, no real UI, no QR code."
+    },
+    {
+      "id": "comic-strip",
+      "topic": "README showcase comic strip",
+      "filename": "07-comic-strip.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/11-idea-press.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese 4-panel comic strip in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, clean hand-drawn panel borders, consistent workspace scene. One Xinghe character matching baseline reference across all panels. Primary route: comic-strip. Secondary route: emotion-anchor. Text density: low. Story logic: Panel 1, scattered request arrives; label exactly: 需求乱. Panel 2, Xinghe pauses and sorts cards; label exactly: 先判断. Panel 3, she plugs a cable into a small skill box; label exactly: 生成图. Panel 4, she checks the output and files it into a folder; label exactly: 可复用. Emotion arc: confusion, focus, action, relief. Use only these Chinese labels: 需求乱, 先判断, 生成图, 可复用. Each panel must advance the story; keep Xinghe consistent; no exaggerated crying, no commercial manga poster, no copied reference scene."
+    },
+    {
+      "id": "infographic",
+      "topic": "README showcase infographic poster",
+      "filename": "08-infographic-poster.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/14-trust-bridge.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese infographic poster in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, hand-drawn map layout, clear hierarchy, not a PPT template and not a commercial poster. Primary route: infographic-poster. Information density: high but organized. Whole-map topic: from article to publishable visual pack. Structure: vertical map with four clear sections connected by orange path. Section labels exactly: 内容, 路由, 生图, 发布. Add up to two small tags: 检查, 复用. Xinghe is small but important at the bottom, holding a map pointer and connecting 生图 to 发布, not dominating. Use pale blue-gray blocks for sections, orange for main path and selected section words, blue for feedback line, red only for one tiny check marker. Use only these Chinese labels: 内容, 路由, 生图, 发布, 检查, 复用. Do not cram paragraphs, do not add fake metrics, no QR code, no logo, no real UI."
+    }
+  ]
+}

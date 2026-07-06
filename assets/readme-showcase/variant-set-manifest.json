@@ -1,0 +1,160 @@
+{
+  "pictures": [
+    {
+      "id": "explanatory-cause-effect",
+      "topic": "README variant explanatory cause effect",
+      "filename": "03a-explanatory-cause-effect.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/05-handoff-path.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese explanatory diagram in Xinghe IP style. Cool white or very light blue-gray background with subtle hand-drawn panels, crayon line art, not a PPT template. Primary route: explanatory-diagram. Structure type: cause-effect chain. Information density: medium. Character presence: small-character. Core idea: a vague request becomes a clear generation decision through three checkpoints. Composition: left side has a soft messy cloud labeled exactly 模糊需求, middle has three small checkpoint cards connected by an orange path labeled exactly 目的, 形态, 密度, right side has a clean output card labeled exactly 可生成. Xinghe appears small near the middle, holding a pencil and moving the 形态 card into place. Add one blue return line from 可生成 back to 形态 labeled exactly 调整. Use only these Chinese labels: 模糊需求, 目的, 形态, 密度, 可生成, 调整. Orange can be used for the main path and the word 形态; dark navy for readable labels; pale blue-gray for panels. No top-left route title, no paragraphs, no logo, no realistic UI, no copied example composition."
+    },
+    {
+      "id": "explanatory-comparison",
+      "topic": "README variant explanatory comparison",
+      "filename": "03b-explanatory-comparison.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/03-sort-by-purpose.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese explanatory comparison diagram in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, hand-drawn dividers, clean and readable, not a PPT slide. Primary route: explanatory-diagram. Structure type: left-right comparison. Information density: medium. Character presence: small-character. Core idea: not every article needs the same image type. Composition: split the page into two large hand-drawn panels. Left panel label exactly 直接画图, with three loose cards labeled exactly 散, 空, 偏. Right panel label exactly 先做路由, with three organized cards labeled exactly 情绪, 解释, 卡片. Xinghe stands small in the center, moving one card from left to right and drawing one orange arrow. Use only these Chinese labels: 直接画图, 散, 空, 偏, 先做路由, 情绪, 解释, 卡片. Orange may color 先做路由 and the arrow; blue-gray panels support reading. No long explanation, no real UI, no logo, no copied reference text."
+    },
+    {
+      "id": "knowledge-decision-card",
+      "topic": "README variant knowledge decision card",
+      "filename": "04a-knowledge-decision-card.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/04-one-fish-many-uses.png"
+      ],
+      "prompt": "Generate one standalone 4:3 horizontal Chinese knowledge card in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, hand-drawn decision tree layout, readable as a method note, not a PPT slide. Primary route: knowledge-card-single. Composition pattern: decision tree path card. Knowledge relation: decision split. Text density: medium. Character presence: partial-character. Title text exactly: 这张图该怎么选. Top center has the question card. Middle has a decision node labeled exactly 信息目标. Three branches below labeled exactly 共鸣, 解释, 总览. Bottom notes under branches labeled exactly 情绪图, 解释图, 信息图. Only a small Xinghe hand places a check mark near 信息目标; no full character. Use only these Chinese labels: 这张图该怎么选, 信息目标, 共鸣, 解释, 总览, 情绪图, 解释图, 信息图. Orange can be used directly for 信息目标 and branch arrows; black/dark navy for text; pale blue-gray panels. No paragraphs, no copied layout, no QR code."
+    },
+    {
+      "id": "knowledge-matrix-card",
+      "topic": "README variant knowledge matrix card",
+      "filename": "04b-knowledge-matrix-card.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/06-three-sources.png"
+      ],
+      "prompt": "Generate one standalone 4:3 horizontal Chinese knowledge card in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, hand-drawn 2x2 matrix, clean creator-note feeling, not a business PPT. Primary route: knowledge-card-single. Composition pattern: matrix card. Knowledge relation: two-axis classification. Text density: medium. Character presence: no-character. Title text exactly: 内容图型选择矩阵. Draw a 2x2 matrix with axis labels exactly 信息少, 信息多, 情绪强, 结构强. Four cells labeled exactly 封面, 情绪图, 知识卡, 架构图. Use a small orange path that points from 情绪强 to 情绪图 and from 结构强 to 架构图. Use only these Chinese labels: 内容图型选择矩阵, 信息少, 信息多, 情绪强, 结构强, 封面, 情绪图, 知识卡, 架构图. No human character. Keep cool white and pale blue-gray panels; orange text may appear on key axis labels. No long paragraph, no logo, no realistic UI."
+    },
+    {
+      "id": "architecture-layered-agent",
+      "topic": "README variant architecture layered agent",
+      "filename": "05a-architecture-layered-agent.png",
+      "size": "1536x1024",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/13-system-bearing.png"
+      ],
+      "prompt": "Generate one standalone 16:9 Chinese technical architecture diagram in Xinghe visual style. Cool white or very light blue-gray background, crayon line art, hand-drawn boxes and arrows, readable technical structure, not a PPT template, not a realistic UI. Primary route: technical-architecture. Structure type: layered agent architecture. Information density: medium-high. Character presence: no-character. Composition: four horizontal layers with pale blue-gray zones. Layer labels exactly: 输入层, 编排层, 工具层, 输出层. Nodes exactly: 文章, 路由器, 规则库, 生图API, 图片包. Orange main flow from 文章 to 路由器 to 生图API to 图片包. Blue side line from 规则库 to 路由器 labeled exactly 约束. Red tiny marker near 生图API labeled exactly 检查. Use only these Chinese labels: 输入层, 编排层, 工具层, 输出层, 文章, 路由器, 规则库, 生图API, 图片包, 约束, 检查. No human, no logo, no token, no real domain, no fake UI."
+    },
+    {
+      "id": "architecture-hub-spoke",
+      "topic": "README variant architecture hub spoke",
+      "filename": "05b-architecture-hub-spoke.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/17-wechat-process-line.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese technical architecture diagram in Xinghe visual style. Cool white or very light blue-gray background, crayon line art, clean system map, not a PPT template. Primary route: technical-architecture. Structure type: central hub plus surrounding modules. Information density: medium. Character presence: partial-character. Composition: center hub labeled exactly 视觉路由. Around it, five rounded nodes labeled exactly 文章, 封面, 卡片, 流程, 漫画. Orange lines connect 视觉路由 to each output node. Blue feedback line from all outputs into a small bottom node labeled exactly 质检. A tiny Xinghe hand at the lower edge sticks a label near 质检; do not draw full character. Use only these Chinese labels: 视觉路由, 文章, 封面, 卡片, 流程, 漫画, 质检. Keep labels large, nodes spaced, no real UI, no logo, no secrets."
+    },
+    {
+      "id": "process-sop-flow",
+      "topic": "README variant process SOP flow",
+      "filename": "06a-process-sop-flow.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/02-minimum-loop.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese process flow diagram in Xinghe visual style. Cool white or very light blue-gray background, crayon line art, hand-drawn rounded boxes, not a PPT workflow. Primary route: process-flow. Structure type: SOP flow. Information density: medium. Character presence: small-character. Composition: top-to-bottom five-step SOP with orange main arrows. Step labels exactly: 收集, 提炼, 路由, 生成, 归档. On the right side, a blue vertical side rail labeled exactly 复用 connects 归档 back to 提炼. Xinghe is a very small figure near 归档, filing a card into a box. Use only these Chinese labels: 收集, 提炼, 路由, 生成, 归档, 复用. Use orange for main arrows and 路由; blue for reuse rail; red only for one tiny check marker. No long text, no route title, no real UI."
+    },
+    {
+      "id": "process-feedback-loop",
+      "topic": "README variant process feedback loop",
+      "filename": "06b-process-feedback-loop.png",
+      "size": "1536x1024",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/05-handoff-path.png"
+      ],
+      "prompt": "Generate one standalone 16:9 Chinese process flow diagram in Xinghe visual style. Cool white or very light blue-gray background, crayon line art, clean loop diagram, not a PPT template. Primary route: process-flow. Structure type: feedback loop. Information density: medium. Character presence: partial-character. Composition: circular loop with five nodes labeled exactly 草稿, 检查, 返工, 定稿, 发布. Orange clockwise main loop. Blue shortcut line from 发布 to 草稿 labeled exactly 经验. Red small alert near 检查 labeled exactly 错字. Only a small Xinghe hand holds a magnifier near 检查; no full character. Use only these Chinese labels: 草稿, 检查, 返工, 定稿, 发布, 经验, 错字. Keep labels big and readable, no paragraphs, no real UI."
+    },
+    {
+      "id": "comic-misunderstanding",
+      "topic": "README variant comic misunderstanding",
+      "filename": "07a-comic-misunderstanding.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/11-idea-press.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese 4-panel comic strip in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, clean hand-drawn panel borders, consistent workspace scene. One Xinghe character matching baseline reference across all panels. Primary route: comic-strip. Secondary route: emotion-anchor. Story logic: Panel 1: user request is vague, Xinghe looks confused, label exactly 先画一张. Panel 2: output becomes off-target, Xinghe frowns mildly, label exactly 方向偏了. Panel 3: Xinghe reads the article and sorts cards, focused expression, label exactly 先路由. Panel 4: clear image type is selected, Xinghe relaxes, label exactly 这次对了. Use only these Chinese labels: 先画一张, 方向偏了, 先路由, 这次对了. Emotion arc: confused, frustrated, focused, relieved. Each panel advances the story; no exaggerated crying, no commercial manga style, no copied reference scene."
+    },
+    {
+      "id": "comic-before-after",
+      "topic": "README variant comic before after",
+      "filename": "07b-comic-before-after.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/01-two-breakpoints.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese 3-panel comic strip in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, clean panel borders, consistent simple desk scene. One Xinghe character matching baseline reference across panels. Primary route: comic-strip. Secondary route: emotion-anchor. Story logic: Panel 1: Xinghe faces a tall stack of unsorted notes, worried expression, label exactly 全塞一张. Panel 2: she splits the stack into three piles, focused expression, label exactly 拆成三类. Panel 3: the piles become a neat card pack, relieved expression, label exactly 读得懂了. Use only these Chinese labels: 全塞一张, 拆成三类, 读得懂了. Keep characters consistent, actions different in every panel, no long dialogue, no meme style, no copied reference scene."
+    },
+    {
+      "id": "infographic-matrix",
+      "topic": "README variant infographic matrix",
+      "filename": "08a-infographic-matrix.png",
+      "size": "1536x1152",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/07-three-content-jobs.png"
+      ],
+      "prompt": "Generate one standalone 4:3 Chinese infographic poster in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, hand-drawn matrix map, clear hierarchy, not a PPT template. Primary route: infographic-poster. Structure: 3x3 capability matrix. Information density: high but organized. Character presence: small-character. Whole-map topic: visual asset planning. Top title exactly: 配图能力地图. Three column labels exactly: 封面, 正文, 结构. Three row labels exactly: 共鸣, 解释, 总览. Fill cells with tiny simple symbols and 1-2 short Chinese words where readable, but the only required labels are the row and column labels plus title. Xinghe is small in one corner, holding a pointer toward the matrix. Use orange for selected title words and grid highlights, blue-gray for cells, dark navy for labels. No paragraph text, no fake metrics, no QR code, no logo."
+    },
+    {
+      "id": "infographic-roadmap",
+      "topic": "README variant infographic roadmap",
+      "filename": "08b-infographic-roadmap.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/14-trust-bridge.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese infographic poster in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, vertical roadmap, clear reading path, not a commercial poster. Primary route: infographic-poster. Structure: roadmap. Information density: high but organized into five sections. Character presence: small-character. Whole-map topic: from article to reusable visual system. Top title exactly: 从文章到视觉系统. Vertical path sections labeled exactly: 读懂, 路由, 拆图, 生图, 复盘. Add two small side notes labeled exactly 风险 and 复用. Xinghe is small at the bottom, connecting the final path segment into a small archive box. Use only these Chinese labels: 从文章到视觉系统, 读懂, 路由, 拆图, 生图, 复盘, 风险, 复用. Use orange for the main path and selected words, blue for feedback, red only for 风险. Do not cram paragraphs, no QR code, no logo, no realistic UI."
+    }
+  ]
+}

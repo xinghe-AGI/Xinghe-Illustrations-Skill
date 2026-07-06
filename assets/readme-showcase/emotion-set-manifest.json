@@ -1,0 +1,82 @@
+{
+  "pictures": [
+    {
+      "id": "low-mood",
+      "topic": "README emotion low mood",
+      "filename": "02a-emotion-low-mood.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/10-information-well.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, clean but emotionally expressive. One Xinghe character matching the baseline reference. Emotion state: low mood and unhappy, not smiling. Her shoulders sink, eyes look down, mouth is a small flat curve, holding an unfinished content card. Theme: a content task receives no feedback. Composition: a small pile of quiet cards sits beside her, one pale blue-gray cloud-shaped note overhead. Use only these Chinese labels: 没反馈, 低落, 再看看. Use dark navy for most labels, orange only for one small underline under 没反馈. Keep the scene restrained, not dramatic crying, not cute mascot, no top-left title, no QR code."
+    },
+    {
+      "id": "panic",
+      "topic": "README emotion panic",
+      "filename": "02b-emotion-panic.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/01-two-breakpoints.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, dynamic but readable. One Xinghe character matching the baseline reference. Emotion state: panic and rushed, not smiling. Her eyes are wide, eyebrows raised, body leaning forward, both hands catching falling task cards. Theme: tasks suddenly pile up before publishing. Composition: falling paper cards and a small ringing clock, but keep background clean. Use only these Chinese labels: 慌张, 任务爆了, 先接住. Orange can color 慌张 and the falling motion line; blue-gray for papers; red only for one tiny alert mark. No exaggerated screaming, no meme face, no logo."
+    },
+    {
+      "id": "irritated",
+      "topic": "README emotion irritated",
+      "filename": "02c-emotion-irritated.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/11-idea-press.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, restrained but expressive. One Xinghe character matching the baseline reference. Emotion state: irritated and frustrated, not smiling. Her eyebrows are furrowed, mouth pressed flat, one hand pulls a tangled orange-red workflow string while the other hand holds a wrinkled revision card. Theme: repeated revisions make the process knotted. Use only these Chinese labels: 烦躁, 又改, 线打结. Composition: a tangled string crosses a few draft cards, Xinghe is actively trying to untie it. No angry shouting, no violence, no commercial poster, no long text."
+    },
+    {
+      "id": "confused",
+      "topic": "README emotion confused",
+      "filename": "02d-emotion-confused.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/03-sort-by-purpose.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, quiet and readable. One Xinghe character matching the baseline reference. Emotion state: confused and uncertain, not smiling. She stands in front of a small hand-drawn decision board, head slightly tilted, one hand holding a question card, eyes looking between two paths. Theme: not knowing which visual form to choose. Use only these Chinese labels: 迷茫, 选哪种, 先判断. Composition: two pale blue-gray paths split left and right, Xinghe pauses at the fork. No top-left title, no dense flowchart, no exaggerated expression."
+    },
+    {
+      "id": "focused",
+      "topic": "README emotion focused",
+      "filename": "02e-emotion-focused.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/13-system-bearing.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, focused and tense but not sad. One Xinghe character matching the baseline reference. Emotion state: focused and tense, not smiling. Her eyes are narrowed with concentration, lips pressed, sleeves slightly rolled, connecting a small orange cable between two workflow nodes. Theme: final check before generation. Use only these Chinese labels: 专注, 最后检查, 接通. Composition: two simple nodes on a desk, one cable, one checklist card. Use orange for cable and 接通, dark navy for labels, blue-gray panels. No smile, no relaxed pose, no PPT."
+    },
+    {
+      "id": "relieved",
+      "topic": "README emotion relieved",
+      "filename": "02f-emotion-relieved.png",
+      "size": "1024x1536",
+      "quality": "high",
+      "output_format": "png",
+      "style_references": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/12-content-fermentation.png"
+      ],
+      "prompt": "Generate one standalone 3:4 Chinese emotion-anchor illustration in Xinghe IP style. Cool white or very light blue-gray background, crayon line art, warm but restrained. One Xinghe character matching the baseline reference. Emotion state: relieved and happy after solving the issue. She has a soft real smile, relaxed shoulders, one hand placing the final sorted card into a small box, the other hand giving a small OK gesture. Theme: the workflow finally runs smoothly. Use only these Chinese labels: 松口气, 跑通了, 收好. Composition: tidy card box, one soft orange check line, pale blue-gray background block. This is the only smiling emotion in this set; keep it calm, not hype, no marketing poster."
+    }
+  ]
+}
