@@ -1,0 +1,59 @@
+{
+  "mode": "prompt-only",
+  "title": "manifest 批量生成体验示例",
+  "source_type": "topic",
+  "default_output_dir": "outputs/xinghe-illustration-packs/sample-manifest-batch",
+  "reference_images": [
+    "assets/examples/00-xinghe-ip-baseline.png"
+  ],
+  "items": [
+    {
+      "id": "01",
+      "topic": "全景信息图",
+      "primary_route": "panoramic-infographic",
+      "candidates": [
+        {
+          "id": "A",
+          "direction": "中央核心循环型",
+          "output_filename_when_generated": "panorama-core-loop-a.png",
+          "size": "1536x1024",
+          "quality": "low",
+          "reference_images": [
+            "assets/examples/21-panorama-core-loop.png"
+          ],
+          "prompt": "Generate one 16:9 high-density Chinese panoramic infographic. Use only these Chinese labels: 输入, 核心循环, 输出, 支撑层, 工具箱. No character. Cool white and light blue-gray background."
+        },
+        {
+          "id": "B",
+          "direction": "分层架构型",
+          "output_filename_when_generated": "panorama-layered-a.png",
+          "size": "1536x1024",
+          "quality": "low",
+          "reference_images": [
+            "assets/examples/22-panorama-layered-architecture.png"
+          ],
+          "prompt": "Generate one 16:9 Chinese layered architecture overview. Use only these Chinese labels: 接入层, 编排层, 能力层, 支撑层, 交付层. No character. Keep the reading path clear."
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "topic": "横版知识卡片",
+      "primary_route": "knowledge-card-single",
+      "candidates": [
+        {
+          "id": "A",
+          "direction": "四点矩阵卡",
+          "output_filename_when_generated": "card-matrix-a.png",
+          "size": "1536x1152",
+          "quality": "low",
+          "reference_images": [
+            "assets/examples/00-xinghe-ip-baseline.png",
+            "assets/examples/03-sort-by-purpose.png"
+          ],
+          "prompt": "Generate one 4:3 Chinese knowledge card. Use only these Chinese labels: 输入, 处理, 审核, 回流. Xinghe appears as a small character sorting cards, matching the baseline reference."
+        }
+      ]
+    }
+  ]
+}

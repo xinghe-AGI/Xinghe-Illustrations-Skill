@@ -76,6 +76,17 @@ Use $xinghe-illustrations-skill 先不要生图。
 <粘贴技术说明>
 ```
 
+### 做高密度全景信息图
+
+```text
+Use $xinghe-illustrations-skill 先不要生图。
+请把下面这篇文章做成一张高密度全景信息图。
+先判断适合核心循环、分层架构、前后对照还是路线图结构。
+人物可以很小、局部出现，或者不出现，优先保证分区、阅读路径和信息密度。
+
+<粘贴文章或说明>
+```
+
 ### 确认候选后生成图片
 
 ```text
@@ -96,6 +107,7 @@ Use $xinghe-illustrations-skill 生成刚才候选 A。
 | 流程图 | SOP、自动化链路、审批流、状态流 | `4:3` / `16:9` |
 | 知识卡片组 | 长文总结、文章笔记、方法论拆解 | 按内容选 `4:3`、`16:9` 或 `3:4` |
 | 信息图海报 | 全局地图、矩阵、路径总览 | `3:4` / `16:9` |
+| 全景信息图 | 系统地图、方法全貌、能力总览、交付路径、架构总览 | `16:9` / `4:3` |
 | 多格漫画 | 前后变化、转折、因果推进、情绪变化 | `3:4` / `4:3` |
 
 判断原则：
@@ -108,6 +120,8 @@ Use $xinghe-illustrations-skill 生成刚才候选 A。
 ## 4. 生图配置
 
 真实生图需要配置图片服务。只做策略、候选方向和 prompt 时不需要配置 API key。
+
+安装后的完整配置向导见 [setup-wizard.md](setup-wizard.md)。下面保留常用配置摘要和命令示例。
 
 不要把真实密钥写进仓库、README、SKILL.md、references 或命令记录里。推荐放在系统用户环境变量、Agent runtime 的私有 secrets，或本机不会提交的私有 env 文件里。
 
@@ -185,8 +199,9 @@ assets/examples/00-xinghe-ip-baseline.png
 
 - 正文图、解释图、知识卡片、流程图、技术架构图：从 `assets/examples/01-14-*.png` 选择。
 - 公众号封面、小红书封面：从 `assets/examples/15-20-*.png` 选择。
+- 高密度全景信息图：从 `assets/examples/21-24-*.png` 选择。
 
-如果当前图片服务不能上传人物基准图，就不要生成含人物的星禾图。明确 `no-character` 的技术架构图、流程图或高密度知识卡可以不出现人物。
+如果当前图片服务不能上传人物基准图，就不要生成含人物的星禾图。明确 `no-character` 的技术架构图、流程图、高密度知识卡或全景信息图可以不出现人物。
 
 ## 6. CLI 验证与生成
 
@@ -241,6 +256,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 - 完整示例图集：[visual-gallery.md](examples/visual-gallery.md)
 - 样例 dry-run：[sample-task-packs.md](examples/sample-task-packs.md)
+- 批量 manifest 示例：[manifest-batch-sample.json](examples/manifest-batch-sample.json)
 - 访问模式细节：[access-modes.md](../references/access-modes.md)
 - 输出包规范：[output-spec.md](../references/output-spec.md)
 - 生成后检查：[qa-checklist.md](../references/qa-checklist.md)

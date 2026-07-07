@@ -187,7 +187,33 @@ node scripts/xinghe_image_assets_cli.js inspect \
 }
 ```
 
-每个 `pictures[]` item 对应一张独立图片。必填：`id`、`topic`、`prompt`。可选：`filename`、`output`、`image`、`style_reference`、`style_references`、`size`、`quality`、`output_format`。
+每个 `pictures[]` item 对应一张独立图片。必填：`id`、`topic`、`prompt`。可选：`filename`、`output`、`image`、`style_reference`、`style_references`、`reference_images`、`size`、`quality`、`output_format`。
+
+也可以直接使用 prompt-only 交付包里的 `items[].candidates[]`。CLI 会把每个候选方向展开为独立生成项，并优先使用候选里的 `output_filename_when_generated` 和 `reference_images`：
+
+```json
+{
+  "default_output_dir": "outputs/xinghe-illustration-packs/<date-slug>",
+  "items": [
+    {
+      "id": "01",
+      "topic": "系统全景图",
+      "candidates": [
+        {
+          "id": "A",
+          "direction": "中央核心循环型",
+          "output_filename_when_generated": "panorama-system-a.png",
+          "size": "1536x1024",
+          "reference_images": [
+            "assets/examples/21-panorama-core-loop.png"
+          ],
+          "prompt": "完整全景信息图 prompt"
+        }
+      ]
+    }
+  ]
+}
+```
 
 运行：
 
@@ -208,6 +234,8 @@ node scripts/xinghe_image_assets_cli.js generate \
 - `--regenerate 3,5,7` 只重生指定 id 或序号。
 - `--dry-run` 或 `--validate-manifest` 只检查 manifest、输出路径和覆盖风险，不调用 API。
 - 结果写入 `<manifest>.results.json`，也可用 `--result-manifest <path>` 指定。
+- 未传 `--output-dir` 时，CLI 会依次使用 manifest 顶层 `output_dir`、`default_output_dir/images`，最后退回 manifest 同级 `images/`。
+- 顶层 `reference_images` 或 `style_references` 可作为默认参考图；单个候选里的参考图优先级更高。
 
 结果 manifest 会记录每张图的 `id`、`topic`、`prompt`、`output`、是否 `skipped`、是否 `dry_run`、是否 `ok`、失败原因和文件大小。批量模式中单张失败不会直接终止整批；失败项会写入结果 manifest，后续可用 `--regenerate <id>` 补生成。
 

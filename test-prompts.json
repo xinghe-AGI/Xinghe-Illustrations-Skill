@@ -113,5 +113,50 @@
         "id":  "sample-task-pack-dry-run",
         "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请用 docs/examples/sample-task-packs.md 的第 5 个样例做 dry-run。",
         "expected":  "识别为高密度资料整理；输出 infographic-poster + knowledge-card-pack，包含 route_scores、information_density high、recommended_outputs 和默认 prompt-only 交付格式。"
+    },
+    {
+        "id":  "panoramic-agent-architecture-routing",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把一篇讲 Agent 工作区从用户输入、工具调用、循环观察到最终交付的文章做成一张高密度全景图。",
+        "expected":  "识别为 panoramic-infographic；推荐 16:9 或 4:3；输出核心循环、输入层、输出层、运行支撑层和侧栏说明；人物呈现为 no-character、small-character 或 partial-character；参考图优先 21-panorama-core-loop 或 22-panorama-layered-architecture。"
+    },
+    {
+        "id":  "panoramic-content-workflow-routing",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请把内容生产从选题、写作、配图、审核、发布、复盘到回流做成一张总览图。",
+        "expected":  "识别为 panoramic-infographic 或 infographic-poster；如果选择全景图，必须给出横向分区、阶段推进、检查点和阅读路径；参考图优先 24-panorama-roadmap-navigation。"
+    },
+    {
+        "id":  "panoramic-vs-card-pack-disambiguation",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。一篇文章有 8 个相对独立的知识点，但没有明显系统结构，请判断做全景信息图还是知识卡片组。",
+        "expected":  "不强行选择 panoramic-infographic；如果知识点独立且关系弱，推荐 knowledge-card-pack；说明只有存在系统地图、路径、分层或前后对照时才选全景图。"
+    },
+    {
+        "id":  "panoramic-reference-selection",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请为一个技术架构总览选择参考图：内容包括接入层、编排层、能力层、支撑层、交付层。",
+        "expected":  "优先选择 assets/examples/22-panorama-layered-architecture.png；说明只参考分层结构、侧栏说明和阅读路径，不参考人物画风；人物可无。"
+    },
+    {
+        "id":  "setup-wizard-official-openai",
+        "prompt":  "Use $xinghe-illustrations-skill 我刚安装这个 skill，想用官方 OpenAI 生图，URL 和 API key 应该怎么配置？",
+        "expected":  "先读取 docs/setup-wizard.md；只要求配置 OPENAI_API_KEY；提醒密钥放在私有环境变量或 runtime secrets；配置后重启环境并先 inspect/probe；不要求用户把真实 key 发到聊天里。"
+    },
+    {
+        "id":  "setup-wizard-proxy-images",
+        "prompt":  "Use $xinghe-illustrations-skill 我使用第三方中转站，想配置 URL 和 API key 后生成带星禾人物的小红书封面。",
+        "expected":  "先读取 docs/setup-wizard.md；要求配置 GPT_IMAGE_BASE_URL、GPT_IMAGE_API_KEY、GPT_IMAGE_API_MODE=images、GPT_IMAGE_MODEL；强调含人物必须能上传 assets/examples/00-xinghe-ip-baseline.png；先 inspect/probe，再生成。"
+    },
+    {
+        "id":  "text-inventory-governance",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请为标题“我把 Codex 从对话工具变成了工作区系统”写一个小红书封面 prompt，但必须强化中文文字治理。",
+        "expected":  "先输出 text_inventory；标题逐字锁定用户确认版本；短标签数量受控；禁止新增无来源数字、联系方式、二维码、商业承诺和随机英文；prompt 中明确只允许使用 approved text inventory。"
+    },
+    {
+        "id":  "visual-qa-scoring-examples",
+        "prompt":  "Use $xinghe-illustrations-skill 请评估一张技术架构图：结构基本清楚，但星禾人物太大遮住两个节点，中文节点无错字。请给 QA 分数和返工建议。",
+        "expected":  "读取 visual-qa-rubric.md，并参考 visual-qa-scoring-examples.md；给 6 项评分、总分、扣分理由和结论；人物参与方式应明显扣分，建议 small-character 或 no-character。"
+    },
+    {
+        "id":  "manifest-candidates-batch-dry-run",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要真实生图。请把 prompt-only 交付包里的 items[].candidates[] 转成可批量生成的 manifest，并说明如何 validate-manifest。",
+        "expected":  "说明 CLI 可直接读取 items[].candidates[]；每个 candidate 展开为独立图片；使用 output_filename_when_generated、reference_images、size；先运行 generate --manifest <prompts.json> --validate-manifest --result-manifest <path>，不调用 API。"
     }
 ]

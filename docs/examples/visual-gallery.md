@@ -35,6 +35,9 @@
 | 信息图 | <img src="../../assets/readme-showcase/08-infographic-poster.png" alt="信息图：内容到发布地图" width="260"> |
 | 信息图：能力矩阵 | <img src="../../assets/readme-showcase/08a-infographic-matrix.png" alt="信息图：能力矩阵" width="420"> |
 | 信息图：路线图 | <img src="../../assets/readme-showcase/08b-infographic-roadmap.png" alt="信息图：路线图" width="260"> |
+| 全景信息图：Agent 工作区 | <img src="../../assets/readme-showcase/09a-panorama-agent-architecture.png" alt="全景信息图：Agent 工作区" width="420"> |
+| 全景信息图：内容生产流程 | <img src="../../assets/readme-showcase/09b-panorama-content-workflow.png" alt="全景信息图：内容生产流程" width="420"> |
+| 全景信息图：交付路径 | <img src="../../assets/readme-showcase/09c-panorama-delivery-roadmap.png" alt="全景信息图：交付路径" width="420"> |
 
 ## 星禾人物基准
 
@@ -89,3 +92,14 @@
 | 大字标题 + 底部星禾 | <img src="../../assets/examples/18-xhs-typed-title-bottom-xinghe.png" alt="小红书封面：大字标题和底部星禾" width="360"> |
 | 关键词下划线卡片 | <img src="../../assets/examples/19-xhs-keyword-underline-card.png" alt="小红书封面：关键词下划线卡片" width="360"> |
 | 方法栈封面 | <img src="../../assets/examples/20-xhs-title-card-method-stack.png" alt="小红书封面：方法栈" width="360"> |
+
+## 全景信息图构图参考
+
+适合系统地图、能力总览、方法全貌、路径图、技术架构总览和高密度信息整理。这里的图片只参考构图、分区、阅读路径和信息密度，不参考人物画风；全景图可以不出现人物，或只用很小的局部人物/角标。
+
+| 示例 | 图片 |
+|---|---|
+| 核心循环全景 | <img src="../../assets/examples/21-panorama-core-loop.png" alt="全景信息图：核心循环" width="420"> |
+| 分层架构全景 | <img src="../../assets/examples/22-panorama-layered-architecture.png" alt="全景信息图：分层架构" width="420"> |
+| 前后对照全景 | <img src="../../assets/examples/23-panorama-before-after-system.png" alt="全景信息图：前后对照" width="420"> |
+| 路线图全景 | <img src="../../assets/examples/24-panorama-roadmap-navigation.png" alt="全景信息图：路线图" width="420"> |

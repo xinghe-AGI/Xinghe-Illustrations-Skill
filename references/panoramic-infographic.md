@@ -48,6 +48,15 @@
 
 按内容选择一种骨架，不要每次都画成同一种全景图。
 
+参考图只用于结构，不用于复刻画风、图标、具体文字或人物。优先映射：
+
+| 骨架 | 优先参考图 | 用法 |
+|---|---|---|
+| 中央核心循环型 | `assets/examples/21-panorama-core-loop.png` | 参考输入层、核心循环、输出层、支撑层和侧栏说明的整体关系 |
+| 分层架构全景型 | `assets/examples/22-panorama-layered-architecture.png` | 参考从上到下的层级沉降、右侧说明栏和模块分布 |
+| 左旧右新对比全景型 | `assets/examples/23-panorama-before-after-system.png` | 参考左右对照、差异保留和中间转折点 |
+| 地图导航型 | `assets/examples/24-panorama-roadmap-navigation.png` | 参考阶段、泳道、检查点和路线图阅读方式 |
+
 ### A. 中央核心循环型
 
 适合 Agent Loop、自动化系统、内容生产闭环、运营闭环。

@@ -24,7 +24,7 @@ Generate Xinghe-style image assets through Responses API image_generation or Ima
 
 Usage:
   node scripts/xinghe_image_assets_cli.js generate --prompt <text> --output <path> [options]
-  node scripts/xinghe_image_assets_cli.js generate --manifest <path> --output-dir <dir> [options]
+  node scripts/xinghe_image_assets_cli.js generate --manifest <path> [--output-dir <dir>] [options]
   node scripts/xinghe_image_assets_cli.js inspect --prompt <text> --output <path> [options]
   node scripts/xinghe_image_assets_cli.js probe --mode proxy --base-url <url> [options]
   node scripts/xinghe_image_assets_cli.js --help
@@ -32,8 +32,8 @@ Usage:
 Required:
   --prompt <text>              Final image prompt. Keep Xinghe visual DNA in the prompt.
   --output <path>              Local output file path.
-  --manifest <path>            Batch manifest JSON. Uses pictures[], images[], or a top-level array.
-  --output-dir <dir>           Batch output directory when --manifest is used.
+  --manifest <path>            Batch manifest JSON. Uses pictures[], images[], items[], top-level array, or items[].candidates[].
+  --output-dir <dir>           Batch output directory. Default: manifest output_dir, default_output_dir/images, or manifest-dir/images.
 
 Options:
   --mode official|proxy        Access mode. Default: official.
@@ -688,6 +688,68 @@ function slugify(value) {
     .slice(0, 60) || "image";
 }
 
+function pathListValue(value) {
+  if (!value || value === true) return undefined;
+  if (Array.isArray(value)) return value.filter(Boolean).join(",");
+  return value;
+}
+
+function candidateId(parent, parentIndex, candidate, candidateIndex) {
+  const parentId = parent.id || parentIndex + 1;
+  const childId = candidate.id || candidateIndex + 1;
+  return `${parentId}-${childId}`;
+}
+
+function candidateFilename(parent, candidate) {
+  return candidate.output_filename_when_generated
+    || candidate.output_filename
+    || candidate.filename
+    || parent.output_filename_when_generated
+    || parent.filename;
+}
+
+function normalizeBatchItems(data) {
+  const rawItems = Array.isArray(data) ? data : data.pictures || data.images || data.items;
+  if (!Array.isArray(rawItems) || rawItems.length === 0) {
+    fail("Manifest must be a non-empty array, or contain pictures[], images[], or items[].");
+  }
+
+  const normalized = [];
+  for (let i = 0; i < rawItems.length; i += 1) {
+    const item = rawItems[i];
+    if (Array.isArray(item.candidates) && item.candidates.length > 0) {
+      for (let j = 0; j < item.candidates.length; j += 1) {
+        const candidate = item.candidates[j];
+        normalized.push({
+          ...item,
+          ...candidate,
+          candidates: undefined,
+          id: candidateId(item, i, candidate, j),
+          parent_id: item.id || i + 1,
+          candidate_id: candidate.id || j + 1,
+          topic: candidate.topic || candidate.direction || item.topic || item.title || `candidate-${j + 1}`,
+          filename: candidateFilename(item, candidate),
+          prompt: candidate.prompt,
+          style_references: pathListValue(
+            candidate.style_references
+            || candidate["style-references"]
+            || candidate.reference_images
+            || item.style_references
+            || item["style-references"]
+            || item.reference_images
+          ),
+        });
+      }
+      continue;
+    }
+    normalized.push({
+      ...item,
+      style_references: pathListValue(item.style_references || item["style-references"] || item.reference_images),
+    });
+  }
+  return normalized;
+}
+
 function readBatchItems(manifestPath) {
   const resolved = path.resolve(manifestPath);
   if (!fs.existsSync(resolved)) fail(`Manifest not found: ${resolved}`);
@@ -697,10 +759,7 @@ function readBatchItems(manifestPath) {
   } catch (err) {
     fail(`Manifest is not valid JSON: ${err.message}`);
   }
-  const items = Array.isArray(data) ? data : data.pictures || data.images || data.items;
-  if (!Array.isArray(items) || items.length === 0) {
-    fail("Manifest must be a non-empty array, or contain pictures[], images[], or items[].");
-  }
+  const items = normalizeBatchItems(data);
   return { manifest: data, items, resolved };
 }
 
@@ -718,10 +777,21 @@ function itemId(item, index) {
   return String(item.id || index + 1);
 }
 
-function itemOutputPath(args, item, index, format) {
+function batchOutputDir(args, item, manifest, resolved) {
+  const explicit = args["output-dir"] || item.output_dir || item.outputDir || manifest.output_dir || manifest.outputDir;
+  if (explicit && explicit !== true) return explicit;
+  if (manifest.default_output_dir && manifest.default_output_dir !== true) {
+    const defaultDir = String(manifest.default_output_dir);
+    return path.basename(defaultDir).toLowerCase() === "images"
+      ? defaultDir
+      : path.join(defaultDir, "images");
+  }
+  return path.join(path.dirname(resolved), "images");
+}
+
+function itemOutputPath(args, item, index, format, manifest, resolved) {
   if (item.output) return path.resolve(item.output);
-  const outputDir = args["output-dir"];
-  if (!outputDir || outputDir === true) fail("Batch mode requires --output-dir.");
+  const outputDir = batchOutputDir(args, item, manifest, resolved);
   const prefix = slugify(args.prefix || path.basename(args.manifest, path.extname(args.manifest)));
   const id = String(item.id || index + 1).padStart(2, "0");
   const topic = slugify(item.filename || item.topic || item.title || `image-${id}`);
@@ -735,12 +805,13 @@ async function generateBatch(args) {
   const { manifest, items, resolved } = readBatchItems(args.manifest);
   const regenerate = parseIdSet(args.regenerate);
   const results = [];
+  const manifestStyleReferences = pathListValue(manifest.style_references || manifest["style-references"] || manifest.reference_images || manifest.references);
 
   for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
     const id = itemId(item, i);
     const itemFormat = inferFormat(item.output || item.filename || `image.${args["output-format"] || DEFAULT_FORMAT}`, item.output_format || item["output-format"] || args["output-format"]);
-    const outputPath = itemOutputPath(args, item, i, itemFormat);
+    const outputPath = itemOutputPath(args, item, i, itemFormat, manifest, resolved);
     const selectedForRegenerate = !regenerate || regenerate.has(id) || regenerate.has(String(i + 1));
     const exists = fs.existsSync(outputPath);
 
@@ -765,7 +836,7 @@ async function generateBatch(args) {
       reference: item.reference || args.reference,
       references: item.references || args.references,
       "style-reference": item.style_reference || item["style-reference"] || args["style-reference"],
-      "style-references": item.style_references || item["style-references"] || args["style-references"],
+      "style-references": item.style_references || item["style-references"] || args["style-references"] || manifestStyleReferences,
       size: item.size || args.size,
       quality: item.quality || args.quality,
       force: args.force || Boolean(regenerate),
@@ -787,6 +858,8 @@ async function generateBatch(args) {
     mode: args.mode || "official",
     dry_run: Boolean(args["dry-run"] || args["validate-manifest"]),
     input_count: items.length,
+    output_dir: path.resolve(batchOutputDir(args, {}, manifest, resolved)),
+    expanded_from_candidates: items.some((item) => item.parent_id),
     generated_count: results.filter((item) => item.ok && !item.skipped && !item.dry_run).length,
     planned_count: results.filter((item) => item.ok && item.dry_run).length,
     dry_run_count: results.filter((item) => item.dry_run).length,

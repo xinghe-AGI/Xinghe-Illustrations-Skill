@@ -1,11 +1,11 @@
 # 风格参考图机制
 
-`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文锚点、解释图、技术架构图、流程图、知识卡片、轻分镜和信息图海报的场景参考图，用来参考构图、动作、呼吸感留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。
+`assets/examples/00-xinghe-ip-baseline.png` 是星禾个人 IP 的人物形象基准图，用来锁定脸、发型、服饰和人物气质。`assets/examples/01-14-*.png` 是正文锚点、解释图、技术架构图、流程图、知识卡片、轻分镜和信息图海报的场景参考图，用来参考构图、动作、呼吸感留白、线条和批注密度。`assets/examples/15-20-*.png` 是微信公众号文章封面和小红书笔记封面参考图，用来参考标题区、人物区、安全边距和封面排版。`assets/examples/21-24-*.png` 是高密度全景信息图参考图，用来参考横向分区、阅读路径、侧栏说明、分层架构、前后对照和路线图结构。
 
 真实生图时按人物呈现等级选择参考图。含人物时必须使用“双参考图”，其中人物基准图是硬门槛：
 
 1. 人物基准图：画面含星禾人物、手部、半身或侧影时，固定传入 `assets/examples/00-xinghe-ip-baseline.png`。
-2. 非封面参考图：从 `assets/examples/01-14-*.png` 中选择 1 张最接近当前构图、人物呈现等级和信息密度的图；封面参考图：从 `assets/examples/15-20-*.png` 中选择 1 张最接近平台版式、标题区和安全边距的图。
+2. 非封面参考图：从 `assets/examples/01-14-*.png` 中选择 1 张最接近当前构图、人物呈现等级和信息密度的图；封面参考图：从 `assets/examples/15-20-*.png` 中选择 1 张最接近平台版式、标题区和安全边距的图；全景信息图：从 `assets/examples/21-24-*.png` 中选择 1 张最接近分区结构和阅读路径的图。
 
 含星禾人物、手部、半身或侧影时，不要只传场景参考图而漏掉人物基准图。不要用文字描述替代人物基准图。场景参考图只负责构图和动作，不负责改写星禾人物形象。明确 `no-character` 的技术架构图或流程图可以不展示人物，但不要声称它是人物一致的星禾图。
 
@@ -44,6 +44,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 解释图：优先选轻流程、白板、交接路径、自动化小盒子类参考图。
 - 多格漫画：只参考动作连续性和分区密度，不参考旧画面叙事。
 - 信息图海报：只参考呼吸感留白、分区密度和手绘笔记质感，不复制旧物件和旧结构。
+- 全景信息图：优先选 `21-24`，只参考横向网格、分区密度、侧栏说明、路线图和系统地图结构；默认人物可小、局部或不出现。
 
 ## 构图到参考图映射
 
@@ -70,6 +71,10 @@ node scripts/xinghe_image_assets_cli.js generate \
 | 小红书封面、上标题下人物 | `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合大字标题、关键词下划线、底部星禾动作的首图 |
 | 小红书封面、关键词下划线 | `assets/examples/19-xhs-keyword-underline-card.png` | 适合突出一个核心词的竖版封面，标题清晰，人物在底部承接 |
 | 小红书封面、标题卡片与方法堆叠 | `assets/examples/20-xhs-title-card-method-stack.png` | 适合方法帖、收藏型封面，标题卡片和星禾动作共同表达“可复用方法” |
+| 全景信息图、核心循环、输入输出工作区 | `assets/examples/21-panorama-core-loop.png` | 适合把输入层、循环层、输出层和支撑层放在同一张横向总览里；人物可以不出现 |
+| 全景信息图、分层架构、系统边界 | `assets/examples/22-panorama-layered-architecture.png` | 适合平台能力、技术系统、模块边界和从上到下的能力沉降 |
+| 全景信息图、前后对照、改造差异 | `assets/examples/23-panorama-before-after-system.png` | 适合旧系统和新系统、误区和真相、现状和目标的左右对比 |
+| 全景信息图、路线图、阶段推进 | `assets/examples/24-panorama-roadmap-navigation.png` | 适合软件交付路径、项目阶段、方法论路线和多泳道流程总览 |
 
 ## 新视觉形态参考选择
 
@@ -83,6 +88,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 | `knowledge-card-pack` | `assets/examples/03-sort-by-purpose.png` / `assets/examples/08-handoff-copy-toolbox.png` / `assets/examples/20-xhs-title-card-method-stack.png` | 适合卡片整理、标题区和移动端可读密度 |
 | `knowledge-card-single` | `assets/examples/03-sort-by-purpose.png` / `assets/examples/07-three-content-jobs.png` / `assets/examples/18-xhs-typed-title-bottom-xinghe.png` | 适合单观点、对比、清单和总结卡 |
 | `infographic-poster` | `assets/examples/02-minimum-loop.png` / `assets/examples/07-three-content-jobs.png` / `assets/examples/10-information-well.png` | 适合全局流程、模块地图和信息沉淀 |
+| `panoramic-infographic` | `assets/examples/21-panorama-core-loop.png` / `assets/examples/22-panorama-layered-architecture.png` / `assets/examples/23-panorama-before-after-system.png` / `assets/examples/24-panorama-roadmap-navigation.png` | 适合系统地图、方法全貌、能力总览、路径图和高密度横向信息图；人物默认小、局部或不出现 |
 
 ## 失败处理
 

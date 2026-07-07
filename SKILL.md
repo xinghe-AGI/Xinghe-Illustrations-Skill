@@ -35,9 +35,9 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - `references/platform-cover-standards.md`、`references/cover-text-rules.md`、`references/cover-composition-patterns.md`、`references/cover-qa-checklist.md`：公众号封面、小红书封面和文章头图任务读取。
 - `references/prompt-template.md`：正文图、封面、知识卡片、解释图、多格漫画、信息图海报的提示词模板。
 - `references/output-spec.md`：默认输出目录、交付包字段和 manifest 规范。
-- `references/qa-checklist.md`、`references/visual-qa-rubric.md`：生成后检查、评分和返工规则。
+- `references/qa-checklist.md`、`references/visual-qa-rubric.md`、`references/visual-qa-scoring-examples.md`：生成后检查、评分、样例校准和返工规则。
 - `references/failure-recovery-playbook.md`：生成失败后的问题分类和返工 prompt。
-- `references/image-generation-runtime.md`、`references/access-modes.md`、`references/reference-images.md`：真实生图、API/CLI、参考图和安全边界。
+- `docs/setup-wizard.md`、`references/image-generation-runtime.md`、`references/access-modes.md`、`references/reference-images.md`：安装后配置、真实生图、API/CLI、参考图和安全边界。
 - `docs/examples/sample-task-packs.md`：典型任务 dry-run 样例；测试路由稳定性时读取。
 - `learning/visual-learning-log.md`：用户确认好图后才读取，用于生成学习日志建议；学习系统不混入 references 主流程。
 
@@ -49,7 +49,7 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 
 不要把真实 API key、permission code、access token 写进 `SKILL.md`、`README.md`、`references/`、`scripts/`、`assets/` 或任何会提交到 GitHub 的文件。
 
-用户刚安装 skill、询问“怎么配置生图”“URL/API key 填哪里”“为什么不能真实生成”时，先读取 `docs/usage-and-generation.md` 和 `references/access-modes.md`，按以下顺序引导：
+用户刚安装 skill、询问“怎么配置生图”“URL/API key 填哪里”“为什么不能真实生成”时，先读取 `docs/setup-wizard.md`，必要时再读取 `docs/usage-and-generation.md` 和 `references/access-modes.md`，按以下顺序引导：
 
 1. 先确认用户要使用官方 OpenAI 还是第三方中转站。
 2. 官方 OpenAI：让用户在本机或 Agent runtime 的私有环境变量中配置 `OPENAI_API_KEY`。
@@ -216,13 +216,13 @@ node scripts/xinghe_image_assets_cli.js generate \
   --quality high
 ```
 
-批量生成使用 manifest。manifest 中每张图必须包含 `id`、`topic`、`prompt`，可选 `filename`、`image`、`size`、`quality`、`output_format`、`style_references`。多候选真实生成时分别命名为 `01-topic-a.png`、`01-topic-b.png`、`cover-a.png`，不覆盖旧图。
+批量生成使用 manifest。manifest 中每张图必须包含 `id`、`topic`、`prompt`，可选 `filename`、`image`、`size`、`quality`、`output_format`、`style_references` 或 `reference_images`。CLI 也能直接读取 prompt-only 交付包里的 `items[].candidates[]`，并把每个候选展开成独立生成项；多候选真实生成时分别命名为 `01-topic-a.png`、`01-topic-b.png`、`cover-a.png`，不覆盖旧图。
 
 测试、评估、代码改动验证或批量生成前，优先使用 `inspect`、`probe`、`--dry-run` 或 `--validate-manifest`，不要把真实生图当作默认测试。
 
 ### 7. 检查、迭代和学习
 
-生成后读取 `references/qa-checklist.md` 和 `references/visual-qa-rubric.md`；封面任务读取 `references/cover-qa-checklist.md`。重点检查：
+生成后读取 `references/qa-checklist.md` 和 `references/visual-qa-rubric.md`；需要解释评分、决定是否进入 README 样张或用户问“为什么返工”时，再读取 `references/visual-qa-scoring-examples.md`。封面任务读取 `references/cover-qa-checklist.md`。重点检查：
 
 - 路由是否正确：情绪图、解释图、技术架构图、流程图、漫画、卡片、信息图海报、全景信息图没有互相错用。
 - 人物呈现是否正确：正文图/封面/情绪图需要星禾参与核心动作；技术架构图/流程图/知识卡片允许人物小、局部或不出现。
