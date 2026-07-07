@@ -12,7 +12,7 @@
 6. 文字密度：读取 `text-density-rules.md`，确认每张图的 `text_density_level`、`text_budget` 和溢出拆图方案。
 7. 统一风格：所有任务都以 `style-dna.md` 为最终视觉口径；冷白/浅蓝灰背景、手绘结构分区、文字颜色层级优先在这里统一。
 8. 提示词与生成：读取 `prompt-template.md`、`prompt-template-images-api.md`、`reference-images.md`、`access-modes.md` 和 `image-generation-runtime.md`。
-9. 验收返工：读取 `qa-checklist.md`；封面任务再读 `cover-qa-checklist.md`；失败返工读 `failure-recovery-playbook.md`。
+9. 验收返工：读取 `qa-checklist.md` 和 `visual-qa-rubric.md`；封面任务再读 `cover-qa-checklist.md`；失败返工读 `failure-recovery-playbook.md`。
 
 ## 规则归属
 
@@ -28,6 +28,7 @@
 - 公众号封面和小红书封面：归 `platform-cover-standards.md`、`cover-text-rules.md`、`cover-composition-patterns.md` 和 `cover-qa-checklist.md`。
 - 中文文字、数字、术语、错字处理：归 `text-rendering-rules.md`。
 - 文字密度和拆图阈值：归 `text-density-rules.md`。
+- 视觉质量评分和样张入选阈值：归 `visual-qa-rubric.md`。
 - 失败结果返工：归 `failure-recovery-playbook.md`。
 - API、CLI、参考图、安全边界：归 `access-modes.md`、`image-generation-runtime.md` 和 `reference-images.md`。
 

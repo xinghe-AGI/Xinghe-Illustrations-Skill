@@ -1,0 +1,86 @@
+name: Validate Skill
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check CLI syntax
+        run: node --check scripts/xinghe_image_assets_cli.js
+
+      - name: Validate JSON files
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const files = [
+            'test-prompts.json',
+            'assets/readme-showcase/manifest.json',
+            'assets/readme-showcase/emotion-set-manifest.json',
+            'assets/readme-showcase/variant-set-manifest.json'
+          ];
+          for (const file of files) {
+            JSON.parse(fs.readFileSync(file, 'utf8'));
+            console.log(`ok ${file}`);
+          }
+          NODE
+
+      - name: Validate SKILL metadata
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const text = fs.readFileSync('SKILL.md', 'utf8');
+          if (!text.startsWith('---\n')) {
+            throw new Error('SKILL.md must start with YAML frontmatter');
+          }
+          const end = text.indexOf('\n---', 4);
+          if (end < 0) {
+            throw new Error('SKILL.md frontmatter is not closed');
+          }
+          const frontmatter = text.slice(4, end);
+          for (const field of ['name:', 'display_name:', 'description:']) {
+            if (!frontmatter.includes(field)) {
+              throw new Error(`Missing ${field} in SKILL.md frontmatter`);
+            }
+          }
+          if (!frontmatter.includes('https://github.com/xinghe-AGI/Xinghe-Illustrations-Skill/tree/main')) {
+            throw new Error('display_name must include the GitHub repository URL');
+          }
+          console.log('skill metadata ok');
+          NODE
+
+      - name: Validate README image links
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const files = ['README.md', 'docs/examples/visual-gallery.md'];
+          const missing = [];
+          for (const file of files) {
+            const text = fs.readFileSync(file, 'utf8');
+            const re = /<img src="([^"]+)"/g;
+            let match;
+            while ((match = re.exec(text))) {
+              const resolved = path.resolve(path.dirname(file), match[1]);
+              if (!fs.existsSync(resolved)) {
+                missing.push(`${file} -> ${match[1]}`);
+              }
+            }
+          }
+          if (missing.length) {
+            throw new Error(`Missing image files:\n${missing.join('\n')}`);
+          }
+          console.log('readme image links ok');
+          NODE

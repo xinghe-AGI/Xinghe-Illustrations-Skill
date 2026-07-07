@@ -34,7 +34,7 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - `references/platform-cover-standards.md`、`references/cover-text-rules.md`、`references/cover-composition-patterns.md`、`references/cover-qa-checklist.md`：公众号封面、小红书封面和文章头图任务读取。
 - `references/prompt-template.md`：正文图、封面、知识卡片、解释图、多格漫画、信息图海报的提示词模板。
 - `references/output-spec.md`：默认输出目录、交付包字段和 manifest 规范。
-- `references/qa-checklist.md`：生成后检查和返工规则。
+- `references/qa-checklist.md`、`references/visual-qa-rubric.md`：生成后检查、评分和返工规则。
 - `references/failure-recovery-playbook.md`：生成失败后的问题分类和返工 prompt。
 - `references/image-generation-runtime.md`、`references/access-modes.md`、`references/reference-images.md`：真实生图、API/CLI、参考图和安全边界。
 - `docs/examples/sample-task-packs.md`：典型任务 dry-run 样例；测试路由稳定性时读取。
@@ -217,7 +217,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 ### 7. 检查、迭代和学习
 
-生成后读取 `references/qa-checklist.md`；封面任务读取 `references/cover-qa-checklist.md`。重点检查：
+生成后读取 `references/qa-checklist.md` 和 `references/visual-qa-rubric.md`；封面任务读取 `references/cover-qa-checklist.md`。重点检查：
 
 - 路由是否正确：情绪图、解释图、技术架构图、流程图、漫画、卡片、海报没有互相错用。
 - 人物呈现是否正确：正文图/封面/情绪图需要星禾参与核心动作；技术架构图/流程图/知识卡片允许人物小、局部或不出现。

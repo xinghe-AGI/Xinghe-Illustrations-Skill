@@ -18,14 +18,23 @@
 | 情绪图：专注 | <img src="../../assets/readme-showcase/02e-emotion-focused.png" alt="情绪图：专注" width="260"> |
 | 情绪图：释然 | <img src="../../assets/readme-showcase/02f-emotion-relieved.png" alt="情绪图：释然" width="260"> |
 | 解释图：输入到生成 | <img src="../../assets/readme-showcase/03-explanatory-diagram.png" alt="解释图：输入到生成" width="420"> |
+| 解释图：因果链 | <img src="../../assets/readme-showcase/03a-explanatory-cause-effect.png" alt="解释图：因果链" width="420"> |
 | 解释图：先做路由 | <img src="../../assets/readme-showcase/03b-explanatory-comparison.png" alt="解释图：先做路由" width="420"> |
 | 知识卡片：形态选择 | <img src="../../assets/readme-showcase/04-knowledge-card.png" alt="知识卡片：形态选择" width="420"> |
 | 知识卡片：决策树 | <img src="../../assets/readme-showcase/04a-knowledge-decision-card.png" alt="知识卡片：决策树" width="420"> |
 | 知识卡片：矩阵 | <img src="../../assets/readme-showcase/04b-knowledge-matrix-card.png" alt="知识卡片：矩阵" width="420"> |
 | 技术架构图 | <img src="../../assets/readme-showcase/05-technical-architecture.png" alt="技术架构图：输入到输出" width="420"> |
+| 技术架构图：分层架构 | <img src="../../assets/readme-showcase/05a-architecture-layered-agent.png" alt="技术架构图：分层架构" width="420"> |
+| 技术架构图：中心辐射 | <img src="../../assets/readme-showcase/05b-architecture-hub-spoke.png" alt="技术架构图：中心辐射" width="420"> |
 | 流程图 | <img src="../../assets/readme-showcase/06-process-flow.png" alt="流程图：读内容到检查" width="420"> |
+| 流程图：SOP | <img src="../../assets/readme-showcase/06a-process-sop-flow.png" alt="流程图：SOP" width="420"> |
+| 流程图：反馈闭环 | <img src="../../assets/readme-showcase/06b-process-feedback-loop.png" alt="流程图：反馈闭环" width="420"> |
 | 多格漫画 | <img src="../../assets/readme-showcase/07-comic-strip.png" alt="多格漫画：从需求乱到可复用" width="260"> |
+| 多格漫画：误解解除 | <img src="../../assets/readme-showcase/07a-comic-misunderstanding.png" alt="多格漫画：误解解除" width="260"> |
+| 多格漫画：前后变化 | <img src="../../assets/readme-showcase/07b-comic-before-after.png" alt="多格漫画：前后变化" width="420"> |
 | 信息图 | <img src="../../assets/readme-showcase/08-infographic-poster.png" alt="信息图：内容到发布地图" width="260"> |
+| 信息图：能力矩阵 | <img src="../../assets/readme-showcase/08a-infographic-matrix.png" alt="信息图：能力矩阵" width="420"> |
+| 信息图：路线图 | <img src="../../assets/readme-showcase/08b-infographic-roadmap.png" alt="信息图：路线图" width="260"> |
 
 ## 星禾人物基准
 
