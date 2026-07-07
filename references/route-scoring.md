@@ -43,6 +43,7 @@
 | `knowledge-card-pack` | 长文、多知识点、适合收藏复习 | 只有单一观点或一张图就够 |
 | `knowledge-card-single` | 单观点、单对比、单流程、单清单 | 信息超过单屏可读 |
 | `infographic-poster` | 全景、地图、矩阵、方法全貌、路径总览 | 只是想把全文压进一张图 |
+| `panoramic-infographic` | 系统全景、方法全貌、能力地图、输入-核心循环-输出-侧栏解释需要同屏呈现 | 手机竖向阅读、单观点、缺少主链路或文字必须写成长段 |
 | `xinghe-article` | 一个正文锚点、一图一概念、场景瞬间 | 应该走结构图、卡片或封面 |
 
 ## 选择规则
@@ -52,6 +53,7 @@
 - 如果两个路由都是 5 分，不要硬塞到一张图里，优先拆成两个输出。
 - 如果最高分只有 3 分，先输出“不建议强行生图”的理由，并给 prompt-only 或文字结构建议。
 - 如果 `infographic-poster` 是 5 分且 `knowledge-card-pack` 也是 4-5 分，默认建议“1 张总览信息图 + 多张知识卡片”。
+- 如果 `panoramic-infographic` 是 5 分且 `knowledge-card-pack` 也是 4-5 分，默认建议“1 张横向全景图 + 多张知识卡片”，全景图只承担地图和关系，卡片承担逐点解释。
 - 如果 `comic-strip` 是 4-5 分且 `emotion-anchor` 是 4-5 分，漫画必须写 `emotion_arc`。
 
 ## 输出要求

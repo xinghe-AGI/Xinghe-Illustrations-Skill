@@ -13,6 +13,7 @@
 | `knowledge-card-single` | “知识卡片模板” |
 | `comic-strip` | “多格漫画模板” |
 | `infographic-poster` | “信息图海报模板” |
+| `panoramic-infographic` | “全景信息图模板” |
 | `platform-cover` 公众号 | “公众号封面模板” |
 | `platform-cover` 小红书 | “小红书封面模板” |
 | `prompt-only` 批量交付 | “Prompt-only JSON 格式” |
@@ -37,9 +38,9 @@ Theme:
 {正文配图主题}
 
 Visual route:
-Primary route: {xinghe-article / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card-single / infographic-poster}
+Primary route: {xinghe-article / emotion-anchor / explanatory-diagram / technical-architecture / process-flow / comic-strip / knowledge-card-single / infographic-poster / panoramic-infographic}
 Secondary routes: {[] / [emotion-anchor] / [explanatory-diagram] / [knowledge-card-pack] / [process-flow] / [technical-architecture]}
-Information density: {low / medium / high}. High-density is allowed only for infographic posters, architecture diagrams, process maps, and relationship-based knowledge cards with clear sections and reading path.
+Information density: {low / medium / high / panoramic-high}. High-density is allowed only for infographic posters, panoramic infographics, architecture diagrams, process maps, and relationship-based knowledge cards with clear sections and reading path.
 Route score: {1-5 score and one sentence reason from route-scoring.md}
 Text density: {very-low / low / medium / medium-high / high}. Follow text-density-rules.md. If text exceeds the budget, split into cards or reduce labels.
 Emotion state:
@@ -81,7 +82,7 @@ One image explains one core information goal. Xinghe's body pose and hand action
 |---|---|---|---|
 | 小红书轮播 / 微信竖向图文卡 | 3:4 | 1024x1536 或等比 | 明确移动端竖向阅读时使用 |
 | 文章笔记 / 方法论知识卡 / 左右对比 / 轻流程 | 4:3 | 1536x1152 或等比 | 默认阅读型知识卡优先，结构清楚 |
-| 横向流程 / 时间线 / 多模块关系 / 公众号正文横图卡 | 16:9 | 1536x1024 或等比 | 横向排版更清楚时使用 |
+| 横向流程 / 时间线 / 多模块关系 / 公众号正文横图卡 / 全景信息图 | 16:9 | 1536x1024 或等比 | 横向排版更清楚时使用 |
 | 技术架构图 / 流程图 | 4:3 或 16:9 | 1536x1152 / 1792x1024 或等比 | 结构关系优先，人物可小或不出现 |
 | 单概念卡片 | 1:1 | 1024x1024 | 摘要卡、方形社媒图 |
 | 公众号封面 | 2.35:1 | 1792x768 或等比 | 保留标题区空间，但不要做商业海报 |
@@ -227,6 +228,65 @@ Chinese labels:
 
 Constraints:
 Default maximum one infographic poster per article. Do not cram the full article into one image. If text becomes dense, split into knowledge cards.
+```
+
+## 全景信息图模板
+
+生成系统全景、方法全貌、能力地图、Agent 架构总览或高密度横向信息图时使用。生成前先读取 `panoramic-infographic.md`。
+
+```text
+Generate one standalone 16:9 Chinese panoramic infographic in Xinghe visual style.
+
+Visual DNA:
+Cool white or very light blue-gray background, hand-drawn crayon structure, clean module zones, thin dividers, subtle dotted grids, clear reading path, desktop-readable Chinese labels. Use black/dark navy for baseline labels, orange directly for selected title words, main path labels, and key arrows, blue/blue-gray for secondary modules and feedback/status lines, red only for risks or missing pieces. Not a PPT slide, not a dense UI screenshot, not a commercial tech poster, not a copied reference layout.
+
+Whole-map topic:
+{全景图主题}
+
+One-sentence understanding:
+{读者看完这张图要记住的一句话}
+
+Panorama structure:
+{中央核心循环型 / 分层架构全景型 / 左旧右新对比全景型 / 地图导航型}
+
+Top value band:
+{顶部主标题 + 价值公式 / 关键判断 / 一句话解释}
+
+Left input stack:
+{输入区：用户输入 / 外部事件 / 文件数据 / 历史记录 / 其他入口}
+
+Central main path:
+{中央主链路 5-7 个节点，必须是画面视觉重心}
+
+Support layer:
+{下方支撑层：记忆 / 检索 / 权限 / 状态 / 调试 / 观察 / 工具 / 安全}
+
+Right output stack:
+{输出区：最终答案 / 执行动作 / 交付物 / 报表 / 触发后续流程}
+
+Right side explanation:
+{一句话理解 / 为什么重要 / 有无对比 / 工程 Tips / 风险清单，最多 3 个小模块}
+
+Bottom toolbelt:
+{可选工具类别，不写真实 logo、密钥、域名或联系方式}
+
+Reading path:
+{顶部价值 -> 左侧输入 -> 中央主链路 -> 右侧输出 -> 侧栏解释 -> 底部工具}
+
+Information density:
+panoramic-high. Use 7-10 information zones and 18-28 short labels maximum. Every node title should be short and readable. Do not write paragraphs.
+
+Character presence:
+{small-character / partial-character / no-character}. Default no-character unless a tiny Xinghe guide helps comprehension. If Xinghe appears, she is small and placed at one edge of the main path, pointing, tagging, checking a boundary, or connecting one line. She must not cover nodes, arrows, formulas, or sidebars.
+
+Chinese labels:
+Render only source-locked terms from the article or user-confirmed wording. Use short Chinese labels, numbers, and section titles. Do not copy labels from reference images.
+
+Overflow plan:
+If the content exceeds this image, keep this as a panorama map and split details into a knowledge-card-pack.
+
+Constraints:
+Do not copy reference image icons, vehicles, shields, brand, text, exact layout, or color scheme. Do not make it a PPT course page. Do not use tiny unreadable text. Do not put all modules at equal weight; central main path must be dominant.
 ```
 
 

@@ -26,6 +26,7 @@
 | `process-flow` | 1-2 | 一个偏流程顺序，一个偏关键回流/检查点；人物默认小、局部或不出现 |
 | `comic-strip` | 1-2 | 先验证每格是否推进意义；有情绪变化时补充 `emotion_arc` |
 | `infographic-poster` | 1-2 | 默认最多真实生成 1 张；允许高信息密度，但必须分层分区 |
+| `panoramic-infographic` | 1-2 | 默认最多真实生成 1 张；一个偏中央核心循环，一个偏分层/地图全景 |
 | 快速任务或省成本 | 1 | 用户明确要快、要少、只要最终图时使用 |
 
 ## 候选方向字段
@@ -36,7 +37,7 @@
 - 主路由：`primary_route`
 - 辅助路由：`secondary_routes`，没有则写 `[]`
 - 路由评分：`route_score` 或引用顶层 `route_scores`
-- 信息密度：`low`、`medium` 或 `high`
+- 信息密度：`low`、`medium`、`high` 或 `panoramic-high`
 - 文字密度：`text_density_level`、`text_budget`、`text_overflow_plan`
 - 核心隐喻：这张图用什么低科技物件或动作承载主题
 - 星禾动作或人物呈现等级：`full-character`、`small-character`、`partial-character`、`no-character`
@@ -49,6 +50,7 @@
 - 结构字段：技术架构图/流程图必须写 `node_count`、`edge_style`、`information_goal`
 - 漫画字段：多格漫画必须写 `panel_count`、`panel_progression`，若辅助 `emotion-anchor`，还要写 `emotion_arc`
 - 信息图字段：信息图海报必须写 `section_count`、`density_strategy`、`reading_path`
+- 全景信息图字段：`panorama_structure`、`section_count`、`label_budget`、`reading_path`、`central_main_path`、`side_explanation`、`overflow_plan`
 - 知识卡字段：知识卡片必须写 `knowledge_relation`，说明同一卡内多个知识点如何关联
 - 卡片组字段：`knowledge-card-pack` 必须写 `card_pack_narrative`、`card_count`、`card_roles`
 
@@ -58,6 +60,7 @@
 
 - `comic-strip + emotion-anchor`：候选中写清每格剧情和情绪变化。漫画负责叙事，情绪负责读者共鸣，不要把每格做成无关表情。
 - `infographic-poster + knowledge-card-pack`：候选中写清海报总览负责什么，卡片组负责什么。海报可以信息多，但必须有分区和阅读路径。
+- `panoramic-infographic + knowledge-card-pack`：候选中写清全景图负责什么全局关系，卡片组负责拆解哪些模块。全景图可以高密度，但必须有中央主链路、左右输入输出和侧栏解释。
 - `knowledge-card-single + explanatory-diagram`：候选中写清卡片内多个知识点的关系骨架，例如并列、因果、分层或汇聚。
 - `process-flow + knowledge-card-pack`：候选中写清流程拆卡逻辑，每张卡对应一个阶段、节点或检查点。
 - `technical-architecture + process-flow`：候选中写清是否拆成两张图；如果不拆，必须说明主图结构和辅助主路径如何不互相挤压。

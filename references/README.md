@@ -8,7 +8,7 @@
 2. 文章类型：读 `article-type-visual-strategy.md`，判断 `article_type` 和默认视觉策略。
 3. 路由评分：读 `route-scoring.md`，给候选路由打分后再确定 `primary_route` 和 `secondary_routes`。
 4. 视觉路由：再读 `visual-routing-and-candidates.md`，决定信息密度、候选数量、图型和人物呈现等级。
-5. 视觉形态：按任务读取 `visual-formats.md`、`technical-architecture-and-flow.md`、`composition-patterns.md` 或平台封面相关文件；知识卡片组额外读 `card-pack-narrative-structures.md`。
+5. 视觉形态：按任务读取 `visual-formats.md`、`technical-architecture-and-flow.md`、`panoramic-infographic.md`、`composition-patterns.md` 或平台封面相关文件；知识卡片组额外读 `card-pack-narrative-structures.md`。
 6. 文字密度：读取 `text-density-rules.md`，确认每张图的 `text_density_level`、`text_budget` 和溢出拆图方案。
 7. 统一风格：所有任务都以 `style-dna.md` 为最终视觉口径；冷白/浅蓝灰背景、手绘结构分区、文字颜色层级优先在这里统一。
 8. 提示词与生成：读取 `prompt-template.md`、`prompt-template-images-api.md`、`reference-images.md`、`access-modes.md` 和 `image-generation-runtime.md`。
@@ -21,6 +21,7 @@
 - 文章类型与默认策略：归 `article-type-visual-strategy.md`。
 - 路由评分：归 `route-scoring.md`。
 - 情绪图、解释图、多格漫画、知识卡片、信息图海报：归 `visual-formats.md`。
+- 高密度全景信息图、系统地图、方法全貌、能力总览：归 `panoramic-infographic.md`。
 - 自主路由、主/辅路由和混合路由：归 `cognitive-anchor-routing.md` 与 `visual-routing-and-candidates.md`。
 - 知识卡片比例和构图骨架：归 `visual-formats.md`、`knowledge-card-composition-patterns.md` 和 `prompt-template.md`；普通文章笔记不要默认竖版。
 - 知识卡片组叙事结构：归 `card-pack-narrative-structures.md`。
@@ -35,6 +36,6 @@
 ## 当前视觉口径
 
 - 主背景使用冷白或极浅蓝灰，不做大面积暖黄、米色、纸纹、渐变和商业海报底。
-- 解释图、流程图、知识卡片不再只靠大空白；允许使用浅蓝灰分区、细点阵、手绘虚线、浅色模块底和轻量批注，让信息更有承载面。
+- 解释图、流程图、知识卡片和全景信息图不再只靠大空白；允许使用浅蓝灰分区、细点阵、手绘虚线、浅色模块底和轻量批注，让信息更有承载面。
 - 橙色可以用于标题字、关键词、短标签、主路径和行动线；它不是只能作为下划线、圈注或箭头。
 - 黑色、深蓝黑、橙色、蓝色和蓝灰共同形成文字层级；不要把所有文字都统一成橙色。
