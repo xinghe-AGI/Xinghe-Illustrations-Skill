@@ -24,6 +24,7 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - `references/route-scoring.md`：路由评分标准；自主选择主路由和辅助路由时读取。
 - `references/visual-formats.md`：情绪图、解释图、多格漫画、知识卡片、信息图海报的构图规则。
 - `references/panoramic-infographic.md`：高密度全景信息图的结构、分区、阅读路径和人物缩放规则；做系统地图、能力全景、方法全貌、架构总览时读取。
+- `references/background-density-and-palette.md`：背景信息密度、白板写作布局、桌面/便签辅助层和多色但有层级的配色规则；解释图、流程图、知识卡片、正文图和信息图都要读取。
 - `references/knowledge-card-composition-patterns.md`：知识卡片横版/竖版构图骨架；做文章笔记、方法论总结、路径图、决策图和卡片组时读取。
 - `references/card-pack-narrative-structures.md`：知识卡片组叙事结构；做 `knowledge-card-pack` 时读取。
 - `references/text-density-rules.md`：不同图型的文字密度、文字上限和溢出拆图规则。
@@ -149,7 +150,7 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 
 知识卡片组必须按 `references/card-pack-narrative-structures.md` 选择 `card_pack_narrative`，例如“问题 -> 原因 -> 方法 -> 案例 -> 总结”或“总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡”。
 
-每个候选方向必须写清：主路由、辅助路由、核心隐喻、信息密度、文字密度等级、星禾动作或人物呈现等级、构图、中文标注、参考图、适用原因、建议比例和生成文件名。人物呈现等级使用：`full-character`、`small-character`、`partial-character`、`no-character`。文字密度等级按 `references/text-density-rules.md` 写 `text_density_level`、`text_budget` 和 `text_overflow_plan`。
+每个候选方向必须写清：主路由、辅助路由、核心隐喻、信息密度、文字密度等级、背景密度等级、辅助背景元素、配色方案、星禾动作或人物呈现等级、构图、中文标注、参考图、适用原因、建议比例和生成文件名。人物呈现等级使用：`full-character`、`small-character`、`partial-character`、`no-character`。文字密度等级按 `references/text-density-rules.md` 写 `text_density_level`、`text_budget` 和 `text_overflow_plan`。背景密度按 `references/background-density-and-palette.md` 写 `background_density_level`、`supporting_background_elements`、`palette_plan` 和 `blank_space_control`。
 
 ### 4. 选择比例和输出包
 
@@ -189,11 +190,13 @@ outputs/xinghe-illustration-packs/{日期}-{短标题}/
 - 当前图的核心信息目标
 - 星禾正在亲手解决的问题
 - 构图、信息层级、背景分区和物件
+- 背景密度等级、辅助背景信息层、留白控制和配色方案
 - 画面中文字清单，且来自原文或用户确认标题
 - 禁止项：不抄参考图人物/水印/品牌/具体文字，不生成联系方式、二维码、真实 UI 截图，不把星禾变成装饰贴纸
 
 写提示词前先回答：这张图里信息主体是什么？如果是正文图、封面、情绪图或漫画，再回答“星禾正在亲手解决什么问题”。如果是技术架构图、流程图、高密度知识卡片或全景信息图，优先回答“结构如何让读者看懂”，然后决定人物是小、局部还是不出现。不要为了露出人物牺牲结构可读性。
 
+背景和颜色遵守 `references/background-density-and-palette.md`：解释图、流程图、知识卡片、正文图和信息图不要出现大块无功能空白；可以使用白板、桌面、便签、夹子、胶带、边栏提示、浅色分区和多色短标签形成信息承载面。配色以冷白/浅蓝灰为底，但允许低饱和绿色、黄色、淡紫、珊瑚粉等辅助色；文字可以使用橙色作为关键词、标题字或短标签，但不要全图统一橙色。
 中文文字遵守 `references/text-rendering-rules.md`：标题、术语和数字必须来自原文或用户确认；色值不写进画面；错字优先重生或减少文字，不做代码涂改。
 文字数量遵守 `references/text-density-rules.md`：如果超过当前图型上限，拆成知识卡片组或降低密度，不缩小字号硬塞。
 

@@ -11,6 +11,7 @@
 - 已按 `route-scoring.md` 输出路由评分。
 - 已明确 `primary_route`、`secondary_routes`、`information_density`、`recommended_outputs` 和 `route_risks`。
 - 已按 `visual-formats.md` 确认视觉形态边界。
+- 已按 `background-density-and-palette.md` 确认背景密度、辅助背景元素、留白控制和配色方案。
 - 已确认用户当前要的是策略、prompt-only 还是真实图片文件。
 
 ## 候选数量
@@ -39,6 +40,10 @@
 - 路由评分：`route_score` 或引用顶层 `route_scores`
 - 信息密度：`low`、`medium`、`high` 或 `panoramic-high`
 - 文字密度：`text_density_level`、`text_budget`、`text_overflow_plan`
+- 背景密度：`background_density_level`，使用 `light`、`medium`、`rich` 或 `dense`
+- 辅助背景元素：`supporting_background_elements`，例如白板边框、桌面、便签、夹子、胶带、边栏提示、底部工具带
+- 配色方案：`palette_plan`，说明主文字色、辅助色、路径色、风险色和背景分区色
+- 留白控制：`blank_space_control`，说明哪里留白、哪里用信息背景层承接
 - 核心隐喻：这张图用什么低科技物件或动作承载主题
 - 星禾动作或人物呈现等级：`full-character`、`small-character`、`partial-character`、`no-character`
 - 构图：标题/人物/物件的位置关系
@@ -76,8 +81,9 @@
 3. 推荐生成清单。
 4. 每张图 A/B 候选方向。
 5. 每个候选的推荐比例、人物呈现等级、文字密度和参考图。
-6. prompt 或 prompt-only JSON。
-7. 生成前检查清单。
+6. 每个候选的背景密度、辅助背景元素、配色方案和留白控制。
+7. prompt 或 prompt-only JSON。
+8. 生成前检查清单。
 
 ## 输出规则
 

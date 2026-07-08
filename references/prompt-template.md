@@ -26,7 +26,7 @@
 Generate one standalone {aspect_ratio} Chinese content visual in Xinghe IP style.
 
 Visual DNA:
-Cool white or very light blue-gray background. Crayon line art with visible grain and slightly wobbly hand-drawn strokes. Breathable spacing, but not empty or floating. Use subtle hand-drawn panels, pale blue-gray blocks, dotted grids, thin dividers, or dashed boundaries when the idea needs structure. Sparse Chinese annotations may use black/dark navy, orange, blue, or blue-gray according to text hierarchy; orange text is allowed for titles, keywords, and short labels, not only for emphasis marks. Bright creator-note and social-ops knowledge-card feeling, friendly but restrained, clean and easy to understand. No gradients, no shadows, no paper texture, no complex decorative background, no commercial vector style, no cold PPT-template look, no cute mascot poster, no children's illustration, no realistic UI, no yellow background.
+Cool white or very light blue-gray background. Crayon line art with visible grain and slightly wobbly hand-drawn strokes. Breathable spacing, but not empty or floating. Use a functional background information layer when the route needs it: whiteboard frame, desk surface, sticky notes, binder clips, tape, side reminder cards, bottom toolbelt, pale panels, dotted grids, thin dividers, or dashed boundaries. Sparse Chinese annotations may use black/dark navy, orange, blue, blue-gray, muted green, soft yellow, pale purple, or coral according to text hierarchy; orange text is allowed for titles, keywords, and short labels, not only for emphasis marks. Bright creator-note and social-ops knowledge-card feeling, friendly but restrained, clean and easy to understand. No gradients, no shadows, no paper texture, no random decorative background, no commercial vector style, no cold PPT-template look, no cute mascot poster, no children's illustration, no realistic UI, no yellow background.
 
 Character presence:
 {full-character / small-character / partial-character / no-character}. For article illustrations, covers, emotional anchors, and comics, use full-character unless the user asks otherwise. For technical architecture, process flow, and dense knowledge cards, prefer small-character, partial-character, or no-character. If any Xinghe character, hand, half body, or side silhouette appears, match the baseline character reference: long black slightly wavy crayon hair, light airy bangs, round bright focused eyes, gentle small smile, oversized white zip hoodie, dark navy sailor collar top with white stripes, white neckerchief, and dark navy pleated skirt. If no-character is selected, do not draw a human; keep Xinghe-style cool white or very light blue-gray crayon notes, hand-drawn labels, orange main path, blue feedback/data lines, and red risk markers.
@@ -43,6 +43,13 @@ Secondary routes: {[] / [emotion-anchor] / [explanatory-diagram] / [knowledge-ca
 Information density: {low / medium / high / panoramic-high}. High-density is allowed only for infographic posters, panoramic infographics, architecture diagrams, process maps, and relationship-based knowledge cards with clear sections and reading path.
 Route score: {1-5 score and one sentence reason from route-scoring.md}
 Text density: {very-low / low / medium / medium-high / high}. Follow text-density-rules.md. If text exceeds the budget, split into cards or reduce labels.
+Background density: {light / medium / rich / dense}. Follow background-density-and-palette.md. Use light for simple covers, medium for article illustrations and emotion anchors, rich for whiteboard writing layouts, explanation diagrams, process flows, technical diagrams, and relationship-based knowledge cards, dense only for panoramic infographics or high-density infographic posters.
+Supporting background elements:
+{whiteboard frame / desk surface / sticky notes / binder clips / tape / side reminder cards / bottom toolbelt / dotted grid / pale section panels / small check cards / notebook / pen / small icons}. Every element must support reading, emotion, or workflow; no random decoration.
+Palette plan:
+{主文字色：black/dark navy；背景分区色：very light blue-gray；主路径色：orange；辅助色：muted green / soft yellow / pale purple / coral；风险色：red/coral}. Use richer low-saturation colors than only blue/orange/black, but keep hierarchy clear.
+Blank space control:
+{说明哪些区域保留标题或人物呼吸区，哪些区域用便签、边栏、桌面层或浅色分区承接，避免大块无功能空白}
 Emotion state:
 {低落 / 不开心 / 慌张 / 烦躁 / 迷茫 / 专注紧绷 / 释然开心 / none}. For emotion-anchor and comic-strip, choose a visible facial expression and body posture that matches the state. Do not default to a gentle smile. Only use smiling when the state is 释然开心, 鼓励, or完成后的轻松.
 
@@ -65,13 +72,13 @@ Chinese handwritten labels:
 {标注词1} / {标注词2} / {标注词3} / {标注词4} / {可选标注词5}
 
 Color use:
-Black or dark navy for main crayon line art, hair, core objects, and baseline readable labels. Orange may be used directly for some title words, keywords, short labels, main flow lines, and arrows. Blue or blue-gray for background panels, AI/assistant state, secondary notes, and feedback. Red only for key breakpoints, warnings, or conclusions. Do not make every label orange.
+Black or dark navy for main crayon line art, hair, core objects, and baseline readable labels. Orange may be used directly for some title words, keywords, short labels, main flow lines, and arrows. Blue or blue-gray for background panels, AI/assistant state, secondary notes, and feedback. Muted green, soft yellow, pale purple, and coral may separate steps, reminders, branches, emotion pressure, and optional paths. Red only for key breakpoints, warnings, or conclusions. Do not make every label orange. Do not limit the palette to only blue, orange, and black.
 
 Text source:
 Use only source-locked Chinese words, numbers, and terms from the article or user-confirmed title. Do not invent numbers, promises, platform functions, contact information, QR codes, prices, or random English.
 
 Constraints:
-One image explains one core information goal. Xinghe's body pose and hand action must be different when the topic is different. Preserve breathable spacing, but avoid a blank monotone background in explanatory diagrams, flows, architecture diagrams, and knowledge cards. Use subtle cool-tone structure panels to support reading. Use short, readable Chinese labels. Do not write a generic type title in the top-left corner. Do not write the route name or structure type on the image. A hand-drawn explanatory diagram, knowledge card, comic strip, or infographic poster is allowed when it clarifies the content, but it must not become a cold PPT template, course slide, dense UI, or commercial poster. Do not copy prior examples or reuse known case compositions unless explicitly requested; invent a fresh visual metaphor for this specific article.
+One image explains one core information goal. Xinghe's body pose and hand action must be different when the topic is different. Preserve breathable spacing, but avoid a blank monotone background in explanatory diagrams, flows, architecture diagrams, and knowledge cards. Use functional background information layers and subtle cool-tone structure panels to support reading. Use short, readable Chinese labels. Do not write a generic type title in the top-left corner. Do not write the route name or structure type on the image. A hand-drawn explanatory diagram, knowledge card, comic strip, or infographic poster is allowed when it clarifies the content, but it must not become a cold PPT template, course slide, dense UI, or commercial poster. Do not copy prior examples or reuse known case compositions unless explicitly requested; invent a fresh visual metaphor for this specific article.
 ```
 
 ## 平台尺寸预设
@@ -96,7 +103,7 @@ One image explains one core information goal. Xinghe's body pose and hand action
 Generate one standalone {3:4 vertical / 4:3 horizontal / 16:9 horizontal / 1:1 square} Chinese knowledge card in Xinghe IP style.
 
 Visual DNA:
-Cool white or very light blue-gray background, crayon line art, clean mobile-readable layout, friendly creator-note feeling. Use simple panels, rounded hand-drawn boxes, short labels, subtle dotted grids or dashed dividers, and breathable spacing. Orange can be used as text color for selected title words, keywords, short labels, or the main path, while black/dark navy keeps baseline text readable. Not a PPT slide, not a commercial poster, not a dense long-image.
+Cool white or very light blue-gray background, crayon line art, clean readable layout, friendly creator-note feeling. Use simple panels, rounded hand-drawn boxes, short labels, subtle dotted grids, dashed dividers, sticky notes, binder clips, tape, side reminder cards, and bottom desk/toolbelt elements when they support reading. Orange can be used as text color for selected title words, keywords, short labels, or the main path, while black/dark navy keeps baseline text readable. Muted green, soft yellow, pale purple, and coral may separate steps, reminders, branches, and risks. Not a PPT slide, not a commercial poster, not a dense long-image.
 
 Card role:
 {封面卡 / 总览卡 / 核心观点卡 / 对比卡 / 流程卡 / 清单卡 / 总结卡}
@@ -125,6 +132,12 @@ Bottom note: "{可选底部总结}"
 Text budget:
 {very-low / low / medium / medium-high / high；例如 1 标题 + 3-5 要点 + 1 底部总结。If the text exceeds the budget, split into another card instead of shrinking font size.}
 
+Background density:
+{light / medium / rich}. For article notes and method cards, usually use medium or rich. Add 3-6 functional background elements such as side notes, tape, clips, desk surface, small check cards, dotted grid, or bottom toolbelt. Avoid large empty corners.
+
+Palette plan:
+{说明标题、要点、分区、路径、风险分别用哪些低饱和颜色。不要只用蓝/橙/黑，也不要全图文字都橙色。}
+
 Character presence:
 {full-character / small-character / partial-character / no-character}. For cover card use full-character or small-character. For overview, flow, comparison, architecture, or dense checklist cards, prefer small-character, partial-character, or no-character. If Xinghe appears, she matches the baseline character reference and is {整理卡片 / 贴标题 / 称量两侧观点 / 接通流程线 / 圈出重点 / 把混乱信息收进卡片盒}. If no-character, keep the structure clean and readable without adding any human.
 
@@ -141,7 +154,7 @@ Do not copy reference image text, character, watermark, brand, or color scheme. 
 Generate one standalone {4:3 / 16:9 / 3:4} Chinese {technical architecture diagram / process flow diagram} in Xinghe visual style.
 
 Visual DNA:
-Cool white or very light blue-gray background, crayon line art, hand-drawn boxes and arrows, clean technical readability, not a PPT template, not a realistic UI screenshot, not a commercial tech poster. Use pale blue-gray zones to group layers or modules, orange for main flow, blue for data/feedback/status lines, red for risk/failure/permission markers, black or dark navy for nodes and labels.
+Cool white or very light blue-gray background, crayon line art, hand-drawn boxes and arrows, clean technical readability, not a PPT template, not a realistic UI screenshot, not a commercial tech poster. Use pale blue-gray zones to group layers or modules, orange for main flow, blue for data/feedback/status lines, red/coral for risk/failure/permission markers, black or dark navy for nodes and labels. Add functional background information layers such as whiteboard frame, side check notes, bottom toolbelt, small index cards, dotted grid, or tape only when they improve reading.
 
 Route:
 {technical-architecture / process-flow}
@@ -167,7 +180,7 @@ Chinese labels:
 Use only short source-locked labels. Node labels should be 2-8 Chinese characters when possible. Do not add long explanations inside nodes.
 
 Composition:
-{分层布局 / 左到右流程 / 上到下流程 / 中央系统 + 周边输入输出 / 泳道式流程}. Keep node spacing generous. Preserve readable hierarchy. Do not let any character cover nodes or arrows.
+{分层布局 / 左到右流程 / 上到下流程 / 中央系统 + 周边输入输出 / 泳道式流程}. Keep node spacing generous, but do not leave large blank corners. Use sidebars, pale section bands, whiteboard edge, bottom toolbelt, or small check notes to enrich the scene while preserving readable hierarchy. Do not let any character cover nodes or arrows.
 
 Constraints:
 No real app screenshot, no real UI, no logo, no QR code, no token, no secret, no fake metrics. Do not invent system components. If the diagram needs more than 9 strong relationship nodes, split into multiple diagrams or suggest Mermaid/Excalidraw.
@@ -179,7 +192,7 @@ No real app screenshot, no real UI, no logo, no QR code, no token, no secret, no
 Generate one standalone {2-panel / 3-panel / 4-panel} comic-strip image in Xinghe IP style.
 
 Visual DNA:
-Pure white background, crayon line art, clean hand-drawn panel borders, consistent scene world, readable Chinese labels. Not a manga poster, not a busy commercial comic page.
+Cool white or very light blue-gray background, crayon line art, clean hand-drawn panel borders, consistent scene world, readable Chinese labels. Add a small shared environment across panels such as the same desk, whiteboard edge, task cards, or sticky notes so panels do not float in empty space. Not a manga poster, not a busy commercial comic page.
 
 Story logic:
 Panel 1: {起点或误区}
@@ -206,7 +219,7 @@ Each panel must advance the meaning. If a panel does not change the story, remov
 Generate one standalone {3:4 / 4:3} Chinese infographic poster in Xinghe IP style.
 
 Visual DNA:
-Pure white background, crayon line art, hand-drawn map or matrix layout, clear hierarchy, mobile-readable text. It may use sections, arrows, numbered steps, and cards, but it must feel like a hand-drawn knowledge map, not a PPT template.
+Cool white or very light blue-gray background, crayon line art, hand-drawn map or matrix layout, clear hierarchy, mobile-readable text. Use rich functional background: section bands, sticky notes, binder clips, tape, side reminders, bottom toolbelt, small check cards, dotted grid, and low-saturation color tags. It may use sections, arrows, numbered steps, and cards, but it must feel like a hand-drawn knowledge map, not a PPT template.
 
 Whole-map topic:
 {整篇文章或流程的总览主题}
@@ -402,6 +415,10 @@ This should look like a personal method note cover, not a marketing poster. One 
           "text_density_level": "medium",
           "text_budget": "1 标题 + 4 要点 + 1 底部总结",
           "text_overflow_plan": "超过 5 个要点时拆成第二张卡",
+          "background_density_level": "rich",
+          "supporting_background_elements": ["白板边框", "便签", "夹子", "底部桌面层"],
+          "palette_plan": "深蓝黑主文字，橙色主路径，浅蓝灰分区，绿色步骤标签，柔和黄色提示便签，珊瑚粉风险点",
+          "blank_space_control": "标题区保留呼吸感，右下角和底部用便签与桌面层承接，避免大块空白",
           "card_pack_narrative": "总览 -> 分层解释 -> 决策树 -> 流程图 -> 行动卡",
           "direction": "标题强表达 / 人物动作强表达 / 留白品牌感 / 正文隐喻方向 / 解释图方向 / 知识卡片方向 / 多格漫画方向",
           "composition_pattern": "左因右果路径卡 / 顶层原则 + 三列路径卡 / 决策树路径卡 / 三输入汇聚结果卡",
@@ -440,6 +457,10 @@ This should look like a personal method note cover, not a marketing poster. One 
           "core_metaphor": "把散落卡片收进一个小工作台",
           "character_presence": "partial-character",
           "xinghe_action": "星禾正在整理卡片并贴上简短标签",
+          "background_density_level": "medium",
+          "supporting_background_elements": ["小工作台", "便签", "胶带", "浅色分区"],
+          "palette_plan": "深蓝黑主文字，橙色关键词，蓝灰分区，淡紫分支标签，柔和黄色提醒",
+          "blank_space_control": "中心工作台承接信息，边缘用短便签补足空白但不抢主标题",
           "composition": "中心低科技工作台，四周有呼吸感留白和浅蓝灰分区",
           "chinese_labels": ["选题", "生产", "发布"],
           "reference_images": [

@@ -146,6 +146,17 @@
       "expected_ratio": ["mixed"],
       "must_check": ["停止真实生图", "说明通用 image_gen 不能生成合格星禾人物图", "输出 prompt-only 候选或 manifest", "明确必须上传 00-xinghe-ip-baseline.png"],
       "must_not": ["调用通用 image_gen", "只用文字描述星禾外观替代基准图", "声称已生成合格星禾 IP 图"]
+    },
+    {
+      "id": "golden-14-background-density-palette",
+      "name": "解释图 -> 白板写作背景与多色层级",
+      "input_type": "visual_brief",
+      "input": "用户要求把 CoT 使用决策流程做成一张 16:9 横版解释图，喜欢白板写作布局、桌面便签和更丰富的背景信息，不喜欢大块空白，也不希望只用蓝橙黑三色。",
+      "expected_primary_route": "explanatory-diagram",
+      "expected_secondary_routes": ["process-flow", "knowledge-card-single"],
+      "expected_ratio": ["16:9", "4:3"],
+      "must_check": ["读取 background-density-and-palette.md", "输出 background_density_level", "输出 supporting_background_elements", "输出 palette_plan", "输出 blank_space_control", "背景元素服务阅读路径"],
+      "must_not": ["大块无功能空白", "只用蓝橙黑三色", "随机堆装饰小物", "复制参考图人物或文字"]
     }
   ]
 }

@@ -15,7 +15,7 @@ Use $xinghe-illustrations-skill 先不要真实生图。
 最后对照 must_check / must_not 自评是否通过。
 ```
 
-整套回归时，按 13 个 case 逐个跑，不要跳过失败项。
+整套回归时，按 14 个 case 逐个跑，不要跳过失败项。
 
 ## 通过标准
 

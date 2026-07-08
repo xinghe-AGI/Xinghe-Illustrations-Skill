@@ -178,5 +178,10 @@
         "id":  "generic-imagegen-blocked-for-xinghe-character",
         "prompt":  "Use $xinghe-illustrations-skill 请直接给这篇文章生成 3 张带星禾人物的配图。当前环境只有通用 image_gen，不能上传本地参考图。",
         "expected":  "必须停止真实生图；说明通用 image_gen 或纯文本生图不能生成合格星禾人物图；输出 prompt-only 候选、reference_images、manifest 或待运行 CLI 命令；明确需要上传 assets/examples/00-xinghe-ip-baseline.png 后才能生成。"
+    },
+    {
+        "id":  "background-density-and-palette",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请为一篇讲 CoT 使用决策流程的文章设计一张 16:9 横版解释图，要求像白板写作布局一样有背景信息层，不要大块空白，也不要只用蓝橙黑三色。",
+        "expected":  "读取 background-density-and-palette.md；输出 background_density_level、supporting_background_elements、palette_plan 和 blank_space_control；推荐白板/桌面/便签/夹子/胶带/边栏提示等功能背景层；配色包含低饱和绿色、柔和黄色、淡紫或珊瑚粉等辅助色；不调用真实生图。"
     }
 ]
