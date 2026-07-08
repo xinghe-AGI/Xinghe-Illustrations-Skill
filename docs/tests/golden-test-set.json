@@ -1,0 +1,151 @@
+{
+  "name": "xinghe-illustrations-skill-golden-test-set",
+  "version": "2026-07-08",
+  "purpose": "用于每次修改 skill 后做固定 dry-run，检查视觉路由、候选方向、文字治理、manifest 和 QA 口径是否稳定。不要用它直接真实生图。",
+  "default_instruction": "Use $xinghe-illustrations-skill 先不要真实生图。请按该用例做 dry-run，输出 article_type、route_scores、primary_route、secondary_routes、recommended_outputs、visual_candidates、text_inventory、reference_images、manifest_ready_items 和 route_risks。",
+  "cases": [
+    {
+      "id": "golden-01-methodology-card-pack",
+      "name": "方法论文章 -> 知识卡片组",
+      "input_type": "article_summary",
+      "input": "一篇文章讲 AI 工作区方法论：如何把临时对话沉淀成规则、skills、台账、复盘和可复用流程，包含背景、三层结构、落地步骤和风险提醒。",
+      "expected_primary_route": "knowledge-card-pack",
+      "expected_secondary_routes": ["panoramic-infographic", "process-flow"],
+      "expected_ratio": ["4:3", "16:9"],
+      "must_check": ["不默认竖版", "输出 card_pack_narrative", "每张卡有信息目标", "文字预算可控"],
+      "must_not": ["直接真实生图", "把全文塞进一张长图", "把知识点做成散卡"]
+    },
+    {
+      "id": "golden-02-project-retro-emotion-flow",
+      "name": "项目复盘 -> 情绪图 + 流程图",
+      "input_type": "article_summary",
+      "input": "项目一开始需求混乱、返工频繁，后来用 checklist、issue log 和复盘包把流程稳定下来。文章有明显的压力、转折和最终稳定。",
+      "expected_primary_route": "process-flow",
+      "expected_secondary_routes": ["emotion-anchor", "knowledge-card-single"],
+      "expected_ratio": ["4:3", "16:9"],
+      "must_check": ["流程有人工确认点", "情绪图体现焦虑到稳定", "人物可小但动作服务内容"],
+      "must_not": ["只做可爱情绪表情", "忽略流程回流", "把复盘写成营销海报"]
+    },
+    {
+      "id": "golden-03-technical-architecture",
+      "name": "技术说明 -> 技术架构图",
+      "input_type": "technical_brief",
+      "input": "系统包括用户输入、公众号读取、内容清洗、LLM 路由、prompt 生成、图片 API、人工审核、发布包归档和日志回流。",
+      "expected_primary_route": "technical-architecture",
+      "expected_secondary_routes": ["process-flow"],
+      "expected_ratio": ["16:9", "4:3"],
+      "must_check": ["节点和边清楚", "人物 small-character / partial-character / no-character", "输出 reference_images 优先结构参考"],
+      "must_not": ["完整人物占中心", "生成真实 UI 截图", "把密钥或 endpoint 写进画面"]
+    },
+    {
+      "id": "golden-04-process-flow",
+      "name": "SOP -> 流程图",
+      "input_type": "process_brief",
+      "input": "公众号文章转小红书发布包流程：读取原文、提炼观点、生成标题、生成正文、配图建议、人工审核、发布归档、复盘回流。",
+      "expected_primary_route": "process-flow",
+      "expected_secondary_routes": ["knowledge-card-single"],
+      "expected_ratio": ["16:9", "4:3"],
+      "must_check": ["主路径清楚", "人工审核是检查点", "回流不是装饰箭头"],
+      "must_not": ["降级为普通正文插图", "人物遮挡节点", "节点超过 8 个仍不拆图"]
+    },
+    {
+      "id": "golden-05-xhs-cover",
+      "name": "小红书标题 -> 3 个封面候选",
+      "input_type": "title",
+      "input": "我把 Codex 从对话工具变成了工作区系统",
+      "expected_primary_route": "platform-cover",
+      "expected_secondary_routes": ["emotion-anchor"],
+      "expected_ratio": ["3:4"],
+      "must_check": ["输出 3 个候选", "text_inventory 锁定标题", "参考图使用 18-20", "人物基准图必传"],
+      "must_not": ["标题改字", "加无来源数字", "生成二维码或联系方式"]
+    },
+    {
+      "id": "golden-06-wechat-cover",
+      "name": "公众号文章 -> 横版封面",
+      "input_type": "title_and_summary",
+      "input": "标题：AI 工作区不是聊天框升级。摘要：文章讲如何把输入、规则、执行、复盘组织成可持续内容生产系统。",
+      "expected_primary_route": "platform-cover",
+      "expected_secondary_routes": ["explanatory-diagram"],
+      "expected_ratio": ["2.35:1"],
+      "must_check": ["标题区安全边距", "参考图使用 15-17", "封面不是流程图", "人物动作承托主题"],
+      "must_not": ["把 README 长句塞进封面", "像商业海报", "标题超两行仍不压缩"]
+    },
+    {
+      "id": "golden-07-panoramic-infographic",
+      "name": "系统全貌 -> 高密度全景信息图",
+      "input_type": "article_summary",
+      "input": "文章解释 Agent 工作区：左侧输入层，中间核心循环，下方运行支撑层，右侧输出层和侧栏说明，还要解释为什么它比一次性聊天更可沉淀。",
+      "expected_primary_route": "panoramic-infographic",
+      "expected_secondary_routes": ["knowledge-card-pack"],
+      "expected_ratio": ["16:9"],
+      "must_check": ["7-10 个信息区", "18-28 个短标签", "有 reading_path", "参考图使用 21-24", "人物可无"],
+      "must_not": ["文字段落化", "全图平均用力", "为了露出人物牺牲结构"]
+    },
+    {
+      "id": "golden-08-comic-strip",
+      "name": "转折故事 -> 多格漫画",
+      "input_type": "story_brief",
+      "input": "用户一开始只会临时问 AI，结果内容散落；后来星禾把需求拆成规则、台账和复盘，最后工作区稳定运转。",
+      "expected_primary_route": "comic-strip",
+      "expected_secondary_routes": ["emotion-anchor"],
+      "expected_ratio": ["3:4", "4:3"],
+      "must_check": ["2-4 格", "每格有情绪推进", "panel_progression 清楚", "不是单纯表情包"],
+      "must_not": ["格子可删仍不影响理解", "多人物失控", "每格塞长对白"]
+    },
+    {
+      "id": "golden-09-text-governance",
+      "name": "文字治理 -> 封面 prompt",
+      "input_type": "title",
+      "input": "这套 AI Workflow 我会反复用",
+      "expected_primary_route": "platform-cover",
+      "expected_secondary_routes": [],
+      "expected_ratio": ["3:4"],
+      "must_check": ["先输出 text_inventory", "保留 Workflow 大小写", "只允许 approved text inventory", "短标签不超过 3 个"],
+      "must_not": ["随机加 100%/第一/必备", "加联系方式", "把色值写进画面"]
+    },
+    {
+      "id": "golden-10-manifest-batch",
+      "name": "prompt-only 交付包 -> manifest 批量 dry-run",
+      "input_type": "prompt_package",
+      "input": "一个 prompt-only 包含 2 个 items，每个 item 有 A/B candidates、output_filename_when_generated、reference_images、size 和 prompt。",
+      "expected_primary_route": "prompt-only",
+      "expected_secondary_routes": ["manifest-batch"],
+      "expected_ratio": ["mixed"],
+      "must_check": ["说明 CLI 可直接读取 items[].candidates[]", "先 validate-manifest", "不调用 API", "结果 manifest 有 expanded_from_candidates"],
+      "must_not": ["手工要求用户改成 pictures[]", "覆盖旧文件", "默认真实生成"]
+    },
+    {
+      "id": "golden-11-qa-review",
+      "name": "成图评审 -> QA 打分",
+      "input_type": "review_brief",
+      "input": "一张架构图结构清楚，中文无错字，但星禾人物过大遮住两个节点，画面略像 PPT。",
+      "expected_primary_route": "qa-review",
+      "expected_secondary_routes": ["failure-recovery"],
+      "expected_ratio": [],
+      "must_check": ["按 6 项评分", "参考 visual-qa-scoring-examples.md", "人物参与方式扣分", "给 rewrite_prompt"],
+      "must_not": ["只说好看不好看", "忽略硬性返工项", "不解释扣分原因"]
+    },
+    {
+      "id": "golden-12-setup-wizard",
+      "name": "安装配置 -> 第三方中转站",
+      "input_type": "setup_question",
+      "input": "我刚安装 skill，使用第三方中转站，想配置 URL 和 API key 生成带星禾人物的图。",
+      "expected_primary_route": "setup-wizard",
+      "expected_secondary_routes": [],
+      "expected_ratio": [],
+      "must_check": ["读取 docs/setup-wizard.md", "要求 GPT_IMAGE_BASE_URL/GPT_IMAGE_API_KEY/GPT_IMAGE_API_MODE/GPT_IMAGE_MODEL", "提醒不发送真实 key", "先 inspect/probe"],
+      "must_not": ["要求用户把 key 发到聊天里", "没验证参考图上传就生成含人物图", "把第三方配置写入仓库文件"]
+    },
+    {
+      "id": "golden-13-generic-imagegen-blocked",
+      "name": "含人物配图 -> 阻止通用 image_gen 绕过",
+      "input_type": "generation_request",
+      "input": "用户要求直接生成 3 张带星禾人物的文章配图，但当前环境只有通用 image_gen，不能上传本地参考图。",
+      "expected_primary_route": "prompt-only",
+      "expected_secondary_routes": ["runtime-blocked"],
+      "expected_ratio": ["mixed"],
+      "must_check": ["停止真实生图", "说明通用 image_gen 不能生成合格星禾人物图", "输出 prompt-only 候选或 manifest", "明确必须上传 00-xinghe-ip-baseline.png"],
+      "must_not": ["调用通用 image_gen", "只用文字描述星禾外观替代基准图", "声称已生成合格星禾 IP 图"]
+    }
+  ]
+}

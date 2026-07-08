@@ -133,7 +133,7 @@ Use $xinghe-illustrations-skill 生成刚才候选 A。
 2. **配置 URL 和 API key**：官方模式只需要 `OPENAI_API_KEY`；中转站模式需要 `GPT_IMAGE_BASE_URL` 和 `GPT_IMAGE_API_KEY`，并配置模型和 API 模式。
 3. **重启运行环境**：环境变量变更后，重启 Codex、Agent runtime、终端或新开会话。
 4. **先检查再生成**：先运行 `inspect` 或 `probe`，确认 endpoint、模型、鉴权和参考图上传能力正常，再运行真实生成。
-5. **确认参考图能力**：含星禾人物的图片必须能上传 `assets/examples/00-xinghe-ip-baseline.png`；如果服务不支持图片参考输入，只能做 prompt-only 或无人物结构图。
+5. **确认参考图能力**：含星禾人物的图片必须能上传 `assets/examples/00-xinghe-ip-baseline.png`；如果服务不支持图片参考输入，或者当前只有通用 `image_gen` / 纯文本生图工具，只能做 prompt-only 或无人物结构图。
 
 配置位置建议：
 
@@ -201,7 +201,7 @@ assets/examples/00-xinghe-ip-baseline.png
 - 公众号封面、小红书封面：从 `assets/examples/15-20-*.png` 选择。
 - 高密度全景信息图：从 `assets/examples/21-24-*.png` 选择。
 
-如果当前图片服务不能上传人物基准图，就不要生成含人物的星禾图。明确 `no-character` 的技术架构图、流程图、高密度知识卡或全景信息图可以不出现人物。
+如果当前图片服务不能上传人物基准图，就不要生成含人物的星禾图。不要用通用 `image_gen` 或纯文本 prompt 描述“星禾外观”来替代人物基准图。明确 `no-character` 的技术架构图、流程图、高密度知识卡或全景信息图可以不出现人物。
 
 ## 6. CLI 验证与生成
 
@@ -256,7 +256,10 @@ node scripts/xinghe_image_assets_cli.js generate \
 
 - 完整示例图集：[visual-gallery.md](examples/visual-gallery.md)
 - 样例 dry-run：[sample-task-packs.md](examples/sample-task-packs.md)
+- 完整输出包样例：[sample-output-package](examples/sample-output-package/)
 - 批量 manifest 示例：[manifest-batch-sample.json](examples/manifest-batch-sample.json)
+- 黄金测试集：[golden-test-set.json](tests/golden-test-set.json)
+- 黄金测试运行说明：[golden-test-runbook.md](tests/golden-test-runbook.md)
 - 访问模式细节：[access-modes.md](../references/access-modes.md)
 - 输出包规范：[output-spec.md](../references/output-spec.md)
 - 生成后检查：[qa-checklist.md](../references/qa-checklist.md)

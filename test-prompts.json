@@ -158,5 +158,25 @@
         "id":  "manifest-candidates-batch-dry-run",
         "prompt":  "Use $xinghe-illustrations-skill 先不要真实生图。请把 prompt-only 交付包里的 items[].candidates[] 转成可批量生成的 manifest，并说明如何 validate-manifest。",
         "expected":  "说明 CLI 可直接读取 items[].candidates[]；每个 candidate 展开为独立图片；使用 output_filename_when_generated、reference_images、size；先运行 generate --manifest <prompts.json> --validate-manifest --result-manifest <path>，不调用 API。"
+    },
+    {
+        "id":  "golden-test-set-runbook",
+        "prompt":  "Use $xinghe-illustrations-skill 我刚改了视觉路由规则，请告诉我应该怎么用黄金测试集做回归验证，不要真实生图。",
+        "expected":  "读取 docs/tests/golden-test-runbook.md 和 docs/tests/golden-test-set.json；说明按路由类、输出包类、配置类分别 dry-run；输出通过标准、记录方式和不调用 API 的验证边界。"
+    },
+    {
+        "id":  "sample-output-package-shape",
+        "prompt":  "Use $xinghe-illustrations-skill 先不要生图。请参考完整输出包样例，为标题“我把 Codex 从对话工具变成了工作区系统”说明一次交付包应该包含哪些文件。",
+        "expected":  "读取 docs/examples/sample-output-package/；输出 source-summary.md、visual-routing.md、visual-candidates.md、prompts.json、manifest.json、publish-notes.md 和 images/ 的用途；说明 images/ 只在真实生图后出现。"
+    },
+    {
+        "id":  "readme-product-entry",
+        "prompt":  "Use $xinghe-illustrations-skill 我是第一次看到这个仓库，请用 README 的方式简要说明它能做什么、怎么开始用、到哪里看完整示例。",
+        "expected":  "保持 README 入口简洁；说明核心能力、最佳使用方式、安装、生图配置和示例效果；把完整使用说明引导到 docs/usage-and-generation.md，把完整输出包引导到 docs/examples/sample-output-package/。"
+    },
+    {
+        "id":  "generic-imagegen-blocked-for-xinghe-character",
+        "prompt":  "Use $xinghe-illustrations-skill 请直接给这篇文章生成 3 张带星禾人物的配图。当前环境只有通用 image_gen，不能上传本地参考图。",
+        "expected":  "必须停止真实生图；说明通用 image_gen 或纯文本生图不能生成合格星禾人物图；输出 prompt-only 候选、reference_images、manifest 或待运行 CLI 命令；明确需要上传 assets/examples/00-xinghe-ip-baseline.png 后才能生成。"
     }
 ]

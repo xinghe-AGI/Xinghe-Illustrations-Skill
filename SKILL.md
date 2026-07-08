@@ -39,11 +39,15 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 - `references/failure-recovery-playbook.md`：生成失败后的问题分类和返工 prompt。
 - `docs/setup-wizard.md`、`references/image-generation-runtime.md`、`references/access-modes.md`、`references/reference-images.md`：安装后配置、真实生图、API/CLI、参考图和安全边界。
 - `docs/examples/sample-task-packs.md`：典型任务 dry-run 样例；测试路由稳定性时读取。
+- `docs/examples/sample-output-package/`：完整输出包样例；需要理解交付物形态、文件命名和 manifest 写法时读取。
+- `docs/tests/golden-test-set.json`、`docs/tests/golden-test-runbook.md`：黄金测试集和运行说明；修改路由、README、prompt 模板、CLI 或参考规则后做回归验证时读取。
 - `learning/visual-learning-log.md`：用户确认好图后才读取，用于生成学习日志建议；学习系统不混入 references 主流程。
 
 ## 统一使用边界
 
 用户只要策略、候选方向、shot list、prompt-only、评审、测试或优化 skill 时，不调用 CLI。只有用户明确要真实图片文件、已授权外部数据上传风险、API key/endpoint 可用、输出路径不会覆盖旧文件、并且当前调用能上传任务所需参考图时，才调用 Node CLI。含人物图必须能通过 `--style-references` 上传人物基准图；`no-character` 结构图不要求人物基准图。
+
+真实星禾人物图有一个不可绕过的生成门禁：不能使用只接受文字 prompt 的通用 `image_gen`、纯文本图片生成工具、网页生图按钮或任何不能上传本地参考图的链路来生成。画面只要出现星禾人物、手部、半身或侧影，就必须使用支持图片参考输入的链路，并实际上传 `assets/examples/00-xinghe-ip-baseline.png`。如果当前环境只有通用文字生图能力，就停在 prompt-only、manifest 或待运行命令，不要生成“看起来像星禾”的泛化插图，也不要声称它符合本 skill。
 
 真实生图会把文章衍生 prompt、本地人物基准图、场景/版式参考图和可能的用户素材发送到官方 OpenAI 或第三方中转服务。用户没有明确授权前，必须停在 prompt-only 或命令建议。
 
@@ -56,7 +60,7 @@ description: 生成“星禾”个人 IP 风格的中文内容视觉资产：文
 3. 第三方中转站：让用户配置 `GPT_IMAGE_BASE_URL`、`GPT_IMAGE_API_KEY`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`，必要时再配置 `GPT_IMAGE_PROVIDER` 和 `GPT_IMAGE_PERMISSION_CODE`。
 4. 强调不要把真实密钥写进仓库文件、聊天记录中准备提交的文档、命令示例或最终交付。
 5. 配置后先让用户运行 `inspect` 或 `probe` 检查 URL、API key、模型和参考图上传能力，再真实生成。
-6. 如果 endpoint 不能上传 `assets/examples/00-xinghe-ip-baseline.png`，含人物任务停在 prompt-only；只有 `no-character` 的结构图、流程图或技术架构图可以继续真实生成。
+6. 如果 endpoint 不能上传 `assets/examples/00-xinghe-ip-baseline.png`，含人物任务停在 prompt-only；只有明确 `no-character` 的结构图、流程图或技术架构图可以继续真实生成。
 
 ## 工作流
 
@@ -201,6 +205,8 @@ outputs/xinghe-illustration-packs/{日期}-{短标题}/
 --style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-layout-reference>.png"
 ```
 
+不要把通用 `image_gen` 或任何纯文本生图工具当作本 skill 的真实生图链路。文字 prompt 里写“黑发、白外套、水手领、学习风格”不能替代人物基准图；这种做法会导致人物漂移，只能算普通插图，不算合格星禾 IP 图。
+
 正文配图、解释图、知识卡片、流程图、技术架构图和漫画从 `assets/examples/01-14-*.png` 中选择最接近的信息密度、动作/留白参考；平台封面从 `assets/examples/15-20-*.png` 中选择最接近的封面排版参考。场景参考图只用于构图、动作、留白和批注密度，不复制旧人物、旧物件、旧文字或旧布局。若某张技术架构图或流程图明确使用 `no-character`，不要声称它是“星禾人物一致”的图，而应称为“星禾风格结构图”。
 
 单张生成示例：
@@ -246,6 +252,7 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 用户只要策略、候选方向、shot list、prompt-only、评审或测试。
 - 用户要求真实生图，但尚未授权外部数据上传风险。
 - 当前 API/endpoint/命令不能上传 `assets/examples/00-xinghe-ip-baseline.png`。
+- 当前只可使用通用 `image_gen` 或纯文本生图工具，但任务要求出现星禾人物、手部、半身或侧影。
 - 目标输出文件已存在，且用户没有明确要求覆盖。
 - 平台、比例或发布场景不清楚，会影响交付形态。
 - 用户提供参考图可能有版权、水印、品牌或人物复刻风险。
@@ -262,4 +269,5 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 不把信息图海报当成“整篇文章硬塞一张图”。
 - 不把复杂技术拓扑强行画成可爱 IP 大人物图；该用技术架构图、流程图或结构图时，让结构成为主体。
 - 不在用户尚未授权外部上传风险时静默切换 CLI/proxy/API。
+- 不用通用 `image_gen`、纯文字生图或无法上传参考图的工具冒充星禾人物图。
 - 不把 API key、permission code、access token 写入文件、命令示例或最终回复。

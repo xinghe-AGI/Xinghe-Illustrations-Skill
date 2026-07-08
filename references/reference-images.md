@@ -7,7 +7,7 @@
 1. 人物基准图：画面含星禾人物、手部、半身或侧影时，固定传入 `assets/examples/00-xinghe-ip-baseline.png`。
 2. 非封面参考图：从 `assets/examples/01-14-*.png` 中选择 1 张最接近当前构图、人物呈现等级和信息密度的图；封面参考图：从 `assets/examples/15-20-*.png` 中选择 1 张最接近平台版式、标题区和安全边距的图；全景信息图：从 `assets/examples/21-24-*.png` 中选择 1 张最接近分区结构和阅读路径的图。
 
-含星禾人物、手部、半身或侧影时，不要只传场景参考图而漏掉人物基准图。不要用文字描述替代人物基准图。场景参考图只负责构图和动作，不负责改写星禾人物形象。明确 `no-character` 的技术架构图或流程图可以不展示人物，但不要声称它是人物一致的星禾图。
+含星禾人物、手部、半身或侧影时，不要只传场景参考图而漏掉人物基准图。不要用文字描述替代人物基准图，也不要用通用 `image_gen` 或纯文本生图工具替代参考图上传。场景参考图只负责构图和动作，不负责改写星禾人物形象。明确 `no-character` 的技术架构图或流程图可以不展示人物，但不要声称它是人物一致的星禾图。
 
 ## 推荐用法
 
@@ -30,6 +30,15 @@ node scripts/xinghe_image_assets_cli.js generate \
 - `--image <path>`：用户提供的待编辑图片，也会作为 API `image` 文件上传。
 
 当 `--api-mode images` 且存在 `--style-reference`、`--style-references`、`--reference`、`--references` 或 `--image` 时，CLI 自动调用 Images edits 并发送 `multipart/form-data`。含人物的星禾图不得走没有图片参数的纯文本图片生成；如果没有上传 `00-xinghe-ip-baseline.png`，本次输出不能判定为合格星禾人物图。明确 `no-character` 的结构图不受人物一致性校验约束。
+
+## 不能生成时的正确退路
+
+如果当前环境只能调用通用 `image_gen`，或第三方接口不支持上传 `00-xinghe-ip-baseline.png`，不要真实生成含星禾人物的图片。正确退路是：
+
+1. 输出 prompt-only 方案和候选方向。
+2. 写明阻塞原因：当前链路不能上传人物基准图。
+3. 给出需要运行的 CLI 命令或 manifest。
+4. 等用户换成支持参考图上传的 official/proxy 链路后再生成。
 
 ## 如何选择场景参考图
 

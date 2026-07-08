@@ -2,6 +2,8 @@
 
 默认把一次视觉生产交付为一个发布包，而不是零散 prompt。
 
+完整样例见 `docs/examples/sample-output-package/`，它展示了从来源摘要、路由判断、候选方向、prompt-only JSON、manifest 到发布检查清单的一次完整交付。
+
 ## 默认目录
 
 ```text

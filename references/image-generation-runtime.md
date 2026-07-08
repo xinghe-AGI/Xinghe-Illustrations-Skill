@@ -2,13 +2,19 @@
 
 本 reference 给 OpenClaw、Hermes 和其他没有原生生图工具的 Agent Skills runtime 使用。不要依赖某个 runtime 专属图片工具；只有在用户明确要求真实生成图片、环境具备可用 API key/endpoint、能上传星禾人物基准图、且输出路径安全时，才调用本 skill 内置的 Node CLI。
 
+## 通用 image_gen 禁止绕过
+
+只接受文字 prompt 的通用 `image_gen`、网页生图按钮、纯文本图片生成 API，不能作为星禾人物图的真实生成链路。文字里描述“星禾、黑发、白外套、水手领、学习风格”不能替代 `assets/examples/00-xinghe-ip-baseline.png`。
+
+含星禾人物、手部、半身或侧影的任务，如果当前链路不能上传本地参考图，必须停止在 prompt-only、manifest、inspect 命令建议或阻塞说明。不要为了快速给用户图片而改用通用生图；那会变成泛化二次元知识插图，不是稳定星禾 IP 图。只有明确 `no-character` 的技术架构图、流程图、全景信息图或结构图，才可以在无人物模式下继续真实生成。
+
 ## 人物基准图硬门槛
 
 含星禾人物、手部、半身或侧影的真实生成必须上传 `assets/examples/00-xinghe-ip-baseline.png`。优先通过 `--style-references "assets/examples/00-xinghe-ip-baseline.png,assets/examples/<best-match>.png"` 同时传入人物基准图和场景/封面参考图。明确 `no-character` 的技术架构图或流程图可以不上传人物基准图，但不要声称生成了人物一致的星禾图。
 
 - 正文配图：第二张参考图从 `assets/examples/01-14-*.png` 中选。
 - 微信公众号封面、小红书笔记封面、文章头图：第二张参考图从 `assets/examples/15-20-*.png` 中选。
-- 含人物任务没有人物基准图、路径不存在、endpoint 不支持图片输入、或命令没有图片参考参数时，不要调用真实生图，只输出 prompt/命令建议和阻塞原因。
+- 含人物任务没有人物基准图、路径不存在、endpoint 不支持图片输入、命令没有图片参考参数、或当前只剩通用 `image_gen` 时，不要调用真实生图，只输出 prompt/命令建议和阻塞原因。
 
 ## 最小前置
 
@@ -35,6 +41,7 @@
 - 用户明确说不要 CLI 生图、不要真实生成或不要消耗第三方额度。
 - API key、proxy endpoint 或图片接口能力尚未确认。
 - 当前 official/proxy 链路不能上传 `assets/examples/00-xinghe-ip-baseline.png`。
+- 当前环境只提供通用 `image_gen`、纯文本图片生成或不能传参考图的工具，但任务要求出现星禾人物。
 - 只是验证脚本语法、manifest 格式、路径覆盖风险或文档一致性。
 - 输出路径已有文件且用户没有明确允许覆盖。
 
@@ -280,4 +287,4 @@ node scripts/xinghe_image_assets_cli.js generate \
 - 不把 API key 写进 SKILL.md、reference、脚本或交付结果。
 - 不打印完整带 query 的 endpoint，不打印任何密钥。
 - 不覆盖已有输出文件，除非用户明确要求替换；文件存在时先换序号命名或加 `--force`。
-- 不用纯文本图片生成链路冒充稳定星禾 IP 出图。
+- 不用纯文本图片生成链路、通用 `image_gen` 或不能上传参考图的工具冒充稳定星禾 IP 出图。

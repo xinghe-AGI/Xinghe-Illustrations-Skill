@@ -1,0 +1,41 @@
+{
+  "title": "我把 Codex 从对话工具变成了工作区系统",
+  "default_output_dir": "outputs/xinghe-illustration-packs/2026-07-08-codex-workspace-system",
+  "pictures": [
+    {
+      "id": "01",
+      "topic": "Agent 工作区全景",
+      "filename": "panorama-workspace-a.png",
+      "size": "1536x1024",
+      "quality": "low",
+      "reference_images": [
+        "assets/examples/21-panorama-core-loop.png"
+      ],
+      "prompt": "Generate one 16:9 high-density Chinese panoramic infographic. No character. Cool white and very light blue-gray background. Show a left input layer, central core loop, right output layer, lower support layer, and small toolbox. Use only these Chinese texts: Agent 工作区全景, 输入层, 核心循环, 输出层, 运行支撑层, 工具箱. Do not invent extra Chinese text, numbers, QR codes, contact info, API keys, endpoints, or UI screenshots."
+    },
+    {
+      "id": "02",
+      "topic": "五层沉淀卡",
+      "filename": "card-five-layers-a.png",
+      "size": "1536x1152",
+      "quality": "low",
+      "reference_images": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/03-sort-by-purpose.png"
+      ],
+      "prompt": "Generate one 4:3 Chinese knowledge card. Xinghe appears as a small character sorting cards, matching the baseline reference. Cool white and light blue-gray background. Use only these Chinese texts: 五层沉淀, 输入, 规则, skill, 台账, 复盘. Do not invent extra labels, numbers, contact info, QR codes, API keys, endpoints, or random English."
+    },
+    {
+      "id": "03",
+      "topic": "小红书封面",
+      "filename": "xhs-cover-workspace-a.png",
+      "size": "1024x1536",
+      "quality": "low",
+      "reference_images": [
+        "assets/examples/00-xinghe-ip-baseline.png",
+        "assets/examples/18-xhs-typed-title-bottom-xinghe.png"
+      ],
+      "prompt": "Generate one 3:4 Xiaohongshu cover. Xinghe must match the baseline character reference. Large Chinese title at top, Xinghe at bottom organizing a file box. Use only this exact title: 我把 Codex 从对话工具变成了工作区系统. Highlight only the word Codex with a subtle underline. Do not invent subtitle, numbers, contact info, QR code, API keys, endpoint text, or extra labels."
+    }
+  ]
+}

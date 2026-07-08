@@ -13,6 +13,7 @@
 - `proxy` 默认 `--api-mode auto`：先尝试 Responses API，失败或未返回 base64 图片时回退 Images API。
 - 明确知道代理支持 Images edits 且可以上传参考图时，直接使用 `--api-mode images` 或设置 `GPT_IMAGE_API_MODE=images`。
 - 含人物的真实星禾图优先选择能上传参考图的模式；不能上传 `assets/examples/00-xinghe-ip-baseline.png` 时，不做含人物真实生成。明确 `no-character` 的结构图可按无人物结构图处理。
+- 通用 `image_gen`、纯文本图片生成或任何不能上传本地参考图的工具，不属于合格的含人物星禾图访问模式；它们只能用于非星禾泛图，或明确 `no-character` 的结构图场景。
 
 ## 安装后的引导顺序
 
@@ -23,7 +24,7 @@
 3. 第三方中转站需要配置 `GPT_IMAGE_BASE_URL`、`GPT_IMAGE_API_KEY`、`GPT_IMAGE_API_MODE`、`GPT_IMAGE_MODEL`；如平台要求，再配置 `GPT_IMAGE_PROVIDER` 或 `GPT_IMAGE_PERMISSION_CODE`。
 4. 提醒用户把配置写到本机环境变量、Agent runtime 私有 secrets 或不会提交的私有 env 文件，不要写进仓库。
 5. 配置后先运行 `inspect` 检查 endpoint 解析、参考图路径和输出覆盖风险；第三方中转站再运行 `probe` 检查兼容性。
-6. 只有 endpoint 能上传参考图时，才允许真实生成含星禾人物的图片。
+6. 只有 endpoint 能上传参考图时，才允许真实生成含星禾人物的图片；否则停在 prompt-only 或命令建议，不要切换到通用文字生图工具。
 
 ## 配置放在哪里
 
@@ -243,11 +244,12 @@ node scripts/xinghe_image_assets_cli.js generate \
 3. 代理文档支持 Images edits 和参考图上传：用 `--api-mode images`。
 4. 代理文档写 `/v1/responses` 或 `image_generation tool`：用 `--api-mode responses`。
 5. 不确定代理协议：用 `--api-mode auto`，先 `probe`，再 `inspect`。
-6. 两者都不可用，或无法上传人物基准图：不要假装已经生成图片，输出完整提示词和命令，说明缺少的前置条件。
+6. 两者都不可用，或无法上传人物基准图：不要假装已经生成图片，也不要改用通用 `image_gen`；输出完整提示词和命令，说明缺少的前置条件。
 
 ## 不要做
 
 - 不把只支持 Images API 的代理端点误当作 Responses API。
 - 不用只支持纯文本图片生成的 provider 生成合格星禾 IP 图。
+- 不把通用 `image_gen` 的结果当作本 skill 真实出图结果。
 - 不要求某个 runtime 专属工具；OpenClaw、Hermes 和其他无原生生图 Agent 都应能通过 Node CLI 使用。
 - 不把 access token、permission code 或 API key 写进日志、文件名、Markdown 交付结果。
